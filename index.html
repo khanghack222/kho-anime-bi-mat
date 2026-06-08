@@ -21,6 +21,7 @@
             --text: #eceff4;
             --text-sub: #a3be8c;
             --error: #ff4757;
+            --success: #2ed573;
         }
 
         html, body {
@@ -274,6 +275,22 @@
             gap: 15px;
         }
 
+        .video-success {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: var(--success);
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            line-height: 1.6;
+            gap: 15px;
+        }
+
         .retry-btn {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--bg-dark);
@@ -419,16 +436,26 @@
         }
 
         .loading-spinner::after {
-            content: "●●●";
+            content: "⏳ Đang tải...";
             animation: dots 1s steps(4, end) infinite;
-            letter-spacing: 4px;
+            letter-spacing: 0;
         }
 
         @keyframes dots {
-            0%, 20% { opacity: 0.3; }
-            40% { opacity: 0.6; }
+            0%, 20% { opacity: 0.5; }
+            40% { opacity: 0.7; }
             60% { opacity: 1; }
-            80%, 100% { opacity: 0.3; }
+            80%, 100% { opacity: 0.5; }
+        }
+
+        .info-box {
+            background: rgba(0, 255, 204, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 12px;
+            color: var(--text-sub);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -575,13 +602,15 @@
         <div class="episode-buttons" id="ep-buttons-container">
             <!-- Buttons sẽ được tạo bởi JavaScript -->
         </div>
+
+        <div class="info-box" id="info-box" style="display: none;"></div>
     </div>
 
     <script>
         // ===== CONFIG =====
         const PIN_CODE = 'khang2026';
         
-        // Episodes - sử dụng GitHub Releases (chính xác!)
+        // Episodes Configuration
         const episodes = [
             { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
             { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
@@ -593,9 +622,18 @@
             { name: 'Tập 08', file: 'tgdq-tap8.mp4' }
         ];
 
-        // Tạo URL từ GitHub Releases
+        // Video URL Sources (Prioritized)
         function getVideoUrl(filename) {
-            return `https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
+            // Primary: GitHub Releases
+            const primaryUrl = `https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
+            
+            // Fallback sources (if needed in future)
+            const fallbackUrls = [
+                primaryUrl,
+                // Add more sources here if needed
+            ];
+            
+            return primaryUrl;
         }
 
         // ===== PIN VALIDATION =====
@@ -640,11 +678,14 @@
 
         // ===== PLAY EPISODE =====
         let currentIndex = -1;
+        let retryCount = 0;
+        const MAX_RETRIES = 2;
         
         function playEpisode(index) {
             if (index < 0 || index >= episodes.length) return;
 
             currentIndex = index;
+            retryCount = 0;
             const episode = episodes[index];
             const player = document.getElementById('main-player');
             const container = document.getElementById('video-container');
@@ -659,53 +700,103 @@
 
             showLoading(true);
             const videoUrl = getVideoUrl(episode.file);
-            player.src = videoUrl;
             
-            player.onloadeddata = () => {
+            // Clear previous errors
+            container.innerHTML = '<video id="main-player" controls preload="metadata" crossorigin="anonymous"></video>';
+            const newPlayer = document.getElementById('main-player');
+            
+            newPlayer.src = videoUrl;
+            newPlayer.onerror = () => handleVideoError(index);
+            newPlayer.onloadeddata = () => {
                 showLoading(false);
-                player.play().catch(() => {});
+                newPlayer.play().catch(err => {
+                    console.log('Auto-play prevented:', err);
+                });
             };
-            
-            player.onerror = () => {
-                showLoading(false);
-                showVideoError();
+            newPlayer.ontimeupdate = () => {
+                if (newPlayer.currentTime > 0) {
+                    showLoading(false);
+                }
             };
 
-            player.load();
+            newPlayer.load();
+        }
+
+        function handleVideoError(index) {
+            showLoading(false);
+            
+            if (retryCount < MAX_RETRIES) {
+                retryCount++;
+                console.log(`Retry ${retryCount}/${MAX_RETRIES} for episode ${index}`);
+                setTimeout(() => playEpisode(index), 2000);
+                return;
+            }
+
+            showVideoError(index);
         }
 
         function showLoading(show) {
             document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
         }
 
-        function showVideoError() {
+        function showVideoError(index) {
             const container = document.getElementById('video-container');
-            const errorDiv = document.querySelector('.video-error');
+            const episode = episodes[index] || {};
             
-            if (errorDiv) {
-                return;
-            }
-            
-            const newErrorDiv = document.createElement('div');
-            newErrorDiv.className = 'video-error';
-            newErrorDiv.innerHTML = `
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'video-error';
+            errorDiv.innerHTML = `
                 <div>❌ Không thể tải video</div>
-                <button class="retry-btn" onclick="playEpisode(${currentIndex})">Thử lại</button>
+                <div style="font-size: 12px; opacity: 0.7;">
+                    ${episode.name || 'Tập không xác định'}<br>
+                    Kiểm tra kết nối internet hoặc video chưa được upload
+                </div>
+                <button class="retry-btn" onclick="playEpisode(${index})">🔄 Thử lại</button>
+                ${index > 0 ? `<button class="retry-btn" onclick="playEpisode(${index - 1})" style="background: rgba(76, 86, 106, 0.8);">← Tập trước</button>` : ''}
             `;
             container.innerHTML = '';
-            container.appendChild(newErrorDiv);
+            container.appendChild(errorDiv);
+        }
+
+        function showInfoBox(message) {
+            const infoBox = document.getElementById('info-box');
+            infoBox.textContent = message;
+            infoBox.style.display = 'block';
+            setTimeout(() => {
+                infoBox.style.display = 'none';
+            }, 5000);
         }
 
         // ===== INIT =====
         window.addEventListener('load', () => {
             document.getElementById('pin-input').focus();
+            // Auto focus for better UX
+            const input = document.getElementById('pin-input');
+            if (input) input.select();
         });
 
         // Cleanup
         window.addEventListener('beforeunload', () => {
             const player = document.getElementById('main-player');
-            player.src = '';
-            player.load();
+            if (player) {
+                player.src = '';
+                player.load();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            const player = document.getElementById('main-player');
+            if (!player || document.getElementById('lock-screen').style.display !== 'none') return;
+
+            switch(e.key) {
+                case 'ArrowLeft':
+                    if (currentIndex > 0) playEpisode(currentIndex - 1);
+                    break;
+                case 'ArrowRight':
+                    if (currentIndex < episodes.length - 1) playEpisode(currentIndex + 1);
+                    break;
+            }
         });
     </script>
 
