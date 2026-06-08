@@ -1,4 +1,4 @@
-name: Download Release Videos to Folder
+name: Download Release Videos
 
 on:
   workflow_dispatch:
@@ -9,19 +9,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Create video folder
-        run: mkdir -p video
+      - name: Create videos folder
+        run: mkdir -p videos
       
-      - name: Download videos from release
+      - name: Download release videos
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release download phim -R khanghack222/kho-anime-bi-mat -D video --clobber
+          cd videos
+          gh release download phim -R khanghack222/kho-anime-bi-mat --clobber
       
-      - name: Commit videos to repository
+      - name: Commit videos
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add video/
-          git commit -m "Add anime videos from release phim" || echo "No changes to commit"
+          git add videos/
+          git commit -m "Add videos from release phim" || true
           git push
