@@ -130,4 +130,87 @@
     </div>
 
     <script>
-        // ===== CẤU HÌNH ID VIDEO GO
+        // ===== CẤU HÌNH ID VIDEO GOOGLE DRIVE TẠI ĐÂY =====
+        // Đã cập nhật mã ID thật cho Tập 01 của bạn
+        const episodes = [
+            { name: 'Tập 01', driveId: '1fFjkZ0a1w-cm_Uv4bIWtutxtTuw3MFmz' },
+            { name: 'Tập 02', driveId: 'ĐIỀN_ID_TẬP_2_VÀO_ĐÂY_KHI_CÓ' },
+            { name: 'Tập 03', driveId: 'ĐIỀN_ID_TẬP_3_VÀO_ĐÂY_KHI_CÓ' },
+            { name: 'Tập 04', driveId: 'ĐIỀN_ID_TẬP_4_VÀO_ĐÂY_KHI_CÓ' }
+        ];
+
+        let art = null;
+        let currentIndex = -1;
+
+        // Hàm tự động đổi ID thành link stream direct của Google Drive
+        function convertDriveUrl(id) {
+            return `https://docs.google.com/uc?export=download&id=${id}`;
+        }
+
+        function createButtons() {
+            const container = document.getElementById('ep-buttons-container');
+            container.innerHTML = '';
+            episodes.forEach((ep, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'ep-btn';
+                btn.textContent = ep.name;
+                btn.onclick = () => playEpisode(index);
+                container.appendChild(btn);
+            });
+        }
+
+        function playEpisode(index) {
+            if (index < 0 || index >= episodes.length) return;
+            currentIndex = index;
+
+            const episode = episodes[index];
+            document.getElementById('current-ep-title').textContent = "Thanh Gươm Diệt Quỷ (Mùa 4) - " + episode.name;
+
+            const buttons = document.querySelectorAll('.ep-btn');
+            buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
+
+            localStorage.setItem('khang_anime_drive_index', index);
+
+            // Chuyển ID thành link stream direct
+            const streamUrl = convertDriveUrl(episode.driveId);
+
+            if (art) {
+                art.switchUrl(streamUrl);
+                return;
+            }
+
+            art = new ArtPlayer({
+                container: '.artplayer-app',
+                url: streamUrl,
+                volume: 0.7,
+                pip: true,
+                autoSize: true,
+                autoMini: true,
+                screenshot: true,
+                setting: true,
+                playbackRate: true,
+                aspectRatio: true,
+                fullscreen: true,
+                autoPlayback: true, 
+                theme: '#00ffcc',
+                moreVideoAttr: {
+                    crossOrigin: 'anonymous',
+                }
+            });
+
+            art.on('video:ended', () => {
+                if (currentIndex < episodes.length - 1) {
+                    playEpisode(currentIndex + 1);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createButtons();
+            const saved = localStorage.getItem('khang_anime_drive_index');
+            const initIndex = (saved !== null && parseInt(saved) < episodes.length) ? parseInt(saved) : 0;
+            playEpisode(initIndex);
+        });
+    </script>
+</body>
+</html>
