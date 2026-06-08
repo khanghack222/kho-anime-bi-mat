@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Động Anime Bí Mật Của Khang</title>
     <style>
@@ -12,75 +12,133 @@
             box-sizing: border-box;
         }
 
-        body {
-            background-color: #1a1c23;
-            color: #eceff4;
-            font-family: 'Quicksand', 'Segoe UI', sans-serif;
-            padding-bottom: 50px;
-            overflow-x: hidden;
+        :root {
+            --primary: #00ffcc;
+            --primary-dark: #00cc99;
+            --bg-dark: #1a1c23;
+            --bg-card: #242734;
+            --border: #2e3440;
+            --text: #eceff4;
+            --text-sub: #a3be8c;
+            --error: #ff4757;
         }
 
-        /* BANNER PHÍA TRÊN */
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Quicksand', sans-serif;
+            padding-bottom: 30px;
+            overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            will-change: scroll-position;
+        }
+
+        /* ===== NAVBAR ===== */
         .navbar {
-            background-color: #242734;
-            padding: 15px 4%;
+            background: linear-gradient(135deg, rgba(36, 39, 52, 0.98), rgba(26, 28, 35, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 3px solid #00ffcc;
+            border-bottom: 2px solid var(--primary);
             box-shadow: 0 4px 20px rgba(0, 255, 204, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .navbar-title {
-            color: #00ffcc;
-            font-size: 24px;
+            color: var(--primary);
+            font-size: clamp(18px, 5vw, 24px);
             font-weight: 800;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .tag-bimat {
-            background: #ff4757;
+            background: linear-gradient(135deg, #ff4757, #ff6b7a);
             color: white;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            animation: pulse 2s infinite;
         }
 
-        /* KHU VỰC ĐĂNG NHẬP TRÊN WEB */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* ===== LOCK SCREEN ===== */
         #lock-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(26, 28, 35, 0.95);
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 204, 0.1), transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 71, 87, 0.1), transparent 50%),
+                        rgba(26, 28, 35, 0.98);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                backdrop-filter: blur(0px);
+            }
+            to {
+                opacity: 1;
+                backdrop-filter: blur(10px);
+            }
         }
 
         .login-box {
-            background: #242734;
-            padding: 40px;
-            border-radius: 16px;
-            border: 2px solid #00ffcc;
-            box-shadow: 0 10px 40px rgba(0, 255, 204, 0.3);
+            background: linear-gradient(135deg, rgba(36, 39, 52, 0.95), rgba(42, 45, 60, 0.95));
+            padding: max(30px, 5vh);
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 255, 204, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
             text-align: center;
             max-width: 380px;
             width: 90%;
-            animation: slideIn 0.5s ease-out;
+            animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(20px);
         }
 
-        @keyframes slideIn {
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -89,54 +147,59 @@
         }
 
         .login-box h2 {
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 24px;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-size: clamp(20px, 6vw, 26px);
+            letter-spacing: 1px;
         }
 
         .login-box p {
-            color: #888;
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
             margin-bottom: 20px;
         }
 
         .login-box input {
             width: 100%;
-            padding: 14px;
-            margin: 15px 0;
-            border-radius: 25px;
-            border: 2px solid #4c566a;
-            background: #1a1c23;
-            color: #fff;
+            padding: 14px 16px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border: 2px solid rgba(76, 86, 106, 0.5);
+            background: rgba(26, 28, 35, 0.8);
+            color: var(--text);
             font-size: 16px;
             text-align: center;
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .login-box input:focus {
-            border-color: #00ffcc;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3), inset 0 0 10px rgba(0, 255, 204, 0.1);
+            background: rgba(26, 28, 35, 0.95);
         }
 
         .login-box button {
-            background: linear-gradient(135deg, #00ffcc, #00cc99);
-            color: #1a1c23;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--bg-dark);
             border: none;
             padding: 14px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
         }
 
         .login-box button:hover {
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+            box-shadow: 0 8px 30px rgba(0, 255, 204, 0.5);
             transform: translateY(-2px);
         }
 
@@ -145,26 +208,27 @@
         }
 
         #err-msg {
-            color: #ff4757;
-            font-size: 14px;
-            margin-top: 15px;
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 12px;
             display: none;
-            font-weight: bold;
-            animation: shake 0.5s;
+            font-weight: 600;
+            animation: shake 0.4s;
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
         }
 
-        /* KHO PHIM CHÍNH */
+        /* ===== MAIN CONTAINER ===== */
         .main-container {
             max-width: 950px;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: 20px auto;
+            padding: 0 12px;
             display: none;
+            animation: fadeIn 0.5s ease-out 0.2s both;
         }
 
         .video-player-wrapper {
@@ -172,11 +236,18 @@
             width: 100%;
             background-color: #000;
             border-radius: 16px;
-            border: 3px solid #2e3440;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            margin-bottom: 25px;
+            border: 2px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
             overflow: hidden;
             aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            transition: all 0.3s ease;
+        }
+
+        .video-player-wrapper:hover {
+            box-shadow: 0 15px 50px rgba(0, 255, 204, 0.2);
+            border-color: var(--primary);
         }
 
         .video-player-wrapper video {
@@ -184,6 +255,7 @@
             height: 100%;
             object-fit: contain;
             background-color: #000;
+            display: block;
         }
 
         .video-error {
@@ -192,77 +264,126 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #000;
-            color: #ff4757;
-            font-size: 18px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: var(--error);
+            font-size: 14px;
             text-align: center;
             padding: 20px;
+            line-height: 1.6;
         }
 
+        /* ===== ANIME INFO ===== */
         .anime-info {
             margin-bottom: 20px;
+            animation: slideInLeft 0.5s ease-out 0.3s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .anime-title {
-            font-size: 26px;
-            font-weight: bold;
-            color: #fff;
-            margin: 15px 0 8px 0;
+            font-size: clamp(20px, 6vw, 26px);
+            font-weight: 700;
+            color: var(--text);
+            margin: 12px 0 6px 0;
             text-align: left;
+            letter-spacing: 0.5px;
         }
 
         .anime-sub {
-            color: #a3be8c;
-            font-size: 14px;
+            color: var(--text-sub);
+            font-size: 13px;
             text-align: left;
             font-weight: 500;
         }
 
         .section-title {
-            color: #00ffcc;
-            font-size: 18px;
+            color: var(--primary);
+            font-size: clamp(16px, 4vw, 18px);
             text-align: left;
-            margin: 25px 0 15px 0;
-            font-weight: bold;
+            margin: 20px 0 12px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: "▶";
+            font-size: 12px;
         }
 
         hr {
-            border: 1px solid #242734;
-            margin: 25px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 20px 0;
         }
 
+        /* ===== EPISODE BUTTONS ===== */
         .episode-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
             justify-content: flex-start;
+            animation: slideInUp 0.5s ease-out 0.4s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .ep-btn {
-            background-color: #2e3440;
-            color: #d8dee9;
-            border: 2px solid #4c566a;
-            padding: 12px 25px;
-            font-size: 15px;
-            font-weight: bold;
+            background: linear-gradient(135deg, rgba(46, 52, 64, 0.8), rgba(42, 45, 60, 0.8));
+            color: rgba(216, 222, 233, 0.9);
+            border: 1px solid rgba(76, 86, 106, 0.6);
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 30px;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
 
-        .ep-btn:hover {
-            background-color: rgba(0, 255, 204, 0.1);
-            border-color: #00ffcc;
-            color: #00ffcc;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+        .ep-btn:hover:not(:disabled) {
+            background: rgba(0, 255, 204, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 255, 204, 0.2);
+        }
+
+        .ep-btn:active:not(:disabled) {
+            transform: translateY(0);
         }
 
         .ep-btn.active {
-            background-color: #00ffcc;
-            border-color: #00ffcc;
-            color: #1a1c23;
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+            font-weight: 700;
         }
 
         .ep-btn:disabled {
@@ -270,84 +391,178 @@
             cursor: not-allowed;
         }
 
+        /* ===== LOADING & STATUS ===== */
         .loading-spinner {
             display: none;
             text-align: center;
-            color: #00ffcc;
-            margin: 20px 0;
-            font-size: 18px;
+            color: var(--primary);
+            margin: 15px 0;
+            font-size: 14px;
+            animation: fadeIn 0.3s ease;
         }
 
         .loading-spinner::after {
-            content: "...";
-            animation: dots 1.5s steps(4, end) infinite;
+            content: "●●●";
+            animation: dots 1s steps(4, end) infinite;
+            letter-spacing: 4px;
         }
 
         @keyframes dots {
-            0%, 20% { content: ""; }
-            40% { content: "."; }
-            60% { content: ".."; }
-            80%, 100% { content: "..."; }
+            0%, 20% { opacity: 0.3; }
+            40% { opacity: 0.6; }
+            60% { opacity: 1; }
+            80%, 100% { opacity: 0.3; }
         }
 
-        @media (max-width: 768px) {
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            body {
+                padding-bottom: 20px;
+            }
+
+            .navbar {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
             .navbar-title {
                 font-size: 18px;
             }
 
-            .anime-title {
-                font-size: 20px;
+            .tag-bimat {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .main-container {
+                margin: 15px auto;
+                padding: 0 8px;
+            }
+
+            .video-player-wrapper {
+                margin-bottom: 15px;
+                border-radius: 12px;
             }
 
             .login-box {
-                max-width: 90%;
-                padding: 30px 20px;
+                width: 95%;
+                padding: 25px 20px;
+                border-radius: 16px;
+            }
+
+            .login-box input {
+                padding: 12px 14px;
+                font-size: 16px;
+            }
+
+            .anime-title {
+                font-size: 18px;
             }
 
             .episode-buttons {
-                gap: 8px;
+                gap: 6px;
             }
 
             .ep-btn {
-                padding: 10px 18px;
-                font-size: 13px;
+                padding: 9px 14px;
+                font-size: 12px;
+                border-radius: 6px;
+            }
+
+            .section-title {
+                font-size: 14px;
+                margin: 15px 0 10px 0;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .navbar {
+                flex-direction: column;
+                gap: 6px;
+                padding: 8px 10px;
+            }
+
+            .navbar-title {
+                font-size: 16px;
+            }
+
+            .tag-bimat {
+                width: 100%;
+                padding: 5px 8px;
+            }
+
+            .episode-buttons {
+                gap: 5px;
+            }
+
+            .ep-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+                flex: 1 1 calc(25% - 5px);
+            }
+
+            .anime-title {
+                font-size: 16px;
+                margin: 10px 0 5px 0;
+            }
+        }
+
+        /* ===== PERFORMANCE ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .ep-btn:hover {
+                transform: none;
+            }
+        }
+
+        /* ===== DARK MODE OPTIMIZATION ===== */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #00ffcc;
+                --bg-dark: #0f1117;
+                --bg-card: #161b22;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div id="lock-screen">
         <div class="login-box">
-            <h2>🔒 ANIME HUB SECURITY</h2>
-            <p>Vui lòng nhập mã PIN thành viên</p>
-            <input type="password" id="pin-input" placeholder="••••••••" onkeypress="handleKeyPress(event)" autocomplete="off">
-            <button onclick="validatePin()">XÁC NHẬN MỞ KHÓA</button>
-            <div id="err-msg">❌ Sai mã PIN rồi bạn ơi!</div>
+            <h2>🔒 SECURITY</h2>
+            <p>Nhập mã PIN thành viên</p>
+            <input type="password" id="pin-input" placeholder="••••••••" onkeypress="handleKeyPress(event)" autocomplete="off" inputmode="numeric">
+            <button onclick="validatePin()">UNLOCK</button>
+            <div id="err-msg">❌ Sai mã PIN!</div>
         </div>
     </div>
 
     <div class="navbar">
         <div class="navbar-title">✨ KHANG ANIME HUB</div>
-        <div class="tag-bimat">🔒 KHU VỰC KÍN</div>
+        <div class="tag-bimat">🔒 VIP</div>
     </div>
 
     <div class="main-container" id="anime-hub">
         <div class="video-player-wrapper" id="video-container">
-            <video id="main-player" controls preload="auto" crossorigin="anonymous"></video>
+            <video id="main-player" controls preload="metadata" crossorigin="anonymous"></video>
         </div>
 
         <div class="loading-spinner" id="loading-spinner"></div>
 
         <div class="anime-info">
-            <div class="anime-title" id="current-ep-title">Thanh Gươm Diệt Quỷ (Mùa 4) - Tập 01</div>
-            <div class="anime-sub">🌸 Trạng thái: Hoàn thành Vietsub lồng tiếng | Kho phim siêu mượt không quảng cáo</div>
+            <div class="anime-title" id="current-ep-title">Thanh Gươm Diệt Quỷ (Mùa 4)</div>
+            <div class="anime-sub">🌸 Vietsub lồng tiếng | Không quảng cáo</div>
         </div>
 
         <hr>
 
-        <div class="section-title">Danh Sách Tập Phim:</div>
+        <div class="section-title">Danh sách tập</div>
 
         <div class="episode-buttons" id="ep-buttons-container">
             <!-- Buttons sẽ được tạo bởi JavaScript -->
@@ -355,54 +570,54 @@
     </div>
 
     <script>
-        // ===== CẤU HÌNH =====
+        // ===== CONFIG =====
         const PIN_CODE = 'khang2026';
+        const RELEASE_TAG = 'phim';
         
-        // Video URLs từ GitHub Releases
+        // Episodes - sử dụng jsdelivr CDN để tránh CORS
         const episodes = [
-            { name: 'Tập 01', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap1.mp4' },
-            { name: 'Tập 02', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap2.mp4' },
-            { name: 'Tập 03', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap3.mp4' },
-            { name: 'Tập 04', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap4.mp4' },
-            { name: 'Tập 05', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap5.mp4' },
-            { name: 'Tập 06', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap6.mp4' },
-            { name: 'Tập 07', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap7.mp4' },
-            { name: 'Tập 08', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap8.mp4' }
+            { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
+            { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
+            { name: 'Tập 03', file: 'tgdq-tap3.mp4' },
+            { name: 'Tập 04', file: 'tgdq-tap4.mp4' },
+            { name: 'Tập 05', file: 'tgdq-tap5.mp4' },
+            { name: 'Tập 06', file: 'tgdq-tap6.mp4' },
+            { name: 'Tập 07', file: 'tgdq-tap7.mp4' },
+            { name: 'Tập 08', file: 'tgdq-tap8.mp4' }
         ];
 
-        // ===== HÀM XÁC THỰC PIN =====
+        // Tạo URL từ jsdelivr CDN
+        function getVideoUrl(filename) {
+            return `https://cdn.jsdelivr.net/gh/khanghack222/kho-anime-bi-mat@${RELEASE_TAG}/${filename}`;
+        }
+
+        // ===== PIN VALIDATION =====
         function validatePin() {
             const inputVal = document.getElementById('pin-input').value.trim();
             const errMsg = document.getElementById('err-msg');
             
             if (inputVal === PIN_CODE) {
-                // PIN đúng
                 document.getElementById('lock-screen').style.display = 'none';
                 document.getElementById('anime-hub').style.display = 'block';
                 errMsg.style.display = 'none';
                 document.getElementById('pin-input').value = '';
                 
-                // Tạo episode buttons
                 createEpisodeButtons();
-                
-                // Load tập đầu tiên
                 playEpisode(0);
             } else {
-                // PIN sai
                 errMsg.style.display = 'block';
                 document.getElementById('pin-input').value = '';
                 document.getElementById('pin-input').focus();
             }
         }
 
-        // ===== HÀM HANDLE PHÍM ENTER =====
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 validatePin();
             }
         }
 
-        // ===== TẠO EPISODE BUTTONS =====
+        // ===== CREATE BUTTONS =====
         function createEpisodeButtons() {
             const container = document.getElementById('ep-buttons-container');
             container.innerHTML = '';
@@ -416,51 +631,43 @@
             });
         }
 
-        // ===== PHÁT VIDEO TẬP =====
+        // ===== PLAY EPISODE =====
         function playEpisode(index) {
             if (index < 0 || index >= episodes.length) return;
 
             const episode = episodes[index];
             const player = document.getElementById('main-player');
-            const container = document.getElementById('video-container');
             const spinner = document.getElementById('loading-spinner');
 
-            // Cập nhật title
             document.getElementById('current-ep-title').textContent = 
                 'Thanh Gươm Diệt Quỷ (Mùa 4) - ' + episode.name;
 
-            // Cập nhật active button
             const buttons = document.querySelectorAll('.ep-btn');
             buttons.forEach((btn, i) => {
                 btn.classList.toggle('active', i === index);
             });
 
-            // Kiểm tra xem URL có accessible không
             showLoading(true);
+            const videoUrl = getVideoUrl(episode.file);
+            player.src = videoUrl;
             
-            // Thử load video
-            player.src = episode.url;
             player.onloadeddata = () => {
                 showLoading(false);
-                player.play().catch(() => {
-                    console.log('Auto-play bị block, user phải click play');
-                });
+                player.play().catch(() => {});
             };
             
             player.onerror = () => {
                 showLoading(false);
-                showVideoError(`❌ Không thể load video tập ${episode.name}. Vui lòng kiểm tra hoặc thử lại.`);
+                showVideoError(`❌ Không thể tải video. Thử lại?`);
             };
 
             player.load();
         }
 
-        // ===== HIỂN THỊ LOADING =====
         function showLoading(show) {
             document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
         }
 
-        // ===== HIỂN THỊ LỖI VIDEO =====
         function showVideoError(message) {
             const container = document.getElementById('video-container');
             const errorDiv = document.querySelector('.video-error');
@@ -476,9 +683,16 @@
             }
         }
 
-        // ===== FOCUS VÀO INPUT KHI LOAD TRANG =====
+        // ===== INIT =====
         window.addEventListener('load', () => {
             document.getElementById('pin-input').focus();
+        });
+
+        // Preload metadata only (tiết kiệm dữ liệu)
+        window.addEventListener('beforeunload', () => {
+            const player = document.getElementById('main-player');
+            player.src = '';
+            player.load();
         });
     </script>
 
