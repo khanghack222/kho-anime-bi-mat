@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Khang Anime Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -31,6 +31,7 @@
       font-family: var(--font-body);
       overflow-x: hidden;
       min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* ═══════════════════════════════
@@ -128,7 +129,7 @@
     }
 
     /* ═══════════════════════════════
-        MAIN CONTENT (ẨN KHI CHƯA NHẬP MK)
+        MAIN CONTENT
        ═══════════════════════════════ */
     .main-content {
       opacity: 0;
@@ -208,7 +209,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(0,255,170,0.02) 60px, rgba(0,255,170,0.02) 61px);
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(0,255,170,0.02) 60px, rgba(0,255,170,0.02) 1px);
     }
     .hero-slash {
       position: absolute;
@@ -407,7 +408,7 @@
     }
     .card-poster-art::before {
       content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(0,255,170,0.02) 20px, rgba(0,255,170,0.02) 21px);
+      background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(0,255,170,0.02) 20px, rgba(0,255,170,0.02) 1px);
     }
     .card-poster-art .kanji-art { font-size: clamp(30px, 4vw, 60px); color: rgba(0,255,170,0.1); writing-mode: vertical-rl; letter-spacing: -4px; position: absolute; right: 12px; top: 10px; line-height: 1; }
     .card-poster-art .icon-art { font-size: 56px; z-index: 1; }
@@ -422,7 +423,7 @@
     .card-ep-count { background: var(--border); color: var(--primary); border: 1px solid rgba(0,255,170,0.3); font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
 
     /* ═══════════════════════════════
-        PLAYER SECTION
+        PLAYER SECTION (TỐI ƯU SỬA LỖI DI ĐỘNG)
        ═══════════════════════════════ */
     .player-section { padding: 0 4% 60px; display: none; animation: fadeIn 0.4s ease; }
     .player-section.visible { display: block; }
@@ -434,12 +435,32 @@
     .player-series-name { font-size: 18px; font-weight: 700; color: #fff; }
     .player-ep-name { color: var(--primary); font-size: 14px; font-weight: 600; }
 
-    .video-wrapper { width: 100%; padding-top: 56.25%; position: relative; border-radius: 10px; overflow: hidden; background: #000; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border: 1px solid var(--border); }
+    /* Sửa khung bao để chống lỗi chạm đúp và hỗ trợ cuộn mượt */
+    .video-wrapper { 
+      width: 100%; 
+      padding-top: 56.25%; 
+      position: relative; 
+      border-radius: 10px; 
+      overflow: hidden; 
+      background: #000; 
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8); 
+      border: 1px solid var(--border);
+      touch-action: auto;
+    }
     @supports (aspect-ratio: 16/9) { .video-wrapper { padding-top: 0; aspect-ratio: 16/9; } }
-    .video-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    
+    /* Sửa iframe tăng khả năng nhận diện nút phát cảm ứng */
+    .video-wrapper iframe { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      border: none;
+      z-index: 1;
+    }
 
-    .loading-overlay { position: absolute; inset: 0; background: #06080c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 10; transition: opacity 0.4s; }
-    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    .loading-overlay { position: absolute; inset: 0; background: #06080c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 10; transition: opacity 0.4s; pointer-events: none; }
+    .loading-overlay.hidden { opacity: 0; }
     .spinner { width: 44px; height: 44px; border: 3px solid #1a202c; border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-overlay span { color: var(--text-muted); font-size: 13px; letter-spacing: 0.5px; }
@@ -474,14 +495,13 @@
       .hero-kanji { display: none; }
       .card-row { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
 
-      /* MENU RESPONSIVE ĐIỆN THOẠI */
       .player-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .back-btn { width: 100%; justify-content: center; }
+      .back-btn { width: 100%; justify-content: center; min-height: 40px; }
       .ep-section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
       .ep-nav { width: 100%; }
-      .ep-nav-btn { flex: 1; text-align: center; padding: 10px; }
+      .ep-nav-btn { flex: 1; text-align: center; padding: 12px; min-height: 40px; }
       .ep-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; }
-      .ep-btn { width: 100%; padding: 11px 0; text-align: center; }
+      .ep-btn { width: 100%; padding: 12px 0; text-align: center; min-height: 40px; }
     }
 
     @media (max-width: 480px) {
@@ -529,7 +549,7 @@
         <span class="hero-badge gold">Phần đặc biệt</span>
         <span class="hero-year">2024</span>
       </div>
-      <div class="hero-title-jp">鬼滅 của刃 — 柱稽古編</div>
+      <div class="hero-title-jp">鬼滅の刃 — 柱稽古編</div>
       <h1 class="hero-title">THANH GƯƠM<br><span class="accent">DIỆT QUỶ</span></h1>
       <div class="hero-subtitle">Phần Đặc Huấn Đại Trụ</div>
       <p class="hero-desc">
@@ -582,7 +602,8 @@
         <div class="spinner"></div>
         <span>Đang tải tập phim...</span>
       </div>
-      <iframe id="anime-player" src="about:blank" allow="autoplay; encrypted-media" allowfullscreen title="Anime player"></iframe>
+      <!-- Sửa sandbox và thuộc tính nhúng để tránh lỗi thanh bar đen trên Android -->
+      <iframe id="anime-player" src="about:blank" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-scripts opacity allow-same-origin allow-forms allow-popups" title="Anime player"></iframe>
     </div>
 
     <div class="error-banner" id="error-banner">
@@ -610,7 +631,7 @@
   // ═══════════════════════════════════════════
   // SECURITY — Xác thực Mật khẩu
   // ═══════════════════════════════════════════
-  const SITE_PASSWORD = 'khang2026'; // Khang có thể sửa mật khẩu tại đây nha!
+  const SITE_PASSWORD = 'khang2026'; 
   const AUTH_KEY = 'khanghub_authenticated';
 
   function checkAuth() {
@@ -670,7 +691,9 @@
   let currentEpIndex = -1;
 
   const isValidId = id => id && id.trim() !== '' && !id.startsWith('ĐIỀN_');
-  const buildUrl  = id => `https://drive.google.com/file/d/${id}/preview`;
+  
+  // Ép Google Drive sử dụng giao diện nhúng tối giản và gọi HTML5 Player
+  const buildUrl  = id => `https://drive.google.com/file/d/${id}/preview?authuser=0&hl=vi`;
 
   function saveState() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ seriesId: activeSeries?.id, epIndex: currentEpIndex })); } catch(_) {}
@@ -800,7 +823,6 @@
     document.getElementById('browse-section').scrollIntoView({ behavior: 'smooth' });
   }
 
-  // Khởi chạy ứng dụng sau khi qua màn hình khóa
   function initApp() {
     renderCards();
 
@@ -816,7 +838,6 @@
     if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // Chạy kiểm tra đăng nhập khi vừa tải trang xong
   checkAuth();
 </script>
 </body>
