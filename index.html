@@ -52,7 +52,8 @@
             margin: 25px auto;
             padding: 0 16px;
         }
-        .artplayer-app {
+        /* Player Box */
+        .video-wrapper {
             width: 100%;
             aspect-ratio: 16/9;
             border-radius: 14px;
@@ -60,6 +61,13 @@
             border: 1px solid var(--border);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
             background-color: #000;
+            position: relative;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
         }
         .anime-info { margin: 20px 0; }
         .anime-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
@@ -108,21 +116,22 @@
             .ep-btn { padding: 10px 16px; font-size: 13px; }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.js"></script>
 </head>
 <body>
 
     <div class="navbar">
         <div class="navbar-title">✨ KHANG ANIME HUB</div>
-        <div class="tag-status">GOOGLE STREAM • NO ADS</div>
+        <div class="tag-status">GOOGLE STREAM • BYPASS CORS</div>
     </div>
 
     <div class="main-container">
-        <div class="artplayer-app"></div>
+        <div class="video-wrapper" id="player-container">
+            <iframe id="anime-player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
 
         <div class="anime-info">
-            <div class="anime-title" id="current-ep-title">Đang tải phim...</div>
-            <div class="anime-sub">🌸 Phát trực tiếp từ Google Drive Server tốc độ cực cao</div>
+            <div class="anime-title" id="current-ep-title">Đang tải tập phim...</div>
+            <div class="anime-sub">🌸 Phát trực tiếp mượt mà từ Google Cloud Server</div>
         </div>
 
         <div class="section-title">Danh sách tập phim</div>
@@ -130,21 +139,16 @@
     </div>
 
     <script>
-        // ===== CẤU HÌNH ID VIDEO GOOGLE DRIVE TẠI ĐÂY =====
-        // Đã cập nhật mã ID thật cho Tập 01 của bạn
+        // Cấu hình ID video Google Drive 
         const episodes = [
             { name: 'Tập 01', driveId: '1fFjkZ0a1w-cm_Uv4bIWtutxtTuw3MFmz' },
-            { name: 'Tập 02', driveId: 'ĐIỀN_ID_TẬP_2_VÀO_ĐÂY_KHI_CÓ' },
-            { name: 'Tập 03', driveId: 'ĐIỀN_ID_TẬP_3_VÀO_ĐÂY_KHI_CÓ' },
-            { name: 'Tập 04', driveId: 'ĐIỀN_ID_TẬP_4_VÀO_ĐÂY_KHI_CÓ' }
+            { name: 'Tập 02', driveId: 'ĐIỀN_ID_TẬP_2_VÀO_ĐÂY' },
+            { name: 'Tập 03', driveId: 'ĐIỀN_ID_TẬP_3_VÀO_ĐÂY' }
         ];
 
-        let art = null;
-        let currentIndex = -1;
-
-        // Hàm tự động đổi ID thành link stream direct của Google Drive
-        function convertDriveUrl(id) {
-            return `https://docs.google.com/uc?export=download&id=${id}`;
+        function convertDriveEmbedUrl(id) {
+            // Chuyển sang link dạng preview giúp vượt qua kiểm tra CORS của trình duyệt
+            return `https://drive.google.com/file/d/${id}/preview`;
         }
 
         function createButtons() {
@@ -161,7 +165,6 @@
 
         function playEpisode(index) {
             if (index < 0 || index >= episodes.length) return;
-            currentIndex = index;
 
             const episode = episodes[index];
             document.getElementById('current-ep-title').textContent = "Thanh Gươm Diệt Quỷ (Mùa 4) - " + episode.name;
@@ -169,45 +172,16 @@
             const buttons = document.querySelectorAll('.ep-btn');
             buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
 
-            localStorage.setItem('khang_anime_drive_index', index);
+            localStorage.setItem('khang_anime_iframe_index', index);
 
-            // Chuyển ID thành link stream direct
-            const streamUrl = convertDriveUrl(episode.driveId);
-
-            if (art) {
-                art.switchUrl(streamUrl);
-                return;
-            }
-
-            art = new ArtPlayer({
-                container: '.artplayer-app',
-                url: streamUrl,
-                volume: 0.7,
-                pip: true,
-                autoSize: true,
-                autoMini: true,
-                screenshot: true,
-                setting: true,
-                playbackRate: true,
-                aspectRatio: true,
-                fullscreen: true,
-                autoPlayback: true, 
-                theme: '#00ffcc',
-                moreVideoAttr: {
-                    crossOrigin: 'anonymous',
-                }
-            });
-
-            art.on('video:ended', () => {
-                if (currentIndex < episodes.length - 1) {
-                    playEpisode(currentIndex + 1);
-                }
-            });
+            // Cập nhật link vào iframe
+            const embedUrl = convertDriveEmbedUrl(episode.driveId);
+            document.getElementById('anime-player').src = embedUrl;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             createButtons();
-            const saved = localStorage.getItem('khang_anime_drive_index');
+            const saved = localStorage.getItem('khang_anime_iframe_index');
             const initIndex = (saved !== null && parseInt(saved) < episodes.length) ? parseInt(saved) : 0;
             playEpisode(initIndex);
         });
