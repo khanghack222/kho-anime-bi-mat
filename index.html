@@ -57,6 +57,10 @@
             animation: slideDown 0.4s ease-out;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .navbar { animation: none; }
+        }
+
         @keyframes slideDown {
             from {
                 transform: translateY(-100%);
@@ -275,22 +279,6 @@
             gap: 15px;
         }
 
-        .video-success {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: var(--success);
-            font-size: 14px;
-            text-align: center;
-            padding: 20px;
-            line-height: 1.6;
-            gap: 15px;
-        }
-
         .retry-btn {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--bg-dark);
@@ -460,95 +448,27 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 640px) {
-            body {
-                padding-bottom: 20px;
-            }
-
-            .navbar {
-                padding: 10px 12px;
-                gap: 8px;
-            }
-
-            .navbar-title {
-                font-size: 18px;
-            }
-
-            .tag-bimat {
-                font-size: 10px;
-                padding: 5px 10px;
-            }
-
-            .main-container {
-                margin: 15px auto;
-                padding: 0 8px;
-            }
-
-            .video-player-wrapper {
-                margin-bottom: 15px;
-                border-radius: 12px;
-            }
-
-            .login-box {
-                width: 95%;
-                padding: 25px 20px;
-                border-radius: 16px;
-            }
-
-            .login-box input {
-                padding: 12px 14px;
-                font-size: 16px;
-            }
-
-            .anime-title {
-                font-size: 18px;
-            }
-
-            .episode-buttons {
-                gap: 6px;
-            }
-
-            .ep-btn {
-                padding: 9px 14px;
-                font-size: 12px;
-                border-radius: 6px;
-            }
-
-            .section-title {
-                font-size: 14px;
-                margin: 15px 0 10px 0;
-            }
+            body { padding-bottom: 20px; }
+            .navbar { padding: 10px 12px; gap: 8px; }
+            .navbar-title { font-size: 18px; }
+            .tag-bimat { font-size: 10px; padding: 5px 10px; }
+            .main-container { margin: 15px auto; padding: 0 8px; }
+            .video-player-wrapper { margin-bottom: 15px; border-radius: 12px; }
+            .login-box { width: 95%; padding: 25px 20px; border-radius: 16px; }
+            .login-box input { padding: 12px 14px; font-size: 16px; }
+            .anime-title { font-size: 18px; }
+            .episode-buttons { gap: 6px; }
+            .ep-btn { padding: 9px 14px; font-size: 12px; border-radius: 6px; }
+            .section-title { font-size: 14px; margin: 15px 0 10px 0; }
         }
 
         @media (max-width: 380px) {
-            .navbar {
-                flex-direction: column;
-                gap: 6px;
-                padding: 8px 10px;
-            }
-
-            .navbar-title {
-                font-size: 16px;
-            }
-
-            .tag-bimat {
-                width: 100%;
-                padding: 5px 8px;
-            }
-
-            .episode-buttons {
-                gap: 5px;
-            }
-
-            .ep-btn {
-                padding: 8px 12px;
-                font-size: 11px;
-                flex: 1 1 calc(25% - 5px);
-            }
-
-            .anime-title {
-                font-size: 16px;
-                margin: 10px 0 5px 0;
-            }
+            .navbar { flex-direction: column; gap: 6px; padding: 8px 10px; }
+            .navbar-title { font-size: 16px; }
+            .tag-bimat { width: 100%; padding: 5px 8px; }
+            .episode-buttons { gap: 5px; }
+            .ep-btn { padding: 8px 12px; font-size: 11px; flex: 1 1 calc(25% - 5px); }
+            .anime-title { font-size: 16px; margin: 10px 0 5px 0; }
         }
 
         /* ===== PERFORMANCE ===== */
@@ -558,10 +478,7 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
-
-            .ep-btn:hover {
-                transform: none;
-            }
+            .ep-btn:hover { transform: none; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
@@ -600,8 +517,7 @@
         <div class="section-title">Danh sách tập</div>
 
         <div class="episode-buttons" id="ep-buttons-container">
-            <!-- Buttons sẽ được tạo bởi JavaScript -->
-        </div>
+            </div>
 
         <div class="info-box" id="info-box" style="display: none;"></div>
     </div>
@@ -610,7 +526,8 @@
         // ===== CONFIG =====
         const PIN_CODE = 'khang2026';
         
-        // Episodes Configuration
+        // Cấu hình tên tập phim và mã ID tương ứng trên Archive.org
+        // Bạn chỉ cần thay cái chuỗi sau dấu gạch chéo bằng tên file phim chính xác của bạn trên Archive nhé!
         const episodes = [
             { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
             { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
@@ -622,18 +539,13 @@
             { name: 'Tập 08', file: 'tgdq-tap8.mp4' }
         ];
 
-        // Video URL Sources (Prioritized)
+        // ===== HÀM TỰ ĐỘNG GENERATE LINK ARCHIVE.ORG =====
         function getVideoUrl(filename) {
-            // Primary: GitHub Releases
-            const primaryUrl = `https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
+            // Thay "ten_thu_muc_phim_cua_khang" thành tên ID Identifier của bạn trên Archive.org nhé!
+            const archiveIdentifier = "ten_thu_muc_phim_cua_khang"; 
             
-            // Fallback sources (if needed in future)
-            const fallbackUrls = [
-                primaryUrl,
-                // Add more sources here if needed
-            ];
-            
-            return primaryUrl;
+            // Link trực tiếp dạng download/stream từ Archive.org
+            return `https://archive.org/download/${archiveIdentifier}/${filename}`;
         }
 
         // ===== PIN VALIDATION =====
@@ -687,7 +599,6 @@
             currentIndex = index;
             retryCount = 0;
             const episode = episodes[index];
-            const player = document.getElementById('main-player');
             const container = document.getElementById('video-container');
 
             document.getElementById('current-ep-title').textContent = 
@@ -701,7 +612,7 @@
             showLoading(true);
             const videoUrl = getVideoUrl(episode.file);
             
-            // Clear previous errors
+            // Xóa player cũ để tránh lỗi stream cache giữa các tập
             container.innerHTML = '<video id="main-player" controls preload="metadata" crossorigin="anonymous"></video>';
             const newPlayer = document.getElementById('main-player');
             
@@ -749,7 +660,7 @@
                 <div>❌ Không thể tải video</div>
                 <div style="font-size: 12px; opacity: 0.7;">
                     ${episode.name || 'Tập không xác định'}<br>
-                    Kiểm tra kết nối internet hoặc video chưa được upload
+                    Kiểm tra kết nối internet hoặc link Archive.org bị sai cấu trúc
                 </div>
                 <button class="retry-btn" onclick="playEpisode(${index})">🔄 Thử lại</button>
                 ${index > 0 ? `<button class="retry-btn" onclick="playEpisode(${index - 1})" style="background: rgba(76, 86, 106, 0.8);">← Tập trước</button>` : ''}
@@ -758,19 +669,9 @@
             container.appendChild(errorDiv);
         }
 
-        function showInfoBox(message) {
-            const infoBox = document.getElementById('info-box');
-            infoBox.textContent = message;
-            infoBox.style.display = 'block';
-            setTimeout(() => {
-                infoBox.style.display = 'none';
-            }, 5000);
-        }
-
         // ===== INIT =====
         window.addEventListener('load', () => {
             document.getElementById('pin-input').focus();
-            // Auto focus for better UX
             const input = document.getElementById('pin-input');
             if (input) input.select();
         });
@@ -784,7 +685,7 @@
             }
         });
 
-        // Keyboard shortcuts
+        // Keyboard shortcuts (Mũi tên Trái / Phải để chuyển tập)
         document.addEventListener('keydown', (e) => {
             const player = document.getElementById('main-player');
             if (!player || document.getElementById('lock-screen').style.display !== 'none') return;
