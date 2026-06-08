@@ -6,6 +6,9 @@
   <title>Khang Anime Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.js"></script>
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -104,9 +107,7 @@
       font-family: var(--font-body);
       transition: border-color 0.2s;
     }
-    .lock-input:focus {
-      border-color: var(--primary);
-    }
+    .lock-input:focus { border-color: var(--primary); }
     .lock-btn {
       background: var(--primary);
       color: #000;
@@ -135,9 +136,7 @@
       opacity: 0;
       transition: opacity 0.4s ease;
     }
-    .main-content.visible {
-      opacity: 1;
-    }
+    .main-content.visible { opacity: 1; }
 
     /* ═══════════════════════════════
         NAVBAR
@@ -169,11 +168,7 @@
       user-select: none;
     }
     .nav-logo span { color: #fff; }
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
     .nav-badge {
       background: var(--primary);
       color: #000;
@@ -245,12 +240,7 @@
       from { opacity: 0; transform: translateY(30px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .hero-badge-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
+    .hero-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     .hero-badge {
       background: var(--primary);
       color: #000;
@@ -297,13 +287,7 @@
       max-width: 480px;
       margin-bottom: 28px;
     }
-    .hero-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
+    .hero-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
     .meta-item {
       display: flex;
       align-items: center;
@@ -423,7 +407,7 @@
     .card-ep-count { background: var(--border); color: var(--primary); border: 1px solid rgba(0,255,170,0.3); font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
 
     /* ═══════════════════════════════
-        PLAYER SECTION (TỐI ƯU SỬA LỖI DI ĐỘNG)
+        PLAYER SECTION (ARTPLAYER CONTAINER)
        ═══════════════════════════════ */
     .player-section { padding: 0 4% 60px; display: none; animation: fadeIn 0.4s ease; }
     .player-section.visible { display: block; }
@@ -435,7 +419,7 @@
     .player-series-name { font-size: 18px; font-weight: 700; color: #fff; }
     .player-ep-name { color: var(--primary); font-size: 14px; font-weight: 600; }
 
-    /* Sửa khung bao để chống lỗi chạm đúp và hỗ trợ cuộn mượt */
+    /* Khung chứa tỉ lệ 16:9 chuẩn */
     .video-wrapper { 
       width: 100%; 
       padding-top: 56.25%; 
@@ -445,21 +429,19 @@
       background: #000; 
       box-shadow: 0 20px 60px rgba(0,0,0,0.8); 
       border: 1px solid var(--border);
-      touch-action: auto;
     }
     @supports (aspect-ratio: 16/9) { .video-wrapper { padding-top: 0; aspect-ratio: 16/9; } }
     
-    /* Sửa iframe tăng khả năng nhận diện nút phát cảm ứng */
-    .video-wrapper iframe { 
-      position: absolute; 
-      inset: 0; 
-      width: 100%; 
-      height: 100%; 
-      border: none;
+    /* Vùng chứa thực tế cho ArtPlayer vẽ giao diện */
+    #artplayer-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       z-index: 1;
     }
 
-    .loading-overlay { position: absolute; inset: 0; background: #06080c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 10; transition: opacity 0.4s; pointer-events: none; }
+    .loading-overlay { position: absolute; inset: 0; background: #06080c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 10; transition: opacity 0.3s; pointer-events: none; }
     .loading-overlay.hidden { opacity: 0; }
     .spinner { width: 44px; height: 44px; border: 3px solid #1a202c; border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -514,7 +496,6 @@
 </head>
 <body>
 
-<!-- LOCKSCREEN -->
 <div class="lockscreen" id="lockscreen">
   <div class="lock-card">
     <div class="lock-logo">KHANG<span>HUB</span></div>
@@ -527,17 +508,14 @@
   </div>
 </div>
 
-<!-- MAIN SITE CONTENT -->
 <div class="main-content" id="main-content">
-  <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-logo">KHANG<span>HUB</span></div>
     <div class="nav-right">
-      <div class="nav-badge">HD Stream</div>
+      <div class="nav-badge">ArtPlayer V5</div>
     </div>
   </nav>
 
-  <!-- HERO BANNER -->
   <section class="hero" id="hero-section">
     <div class="hero-bg"></div>
     <div class="hero-slash"></div>
@@ -574,7 +552,6 @@
     </div>
   </section>
 
-  <!-- BROWSE SECTION -->
   <section class="browse" id="browse-section">
     <div class="row-label">
       <span>Danh sách phim</span>
@@ -584,7 +561,6 @@
     <div class="card-row" id="card-row"></div>
   </section>
 
-  <!-- PLAYER SECTION -->
   <section class="player-section" id="player-section">
     <div class="player-header">
       <button class="back-btn" onclick="closeSeries()">
@@ -602,12 +578,11 @@
         <div class="spinner"></div>
         <span>Đang tải tập phim...</span>
       </div>
-      <!-- Sửa sandbox và thuộc tính nhúng để tránh lỗi thanh bar đen trên Android -->
-      <iframe id="anime-player" src="about:blank" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-scripts opacity allow-same-origin allow-forms allow-popups" title="Anime player"></iframe>
+      <div id="artplayer-container"></div>
     </div>
 
     <div class="error-banner" id="error-banner">
-      ⚠️ Tập này chưa có link hoặc đang được xử lý. Vui lòng thử lại sau.
+      ⚠️ Tập này chưa có link hoặc bị lỗi dữ liệu từ Drive. Vui lòng kiểm tra lại ID file.
     </div>
 
     <div class="ep-section">
@@ -623,7 +598,7 @@
   </section>
 
   <footer>
-    Làm bởi <span>Khang</span> · Streaming từ Google Drive · Chỉ dùng cá nhân
+    Làm bởi <span>Khang</span> · Powered by ArtPlayer HTML5 · Chỉ dùng cá nhân
   </footer>
 </div>
 
@@ -689,11 +664,12 @@
 
   let activeSeries = null;
   let currentEpIndex = -1;
+  let art = null; // Biến giữ phiên bản ArtPlayer toàn cục
 
   const isValidId = id => id && id.trim() !== '' && !id.startsWith('ĐIỀN_');
   
-  // Ép Google Drive sử dụng giao diện nhúng tối giản và gọi HTML5 Player
-  const buildUrl  = id => `https://drive.google.com/file/d/${id}/preview?authuser=0&hl=vi`;
+  // Ép link Drive xuất dữ liệu thô (Direct Stream) để nạp vào ArtPlayer
+  const buildDirectUrl = id => `https://docs.google.com/uc?export=download&id=${id}`;
 
   function saveState() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ seriesId: activeSeries?.id, epIndex: currentEpIndex })); } catch(_) {}
@@ -763,7 +739,10 @@
 
   function closeSeries() {
     document.getElementById('player-section').classList.remove('visible');
-    document.getElementById('anime-player').src = 'about:blank'; 
+    if (art) {
+      art.destroy();
+      art = null;
+    }
     document.querySelectorAll('.anime-card').forEach(c => c.classList.remove('active-series'));
     activeSeries = null;
     document.getElementById('browse-section').scrollIntoView({ behavior: 'smooth' });
@@ -796,19 +775,64 @@
     document.getElementById('btn-next').disabled = index === activeSeries.episodes.length - 1;
 
     const err = document.getElementById('error-banner');
+    const overlay = document.getElementById('loading-overlay');
+    
     if (!isValidId(ep.driveId)) {
       err.classList.add('visible');
-      document.getElementById('anime-player').src = 'about:blank'; 
-      document.getElementById('loading-overlay').classList.add('hidden');
+      overlay.classList.add('hidden');
+      if (art) { art.destroy(); art = null; }
       return;
     }
     err.classList.remove('visible');
-
-    const overlay = document.getElementById('loading-overlay');
     overlay.classList.remove('hidden');
-    const player = document.getElementById('anime-player');
-    player.src = buildUrl(ep.driveId);
-    player.onload = () => overlay.classList.add('hidden');
+
+    const videoUrl = buildDirectUrl(ep.driveId);
+
+    // KIỂM TRA KHỞI TẠO HOẶC CHUYỂN LINK TRÊN ARTPLAYER
+    if (art) {
+      art.switchUrl(videoUrl).then(() => {
+        overlay.classList.add('hidden');
+      }).catch(() => {
+        overlay.classList.add('hidden');
+      });
+    } else {
+      art = new ArtPlayer({
+        container: '#artplayer-container',
+        url: videoUrl,
+        volume: 0.7,
+        isLive: false,
+        muted: false,
+        autoplay: false,
+        pip: true,
+        autoSize: false,
+        autoMini: true,
+        screenshot: true,
+        setting: true,
+        loop: false,
+        flip: true,
+        playbackRate: true,
+        aspectRatio: true,
+        fullscreen: true,
+        fullscreenWeb: true,
+        miniProgressBar: true,
+        mutex: true,
+        backdrop: true,
+        theme: '#00ffaa', // Màu chủ đạo xanh Neon của KhangHub
+        whitelist: ['*'],
+      });
+
+      // LẮNG NGHE SỰ KIỆN ĐỂ ẨN MÀN HÌNH CHỜ KHI VIDEO SẴN SÀNG
+      art.on('ready', () => {
+        overlay.classList.add('hidden');
+      });
+      art.on('video:canplay', () => {
+        overlay.classList.add('hidden');
+      });
+      art.on('error', () => {
+        overlay.classList.add('hidden');
+        err.classList.add('visible');
+      });
+    }
 
     saveState();
   }
