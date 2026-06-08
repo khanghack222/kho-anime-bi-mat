@@ -25,13 +25,15 @@
         .navbar {
             background: rgba(23, 26, 33, 0.9);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border);
             position: sticky;
-            top: 0; z-index: 100;
+            top: 0;
+            z-index: 100;
         }
         .navbar-title {
             color: var(--primary);
@@ -52,16 +54,25 @@
             margin: 25px auto;
             padding: 0 16px;
         }
-        /* Player Box */
+
+        /* ── Player ── */
         .video-wrapper {
             width: 100%;
-            aspect-ratio: 16/9;
+            /* Fallback cho trình duyệt không hỗ trợ aspect-ratio */
+            padding-top: 56.25%;
+            position: relative;
             border-radius: 14px;
             overflow: hidden;
             border: 1px solid var(--border);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
             background-color: #000;
-            position: relative;
+        }
+        /* Override padding-top khi aspect-ratio được hỗ trợ */
+        @supports (aspect-ratio: 16/9) {
+            .video-wrapper {
+                padding-top: 0;
+                aspect-ratio: 16 / 9;
+            }
         }
         .video-wrapper iframe {
             position: absolute;
@@ -69,18 +80,102 @@
             width: 100%; height: 100%;
             border: none;
         }
-        .anime-info { margin: 20px 0; }
-        .anime-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
-        .anime-sub { color: var(--text-sub); font-size: 14px; }
+
+        /* ── Loading overlay ── */
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            z-index: 10;
+            transition: opacity 0.4s ease;
+        }
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-overlay span {
+            color: var(--text-sub);
+            font-size: 13px;
+        }
+
+        /* ── Error banner ── */
+        .error-banner {
+            display: none;
+            background: rgba(255, 70, 70, 0.12);
+            border: 1px solid rgba(255, 70, 70, 0.4);
+            color: #ff9090;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-top: 14px;
+            font-size: 13px;
+        }
+        .error-banner.visible { display: block; }
+
+        /* ── Info + nav ── */
+        .anime-info {
+            margin: 20px 0 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .anime-info-text {}
+        .anime-title { font-size: 22px; font-weight: 700; margin-bottom: 5px; }
+        .anime-sub { color: var(--text-sub); font-size: 13px; }
+
+        /* Prev / Next buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+        .nav-btn {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* ── Episode list ── */
         .section-title {
             color: var(--primary);
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            margin: 25px 0 15px 0;
+            margin: 28px 0 14px;
             display: flex;
             align-items: center;
             gap: 6px;
+            letter-spacing: 0.5px;
         }
         .section-title::before { content: "⚡"; }
         .episode-buttons {
@@ -92,7 +187,7 @@
             background: var(--bg-card);
             color: var(--text);
             border: 1px solid var(--border);
-            padding: 12px 20px;
+            padding: 10px 18px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -111,80 +206,198 @@
             font-weight: 700;
             box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
         }
-        @media (max-width: 768px) {
-            .anime-title { font-size: 20px; }
-            .ep-btn { padding: 10px 16px; font-size: 13px; }
+        /* Highlight các tập chưa có ID */
+        .ep-btn.missing {
+            opacity: 0.45;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+        .ep-btn.missing:hover {
+            transform: none;
+            border-color: var(--border);
+            color: var(--text);
+        }
+
+        @media (max-width: 600px) {
+            .anime-title { font-size: 18px; }
+            .ep-btn { padding: 9px 14px; font-size: 13px; }
+            .navbar-title { font-size: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <div class="navbar-title">✨ KHANG ANIME HUB</div>
-        <div class="tag-status">GOOGLE STREAM • BYPASS CORS</div>
+<div class="navbar">
+    <div class="navbar-title">✨ KHANG ANIME HUB</div>
+    <div class="tag-status">GOOGLE STREAM</div>
+</div>
+
+<div class="main-container">
+
+    <div class="video-wrapper" id="player-container">
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="spinner"></div>
+            <span>Đang tải tập phim...</span>
+        </div>
+        <iframe
+            id="anime-player"
+            src=""
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="Anime player"
+        ></iframe>
     </div>
 
-    <div class="main-container">
-        <div class="video-wrapper" id="player-container">
-            <iframe id="anime-player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
+    <div class="error-banner" id="error-banner">
+        ⚠️ Tập này chưa có link hoặc link không hợp lệ. Vui lòng kiểm tra lại Drive ID.
+    </div>
 
-        <div class="anime-info">
+    <div class="anime-info">
+        <div class="anime-info-text">
             <div class="anime-title" id="current-ep-title">Đang tải tập phim...</div>
-            <div class="anime-sub">🌸 Phát trực tiếp mượt mà từ Google Cloud Server</div>
+            <div class="anime-sub">🌸 Phát trực tiếp từ Google Drive</div>
         </div>
-
-        <div class="section-title">Danh sách tập phim</div>
-        <div class="episode-buttons" id="ep-buttons-container"></div>
+        <div class="nav-buttons">
+            <button class="nav-btn" id="btn-prev" onclick="playPrev()">◀ Trước</button>
+            <button class="nav-btn" id="btn-next" onclick="playNext()">Sau ▶</button>
+        </div>
     </div>
 
-    <script>
-        // Cấu hình ID video Google Drive 
-        const episodes = [
-            { name: 'Tập 01', driveId: '1fFjkZ0a1w-cm_Uv4bIWtutxtTuw3MFmz' },
-            { name: 'Tập 02', driveId: 'ĐIỀN_ID_TẬP_2_VÀO_ĐÂY' },
-            { name: 'Tập 03', driveId: 'ĐIỀN_ID_TẬP_3_VÀO_ĐÂY' }
-        ];
+    <div class="section-title">Danh sách tập phim</div>
+    <div class="episode-buttons" id="ep-buttons-container"></div>
 
-        function convertDriveEmbedUrl(id) {
-            // Chuyển sang link dạng preview giúp vượt qua kiểm tra CORS của trình duyệt
-            return `https://drive.google.com/file/d/${id}/preview`;
+</div>
+
+<script>
+    // ──────────────────────────────────────────────
+    // Cấu hình: thêm/bớt tập tại đây
+    // Để driveId là '' nếu chưa có link
+    // ──────────────────────────────────────────────
+    const ANIME_NAME = 'Thanh Gươm Diệt Quỷ (Mùa 4)';
+    const STORAGE_KEY = 'khang_anime_ep_index';
+
+    const episodes = [
+        { name: 'Tập 01', driveId: '1fFjkZ0a1w-cm_Uv4bIWtutxtTuw3MFmz' },
+        { name: 'Tập 02', driveId: '' },  // Chưa có link
+        { name: 'Tập 03', driveId: '' },  // Chưa có link
+    ];
+
+    // ──────────────────────────────────────────────
+    // Helpers
+    // ──────────────────────────────────────────────
+    function isValidId(id) {
+        // Drive ID hợp lệ: không rỗng và không còn là placeholder
+        return id && id.trim() !== '' && !id.startsWith('ĐIỀN_');
+    }
+
+    function buildEmbedUrl(id) {
+        return `https://drive.google.com/file/d/${id}/preview`;
+    }
+
+    function saveIndex(index) {
+        try {
+            localStorage.setItem(STORAGE_KEY, index);
+        } catch (_) {
+            // localStorage có thể bị chặn trong một số môi trường — bỏ qua
         }
+    }
 
-        function createButtons() {
-            const container = document.getElementById('ep-buttons-container');
-            container.innerHTML = '';
-            episodes.forEach((ep, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'ep-btn';
-                btn.textContent = ep.name;
+    function loadIndex() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved === null) return null;
+            const n = parseInt(saved, 10);
+            return (!isNaN(n) && n >= 0 && n < episodes.length) ? n : null;
+        } catch (_) {
+            return null;
+        }
+    }
+
+    // ──────────────────────────────────────────────
+    // Render buttons
+    // ──────────────────────────────────────────────
+    function createButtons() {
+        const container = document.getElementById('ep-buttons-container');
+        container.innerHTML = '';
+        episodes.forEach((ep, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'ep-btn' + (isValidId(ep.driveId) ? '' : ' missing');
+            btn.textContent = ep.name;
+            btn.title = isValidId(ep.driveId) ? ep.name : 'Chưa có link';
+            btn.dataset.index = index;
+            if (isValidId(ep.driveId)) {
                 btn.onclick = () => playEpisode(index);
-                container.appendChild(btn);
-            });
-        }
-
-        function playEpisode(index) {
-            if (index < 0 || index >= episodes.length) return;
-
-            const episode = episodes[index];
-            document.getElementById('current-ep-title').textContent = "Thanh Gươm Diệt Quỷ (Mùa 4) - " + episode.name;
-
-            const buttons = document.querySelectorAll('.ep-btn');
-            buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
-
-            localStorage.setItem('khang_anime_iframe_index', index);
-
-            // Cập nhật link vào iframe
-            const embedUrl = convertDriveEmbedUrl(episode.driveId);
-            document.getElementById('anime-player').src = embedUrl;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            createButtons();
-            const saved = localStorage.getItem('khang_anime_iframe_index');
-            const initIndex = (saved !== null && parseInt(saved) < episodes.length) ? parseInt(saved) : 0;
-            playEpisode(initIndex);
+            }
+            container.appendChild(btn);
         });
-    </script>
+    }
+
+    // ──────────────────────────────────────────────
+    // Playback
+    // ──────────────────────────────────────────────
+    let currentIndex = -1;
+
+    function playEpisode(index) {
+        if (index < 0 || index >= episodes.length) return;
+
+        const ep = episodes[index];
+        currentIndex = index;
+
+        // Cập nhật tiêu đề
+        document.getElementById('current-ep-title').textContent =
+            `${ANIME_NAME} - ${ep.name}`;
+
+        // Highlight nút đang active
+        document.querySelectorAll('.ep-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', i === index);
+        });
+
+        // Cập nhật nút Prev / Next
+        document.getElementById('btn-prev').disabled = index === 0;
+        document.getElementById('btn-next').disabled = index === episodes.length - 1;
+
+        // Kiểm tra ID hợp lệ
+        const errorBanner = document.getElementById('error-banner');
+        if (!isValidId(ep.driveId)) {
+            errorBanner.classList.add('visible');
+            document.getElementById('anime-player').src = '';
+            document.getElementById('loading-overlay').classList.add('hidden');
+            return;
+        }
+
+        errorBanner.classList.remove('visible');
+
+        // Hiện loading, đặt src
+        const overlay = document.getElementById('loading-overlay');
+        overlay.classList.remove('hidden');
+
+        const player = document.getElementById('anime-player');
+        player.src = buildEmbedUrl(ep.driveId);
+
+        // Ẩn loading khi iframe load xong
+        player.onload = () => overlay.classList.add('hidden');
+
+        // Lưu vị trí
+        saveIndex(index);
+    }
+
+    function playPrev() {
+        if (currentIndex > 0) playEpisode(currentIndex - 1);
+    }
+
+    function playNext() {
+        if (currentIndex < episodes.length - 1) playEpisode(currentIndex + 1);
+    }
+
+    // ──────────────────────────────────────────────
+    // Init
+    // ──────────────────────────────────────────────
+    createButtons();
+    const initIndex = loadIndex() ?? 0;
+    // Tự động chọn tập đầu hợp lệ nếu tập đã lưu không có link
+    const startIndex = isValidId(episodes[initIndex]?.driveId) ? initIndex : 0;
+    playEpisode(startIndex);
+</script>
+
 </body>
 </html>
