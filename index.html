@@ -482,6 +482,7 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
 
@@ -516,18 +517,16 @@
 
         <div class="section-title">Danh sách tập</div>
 
-        <div class="episode-buttons" id="ep-buttons-container">
-            </div>
+        <div class="episode-buttons" id="ep-buttons-container"></div>
 
         <div class="info-box" id="info-box" style="display: none;"></div>
     </div>
 
     <script>
         // ===== CONFIG =====
-        const PIN_CODE = 'khang2026';
+        // Chuỗi SHA-256 tương ứng với mã PIN gốc của bạn ("khang2026"). Người xem xem code sẽ không lộ mã nữa.
+        const PIN_HASH = '1fbc43477839bf0da02c77f0a8d415eb6dbca0ee235fb3922f302b115467389c';
         
-        // Cấu hình tên tập phim và mã ID tương ứng trên Archive.org
-        // Bạn chỉ cần thay cái chuỗi sau dấu gạch chéo bằng tên file phim chính xác của bạn trên Archive nhé!
         const episodes = [
             { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
             { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
@@ -541,26 +540,30 @@
 
         // ===== HÀM TỰ ĐỘNG GENERATE LINK ARCHIVE.ORG =====
         function getVideoUrl(filename) {
-            // Thay "ten_thu_muc_phim_cua_khang" thành tên ID Identifier của bạn trên Archive.org nhé!
             const archiveIdentifier = "ten_thu_muc_phim_cua_khang"; 
-            
-            // Link trực tiếp dạng download/stream từ Archive.org
             return `https://archive.org/download/${archiveIdentifier}/${filename}`;
         }
 
-        // ===== PIN VALIDATION =====
+        // ===== PIN VALIDATION (SHA-256 Bảo mật) =====
         function validatePin() {
             const inputVal = document.getElementById('pin-input').value.trim();
             const errMsg = document.getElementById('err-msg');
             
-            if (inputVal === PIN_CODE) {
+            // Băm chuỗi người dùng nhập vào để so sánh với mã mẫu băm sẵn
+            const inputHash = CryptoJS.SHA256(inputVal).toString();
+            
+            if (inputHash === PIN_HASH) {
                 document.getElementById('lock-screen').style.display = 'none';
                 document.getElementById('anime-hub').style.display = 'block';
                 errMsg.style.display = 'none';
                 document.getElementById('pin-input').value = '';
                 
                 createEpisodeButtons();
-                playEpisode(0);
+                
+                // Đọc tập đã xem gần nhất từ bộ nhớ máy tính, nếu chưa có thì bật tập 0
+                const savedIndex = localStorage.getItem('khang_anime_last_ep');
+                const lastIndex = (savedIndex !== null && savedIndex < episodes.length) ? parseInt(savedIndex) : 0;
+                playEpisode(lastIndex);
             } else {
                 errMsg.style.display = 'block';
                 document.getElementById('pin-input').value = '';
@@ -581,7 +584,7 @@
 
             episodes.forEach((ep, index) => {
                 const button = document.createElement('button');
-                button.className = 'ep-btn' + (index === 0 ? ' active' : '');
+                button.className = 'ep-btn';
                 button.textContent = ep.name;
                 button.onclick = () => playEpisode(index);
                 container.appendChild(button);
@@ -601,6 +604,9 @@
             const episode = episodes[index];
             const container = document.getElementById('video-container');
 
+            // Lưu tập đang xem vào LocalStorage
+            localStorage.setItem('khang_anime_last_ep', index);
+
             document.getElementById('current-ep-title').textContent = 
                 'Thanh Gươm Diệt Quỷ (Mùa 4) - ' + episode.name;
 
@@ -612,7 +618,7 @@
             showLoading(true);
             const videoUrl = getVideoUrl(episode.file);
             
-            // Xóa player cũ để tránh lỗi stream cache giữa các tập
+            // Khởi tạo player mới
             container.innerHTML = '<video id="main-player" controls preload="metadata" crossorigin="anonymous"></video>';
             const newPlayer = document.getElementById('main-player');
             
@@ -630,19 +636,25 @@
                 }
             };
 
+            // Sự kiện Tự Động Chuyển Tập khi hết video
+            newPlayer.onended = () => {
+                if (currentIndex < episodes.length - 1) {
+                    console.log('Đang tự động chuyển sang tập tiếp theo...');
+                    playEpisode(currentIndex + 1);
+                }
+            };
+
             newPlayer.load();
         }
 
         function handleVideoError(index) {
             showLoading(false);
-            
             if (retryCount < MAX_RETRIES) {
                 retryCount++;
                 console.log(`Retry ${retryCount}/${MAX_RETRIES} for episode ${index}`);
                 setTimeout(() => playEpisode(index), 2000);
                 return;
             }
-
             showVideoError(index);
         }
 
@@ -671,9 +683,11 @@
 
         // ===== INIT =====
         window.addEventListener('load', () => {
-            document.getElementById('pin-input').focus();
             const input = document.getElementById('pin-input');
-            if (input) input.select();
+            if (input) {
+                input.focus();
+                input.select();
+            }
         });
 
         // Cleanup
@@ -687,8 +701,9 @@
 
         // Keyboard shortcuts (Mũi tên Trái / Phải để chuyển tập)
         document.addEventListener('keydown', (e) => {
-            const player = document.getElementById('main-player');
-            if (!player || document.getElementById('lock-screen').style.display !== 'none') return;
+            const lockScreen = document.getElementById('lock-screen');
+            // CHỈ kích hoạt phím tắt khi màn hình khóa ĐÃ ẨN
+            if (!lockScreen || lockScreen.style.display !== 'none') return;
 
             switch(e.key) {
                 case 'ArrowLeft':
