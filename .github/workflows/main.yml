@@ -1,7 +1,27 @@
-git clone https://github.com/khanghack222/kho-anime-bi-mat
-cd kho-anime-bi-mat
-mkdir -p video
-gh release download phim -D video
-git add video/
-git commit -m "Add anime videos from release phim"
-git push
+name: Download Release Videos to Folder
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download-videos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Create video folder
+        run: mkdir -p video
+      
+      - name: Download videos from release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download phim -R khanghack222/kho-anime-bi-mat -D video --clobber
+      
+      - name: Commit videos to repository
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add video/
+          git commit -m "Add anime videos from release phim" || echo "No changes to commit"
+          git push
