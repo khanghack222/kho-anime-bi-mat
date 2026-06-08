@@ -358,16 +358,16 @@
         // ===== CẤU HÌNH =====
         const PIN_CODE = 'khang2026';
         
-        // Video URLs - sử dụng raw.githubusercontent.com để tránh CORS
+        // Video URLs từ GitHub Releases
         const episodes = [
-            { name: 'Tập 01', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep1.mp4' },
-            { name: 'Tập 02', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep2.mp4' },
-            { name: 'Tập 03', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep3.mp4' },
-            { name: 'Tập 04', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep4.mp4' },
-            { name: 'Tập 05', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep5.mp4' },
-            { name: 'Tập 06', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep6.mp4' },
-            { name: 'Tập 07', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep7.mp4' },
-            { name: 'Tập 08', url: 'https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/ep8.mp4' }
+            { name: 'Tập 01', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap1.mp4' },
+            { name: 'Tập 02', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap2.mp4' },
+            { name: 'Tập 03', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap3.mp4' },
+            { name: 'Tập 04', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap4.mp4' },
+            { name: 'Tập 05', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap5.mp4' },
+            { name: 'Tập 06', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap6.mp4' },
+            { name: 'Tập 07', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap7.mp4' },
+            { name: 'Tập 08', url: 'https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap8.mp4' }
         ];
 
         // ===== HÀM XÁC THỰC PIN =====
@@ -449,7 +449,7 @@
             
             player.onerror = () => {
                 showLoading(false);
-                showVideoError(`❌ Không thể load video tập ${episode.name}. Vui lòng kiểm tra file hoặc thử lại.`);
+                showVideoError(`❌ Không thể load video tập ${episode.name}. Vui lòng kiểm tra hoặc thử lại.`);
             };
 
             player.load();
