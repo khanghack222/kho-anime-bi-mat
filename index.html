@@ -1,4 +1,3 @@
-cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -11,15 +10,15 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --red: #e50914;
-      --red-dark: #b0060f;
+      --primary: #00ffaa; /* Đổi sang màu Xanh Neon chủ đạo */
+      --primary-dark: #00b377;
       --gold: #f5c518;
-      --bg: #0a0a0a;
-      --surface: #141414;
-      --surface2: #1f1f1f;
-      --border: #2a2a2a;
-      --text: #e5e5e5;
-      --text-muted: #888;
+      --bg: #0a0c10;      /* Nền tối pha chút ánh xanh lục bảo sâu */
+      --surface: #111622;
+      --surface2: #182030;
+      --border: #222d42;
+      --text: #e2e8f0;
+      --text-muted: #718096;
       --font-display: 'Bebas Neue', sans-serif;
       --font-body: 'Be Vietnam Pro', sans-serif;
     }
@@ -35,8 +34,8 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
 
     /* ═══════════════════════════════
-       NAVBAR
-    ═══════════════════════════════ */
+        NAVBAR
+       ═══════════════════════════════ */
     .navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -50,7 +49,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       transition: background 0.3s;
     }
     .navbar.scrolled {
-      background: rgba(10,10,10,0.97);
+      background: rgba(10,12,16,0.97);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(8px);
     }
@@ -58,8 +57,8 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       font-family: var(--font-display);
       font-size: 28px;
       letter-spacing: 2px;
-      color: var(--red);
-      text-shadow: 0 0 20px rgba(229,9,20,0.5);
+      color: var(--primary);
+      text-shadow: 0 0 20px rgba(0,255,170,0.4);
       cursor: default;
       user-select: none;
     }
@@ -70,10 +69,10 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       gap: 10px;
     }
     .nav-badge {
-      background: var(--red);
-      color: #fff;
+      background: var(--primary);
+      color: #000;
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
       padding: 3px 8px;
       border-radius: 4px;
       letter-spacing: 1px;
@@ -81,8 +80,8 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
 
     /* ═══════════════════════════════
-       HERO BANNER
-    ═══════════════════════════════ */
+        HERO BANNER
+       ═══════════════════════════════ */
     .hero {
       position: relative;
       width: 100%;
@@ -93,17 +92,15 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       align-items: flex-end;
     }
 
-    /* Cinematic background — layered gradient + pattern */
     .hero-bg {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(180,20,20,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,255,170,0.1) 0%, transparent 60%),
         radial-gradient(ellipse 60% 80% at 20% 80%, rgba(0,0,0,0.7) 0%, transparent 70%),
-        linear-gradient(135deg, #1a0a0a 0%, #0d0d0d 40%, #1a0808 100%);
+        linear-gradient(135deg, #0a1410 0%, #06080c 40%, #0a1014 100%);
     }
 
-    /* Decorative Japanese-style lines */
     .hero-bg::before {
       content: '';
       position: absolute;
@@ -113,25 +110,23 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
           -45deg,
           transparent,
           transparent 60px,
-          rgba(229,9,20,0.03) 60px,
-          rgba(229,9,20,0.03) 61px
+          rgba(0,255,170,0.02) 60px,
+          rgba(0,255,170,0.02) 61px
         );
     }
 
-    /* Katana slash decorative element */
     .hero-slash {
       position: absolute;
       top: 0; right: 0;
       width: 55%;
       height: 100%;
       background: linear-gradient(to left,
-        rgba(229,9,20,0.06) 0%,
+        rgba(0,255,170,0.04) 0%,
         transparent 100%
       );
       clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
 
-    /* Floating kanji decoration */
     .hero-kanji {
       position: absolute;
       right: 5%;
@@ -140,7 +135,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       font-family: 'Noto Sans JP', sans-serif;
       font-size: clamp(80px, 14vw, 180px);
       font-weight: 700;
-      color: rgba(229,9,20,0.07);
+      color: rgba(0,255,170,0.05);
       letter-spacing: -10px;
       user-select: none;
       line-height: 1;
@@ -167,10 +162,10 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       margin-bottom: 16px;
     }
     .hero-badge {
-      background: var(--red);
-      color: #fff;
+      background: var(--primary);
+      color: #000;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       padding: 4px 10px;
       border-radius: 4px;
       text-transform: uppercase;
@@ -189,7 +184,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     .hero-title-jp {
       font-family: 'Noto Sans JP', sans-serif;
       font-size: clamp(13px, 2vw, 16px);
-      color: rgba(229,9,20,0.8);
+      color: rgba(0,255,170,0.8);
       letter-spacing: 3px;
       margin-bottom: 8px;
       font-weight: 700;
@@ -205,7 +200,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       text-shadow: 0 4px 30px rgba(0,0,0,0.8);
       margin-bottom: 6px;
     }
-    .hero-title .accent { color: var(--red); }
+    .hero-title .accent { color: var(--primary); }
 
     .hero-subtitle {
       font-size: clamp(15px, 2.2vw, 19px);
@@ -219,7 +214,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     .hero-desc {
       font-size: 14px;
       line-height: 1.7;
-      color: rgba(229,229,229,0.75);
+      color: rgba(226,232,240,0.75);
       max-width: 480px;
       margin-bottom: 28px;
     }
@@ -241,7 +236,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
     .meta-item .dot {
       width: 4px; height: 4px;
-      background: var(--red);
+      background: var(--primary);
       border-radius: 50%;
     }
 
@@ -266,14 +261,13 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       transition: all 0.2s ease;
       letter-spacing: 0.3px;
     }
-    .btn-watch:hover { background: rgba(255,255,255,0.85); transform: scale(1.03); }
-    .btn-watch svg { flex-shrink: 0; }
+    .btn-watch:hover { background: var(--primary); transform: scale(1.03); }
 
     .btn-info {
       display: flex;
       align-items: center;
       gap: 9px;
-      background: rgba(109,109,110,0.5);
+      background: rgba(34,45,66,0.5);
       color: #fff;
       border: none;
       padding: 12px 24px;
@@ -285,9 +279,8 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       transition: all 0.2s ease;
       backdrop-filter: blur(4px);
     }
-    .btn-info:hover { background: rgba(109,109,110,0.7); }
+    .btn-info:hover { background: rgba(34,45,66,0.8); border-color: var(--primary); }
 
-    /* Bottom fade */
     .hero::after {
       content: '';
       position: absolute;
@@ -298,8 +291,8 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
 
     /* ═══════════════════════════════
-       BROWSE SECTION (Netflix-style rows)
-    ═══════════════════════════════ */
+        BROWSE SECTION
+       ═══════════════════════════════ */
     .browse {
       padding: 0 4% 60px;
       margin-top: -40px;
@@ -328,7 +321,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       font-weight: 500;
     }
 
-    /* Card row */
     .card-row {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -349,12 +341,12 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
     .anime-card:hover {
       transform: scale(1.04);
-      border-color: var(--red);
+      border-color: var(--primary);
       z-index: 5;
     }
     .anime-card.active-series {
-      border-color: var(--red);
-      box-shadow: 0 0 0 1px var(--red), 0 8px 30px rgba(229,9,20,0.3);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 8px 30px rgba(0,255,170,0.2);
     }
 
     .card-poster {
@@ -368,7 +360,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       justify-content: center;
     }
 
-    /* Poster placeholder art */
     .card-poster-art {
       width: 100%;
       height: 100%;
@@ -377,9 +368,9 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       justify-content: center;
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 40px;
-      color: rgba(229,9,20,0.2);
+      color: rgba(0,255,170,0.15);
       font-weight: 700;
-      background: linear-gradient(135deg, #1a0505 0%, #0d0d0d 50%, #1a0808 100%);
+      background: linear-gradient(135deg, #0c1618 0%, #080c10 50%, #0d121a 100%);
       position: relative;
       overflow: hidden;
     }
@@ -389,12 +380,12 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       inset: 0;
       background: repeating-linear-gradient(-45deg,
         transparent, transparent 20px,
-        rgba(229,9,20,0.03) 20px, rgba(229,9,20,0.03) 21px
+        rgba(0,255,170,0.02) 20px, rgba(0,255,170,0.02) 21px
       );
     }
     .card-poster-art .kanji-art {
       font-size: clamp(30px, 4vw, 60px);
-      color: rgba(229,9,20,0.15);
+      color: rgba(0,255,170,0.1);
       writing-mode: vertical-rl;
       letter-spacing: -4px;
       position: absolute;
@@ -428,7 +419,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       transform: scale(0.8);
       transition: transform 0.2s;
     }
-    .anime-card:hover .play-icon { transform: scale(1); }
+    .anime-card:hover .play-icon { transform: scale(1); background: var(--primary); }
 
     .card-footer {
       padding: 10px 12px;
@@ -449,8 +440,9 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       color: var(--text-muted);
     }
     .card-ep-count {
-      background: var(--red);
-      color: #fff;
+      background: var(--border);
+      color: var(--primary);
+      border: 1px solid rgba(0,255,170,0.3);
       font-size: 10px;
       font-weight: 700;
       padding: 1px 5px;
@@ -458,8 +450,8 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
 
     /* ═══════════════════════════════
-       PLAYER SECTION
-    ═══════════════════════════════ */
+        PLAYER SECTION
+       ═══════════════════════════════ */
     .player-section {
       padding: 0 4% 60px;
       display: none;
@@ -491,7 +483,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       transition: all 0.2s;
       flex-shrink: 0;
     }
-    .back-btn:hover { border-color: var(--red); color: var(--red); }
+    .back-btn:hover { border-color: var(--primary); color: var(--primary); }
 
     .player-series-name {
       font-size: 18px;
@@ -499,9 +491,9 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       color: #fff;
     }
     .player-ep-name {
-      color: var(--text-muted);
+      color: var(--primary);
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .video-wrapper {
@@ -512,6 +504,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       overflow: hidden;
       background: #000;
       box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      border: 1px solid var(--border);
     }
     @supports (aspect-ratio: 16/9) {
       .video-wrapper { padding-top: 0; aspect-ratio: 16/9; }
@@ -525,7 +518,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     .loading-overlay {
       position: absolute;
       inset: 0;
-      background: #000;
+      background: #06080c;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -537,19 +530,19 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     .loading-overlay.hidden { opacity: 0; pointer-events: none; }
     .spinner {
       width: 44px; height: 44px;
-      border: 3px solid #222;
-      border-top-color: var(--red);
+      border: 3px solid #1a202c;
+      border-top-color: var(--primary);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-overlay span { color: var(--text-muted); font-size: 13px; }
+    .loading-overlay span { color: var(--text-muted); font-size: 13px; letter-spacing: 0.5px; }
 
     .error-banner {
       display: none;
-      background: rgba(229,9,20,0.1);
-      border: 1px solid rgba(229,9,20,0.4);
-      color: #ff9090;
+      background: rgba(0,255,170,0.05);
+      border: 1px solid rgba(0,255,170,0.2);
+      color: var(--primary);
       border-radius: 8px;
       padding: 12px 16px;
       margin-top: 14px;
@@ -557,7 +550,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
     .error-banner.visible { display: block; }
 
-    /* Episode list below player */
     .ep-section {
       margin-top: 30px;
     }
@@ -587,7 +579,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       font-family: var(--font-body);
       transition: all 0.2s;
     }
-    .ep-nav-btn:hover:not(:disabled) { border-color: var(--red); color: var(--red); }
+    .ep-nav-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
     .ep-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
     .ep-grid {
@@ -607,12 +599,13 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       transition: all 0.2s;
       font-family: var(--font-body);
     }
-    .ep-btn:hover { border-color: var(--red); color: var(--red); }
+    .ep-btn:hover { border-color: var(--primary); color: var(--primary); }
     .ep-btn.active {
-      background: var(--red);
-      border-color: var(--red);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(229,9,20,0.4);
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0,255,170,0.3);
     }
     .ep-btn.missing {
       opacity: 0.35;
@@ -621,9 +614,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     }
     .ep-btn.missing:hover { border-color: var(--border); color: var(--text); }
 
-    /* ═══════════════════════════════
-       FOOTER
-    ═══════════════════════════════ */
     footer {
       border-top: 1px solid var(--border);
       padding: 30px 4%;
@@ -632,29 +622,23 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       font-size: 12px;
       letter-spacing: 0.5px;
     }
-    footer span { color: var(--red); font-weight: 700; }
+    footer span { color: var(--primary); font-weight: 700; }
 
-    /* ═══════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════ */
     @media (max-width: 768px) {
       .hero { height: 75vh; }
       .hero-content { padding: 0 4% 8%; }
       .hero-kanji { display: none; }
       .card-row { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
-      .navbar { padding: 0 4%; }
     }
     @media (max-width: 480px) {
       .hero-title { font-size: 38px; }
       .card-row { grid-template-columns: repeat(2, 1fr); }
-      .hero-actions { gap: 8px; }
       .btn-watch, .btn-info { padding: 10px 18px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-logo">KHANG<span>HUB</span></div>
   <div class="nav-right">
@@ -662,7 +646,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
   </div>
 </nav>
 
-<!-- HERO BANNER -->
 <section class="hero" id="hero-section">
   <div class="hero-bg"></div>
   <div class="hero-slash"></div>
@@ -674,7 +657,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       <span class="hero-badge gold">Phần đặc biệt</span>
       <span class="hero-year">2024</span>
     </div>
-    <div class="hero-title-jp">鬼滅の刃 — 柱稽古編</div>
+    <div class="hero-title-jp">鬼滅 của刃 — 柱稽古編</div>
     <h1 class="hero-title">THANH GƯƠM<br><span class="accent">DIỆT QUỶ</span></h1>
     <div class="hero-subtitle">Phần Đặc Huấn Đại Trụ</div>
     <p class="hero-desc">
@@ -699,7 +682,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
   </div>
 </section>
 
-<!-- BROWSE SECTION -->
 <section class="browse" id="browse-section">
   <div class="row-label">
     <span>Danh sách phim</span>
@@ -709,7 +691,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
   <div class="card-row" id="card-row"></div>
 </section>
 
-<!-- PLAYER SECTION -->
 <section class="player-section" id="player-section">
   <div class="player-header">
     <button class="back-btn" onclick="closeSeries()">
@@ -727,7 +708,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       <div class="spinner"></div>
       <span>Đang tải tập phim...</span>
     </div>
-    <iframe id="anime-player" src="" allow="autoplay; encrypted-media" allowfullscreen title="Anime player"></iframe>
+    <iframe id="anime-player" src="about:blank" allow="autoplay; encrypted-media" allowfullscreen title="Anime player"></iframe>
   </div>
 
   <div class="error-banner" id="error-banner">
@@ -752,7 +733,7 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
 
 <script>
   // ═══════════════════════════════════════════
-  // DATA — Thêm phim mới vào đây
+  // DATA — Cấu hình Phim & Tập Phim
   // ═══════════════════════════════════════════
   const STORAGE_KEY = 'khanghub_state';
 
@@ -775,31 +756,12 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
         { name: 'Tập 07', driveId: '15uXIGx79acu9zz9VTwf4knooDcptmpVP' },
         { name: 'Tập 08', driveId: '1oSD1fwayk2VHJ7AlBe0yIGhc_o3w8cMO' },
       ]
-    },
-    // Thêm phim mới tại đây:
-    // {
-    //   id: 'ten-phim',
-    //   title: 'Tên Phim',
-    //   subtitle: 'Phần / Mùa',
-    //   titleJP: 'タイトル',
-    //   icon: '🗡️',
-    //   year: 2024,
-    //   genre: 'Thể loại',
-    //   episodes: [
-    //     { name: 'Tập 01', driveId: 'DRIVE_ID' },
-    //   ]
-    // },
+    }
   ];
 
-  // ═══════════════════════════════════════════
-  // STATE
-  // ═══════════════════════════════════════════
   let activeSeries = null;
   let currentEpIndex = -1;
 
-  // ═══════════════════════════════════════════
-  // HELPERS
-  // ═══════════════════════════════════════════
   const isValidId = id => id && id.trim() !== '' && !id.startsWith('ĐIỀN_');
   const buildUrl  = id => `https://drive.google.com/file/d/${id}/preview`;
 
@@ -810,9 +772,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch(_) { return null; }
   }
 
-  // ═══════════════════════════════════════════
-  // RENDER CARDS
-  // ═══════════════════════════════════════════
   function renderCards() {
     const row = document.getElementById('card-row');
     document.getElementById('series-count').textContent = seriesList.length + ' bộ phim';
@@ -848,25 +807,17 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     });
   }
 
-  // ═══════════════════════════════════════════
-  // OPEN / CLOSE SERIES
-  // ═══════════════════════════════════════════
   function openSeries(seriesIndex, epIndex = 0) {
     activeSeries = seriesList[seriesIndex];
     document.getElementById('player-series-name').textContent = activeSeries.title + ' — ' + activeSeries.subtitle;
 
-    // Mark active card
     document.querySelectorAll('.anime-card').forEach(c => c.classList.remove('active-series'));
     const card = document.getElementById('card-' + activeSeries.id);
     if (card) card.classList.add('active-series');
 
-    // Show player
     document.getElementById('player-section').classList.add('visible');
-
-    // Build episode buttons
     buildEpButtons();
 
-    // Find valid start ep
     let startEp = epIndex;
     if (!isValidId(activeSeries.episodes[startEp]?.driveId)) {
       startEp = activeSeries.episodes.findIndex(e => isValidId(e.driveId));
@@ -875,7 +826,6 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
 
     playEpisode(startEp);
 
-    // Scroll to player
     setTimeout(() => {
       document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 50);
@@ -883,15 +833,12 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
 
   function closeSeries() {
     document.getElementById('player-section').classList.remove('visible');
-    document.getElementById('anime-player').src = '';
+    document.getElementById('anime-player').src = 'about:blank'; // Tránh lỗi gọi lại thư mục
     document.querySelectorAll('.anime-card').forEach(c => c.classList.remove('active-series'));
     activeSeries = null;
     document.getElementById('browse-section').scrollIntoView({ behavior: 'smooth' });
   }
 
-  // ═══════════════════════════════════════════
-  // EPISODE BUTTONS
-  // ═══════════════════════════════════════════
   function buildEpButtons() {
     const container = document.getElementById('ep-buttons-container');
     container.innerHTML = '';
@@ -907,35 +854,26 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
     });
   }
 
-  // ═══════════════════════════════════════════
-  // PLAYBACK
-  // ═══════════════════════════════════════════
   function playEpisode(index) {
     if (!activeSeries || index < 0 || index >= activeSeries.episodes.length) return;
     currentEpIndex = index;
     const ep = activeSeries.episodes[index];
 
-    // Update ep name
     document.getElementById('player-ep-name').textContent = ep.name;
-
-    // Highlight button
     document.querySelectorAll('.ep-btn').forEach((b, i) => b.classList.toggle('active', i === index));
 
-    // Prev / Next state
     document.getElementById('btn-prev').disabled = index === 0;
     document.getElementById('btn-next').disabled = index === activeSeries.episodes.length - 1;
 
-    // Error check
     const err = document.getElementById('error-banner');
     if (!isValidId(ep.driveId)) {
       err.classList.add('visible');
-      document.getElementById('anime-player').src = '';
+      document.getElementById('anime-player').src = 'about:blank'; // Sửa lỗi gọi nhầm link rỗng
       document.getElementById('loading-overlay').classList.add('hidden');
       return;
     }
     err.classList.remove('visible');
 
-    // Load iframe
     const overlay = document.getElementById('loading-overlay');
     overlay.classList.remove('hidden');
     const player = document.getElementById('anime-player');
@@ -951,24 +889,16 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
       playEpisode(currentEpIndex + 1);
   }
 
-  // ═══════════════════════════════════════════
-  // SCROLL HELPERS
-  // ═══════════════════════════════════════════
   function scrollToBrowse() {
     document.getElementById('browse-section').scrollIntoView({ behavior: 'smooth' });
   }
 
-  // Navbar scroll effect
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // ═══════════════════════════════════════════
-  // INIT
-  // ═══════════════════════════════════════════
   renderCards();
 
-  // Restore last watched
   const saved = loadState();
   if (saved?.seriesId) {
     const si = seriesList.findIndex(s => s.id === saved.seriesId);
@@ -977,5 +907,3 @@ cat > /mnt/user-data/outputs/khang_anime_hub.html << 'HTMLEOF'
 </script>
 </body>
 </html>
-HTMLEOF
-echo "Done"
