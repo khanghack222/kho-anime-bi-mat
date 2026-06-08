@@ -213,7 +213,7 @@
         }
 
         #err-msg {
-            color: var(--error);
+            color: var(--error) !important; /* Đã ép về màu đỏ cảnh báo */
             font-size: 13px;
             margin-top: 12px;
             display: none;
@@ -490,7 +490,7 @@
         <div class="login-box">
             <h2>🔒 SECURITY</h2>
             <p>Nhập mã PIN thành viên</p>
-            <input type="password" id="pin-input" placeholder="••••••••" onkeypress="handleKeyPress(event)" autocomplete="off" inputmode="numeric">
+            <input type="password" id="pin-input" placeholder="Mật khẩu..." onkeypress="handleKeyPress(event)" autocomplete="off">
             <button onclick="validatePin()">UNLOCK</button>
             <div id="err-msg">❌ Sai mã PIN!</div>
         </div>
@@ -524,7 +524,7 @@
 
     <script>
         // ===== CONFIG =====
-        // Mã PIN mới đã được mã hóa SHA-256 an toàn
+        // Khôi phục chính xác mã băm của mật khẩu "khang2026"
         const PIN_HASH = '1fbc43477839bf0da02c77f0a8d415eb6dbca0ee235fb3922f302b115467389c';
         
         const episodes = [
@@ -540,7 +540,6 @@
 
         // ===== HÀM TỰ ĐỘNG LẤY DIRECT LINK TỪ GITHUB RELEASES =====
         function getVideoUrl(filename) {
-            // Đã đổi từ archive.org sang đường dẫn GitHub Releases để khắc phục hoàn toàn lỗi 404
             return `https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
         }
 
@@ -702,7 +701,6 @@
         // Keyboard shortcuts (Mũi tên Trái / Phải để chuyển tập)
         document.addEventListener('keydown', (e) => {
             const lockScreen = document.getElementById('lock-screen');
-            // CHỈ kích hoạt phím tắt khi màn hình khóa ĐÃ ẨN
             if (!lockScreen || lockScreen.style.display !== 'none') return;
 
             switch(e.key) {
