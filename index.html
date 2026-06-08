@@ -581,22 +581,21 @@
         // ===== CONFIG =====
         const PIN_CODE = 'khang2026';
         
-        // Episodes - dùng github.io.neting.net proxy CORS-free
+        // Episodes - sử dụng raw.githubusercontent.com (tốt nhất)
         const episodes = [
-            { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
-            { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
-            { name: 'Tập 03', file: 'tgdq-tap3.mp4' },
-            { name: 'Tập 04', file: 'tgdq-tap4.mp4' },
-            { name: 'Tập 05', file: 'tgdq-tap5.mp4' },
-            { name: 'Tập 06', file: 'tgdq-tap6.mp4' },
-            { name: 'Tập 07', file: 'tgdq-tap7.mp4' },
-            { name: 'Tập 08', file: 'tgdq-tap8.mp4' }
+            { name: 'Tập 01', file: 'ep1.mp4' },
+            { name: 'Tập 02', file: 'ep2.mp4' },
+            { name: 'Tập 03', file: 'ep3.mp4' },
+            { name: 'Tập 04', file: 'ep4.mp4' },
+            { name: 'Tập 05', file: 'ep5.mp4' },
+            { name: 'Tập 06', file: 'ep6.mp4' },
+            { name: 'Tập 07', file: 'ep7.mp4' },
+            { name: 'Tập 08', file: 'ep8.mp4' }
         ];
 
-        // Tạo URL từ GitHub Release qua proxy CORS-free
+        // Tạo URL từ raw GitHub
         function getVideoUrl(filename) {
-            // Dùng github.io.neting.net - proxy CORS-free cho GitHub
-            return `https://github.io.neting.net/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
+            return `https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/videos/${filename}`;
         }
 
         // ===== PIN VALIDATION =====
