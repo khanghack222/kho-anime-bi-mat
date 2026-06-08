@@ -1,0 +1,7 @@
+git clone https://github.com/khanghack222/kho-anime-bi-mat
+cd kho-anime-bi-mat
+mkdir -p video
+gh release download phim -D video
+git add video/
+git commit -m "Add anime videos from release phim"
+git push
