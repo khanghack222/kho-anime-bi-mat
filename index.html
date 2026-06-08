@@ -10,10 +10,10 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --primary: #00ffaa; /* Đổi sang màu Xanh Neon chủ đạo */
+      --primary: #00ffaa; 
       --primary-dark: #00b377;
       --gold: #f5c518;
-      --bg: #0a0c10;      /* Nền tối pha chút ánh xanh lục bảo sâu */
+      --bg: #0a0c10;      
       --surface: #111622;
       --surface2: #182030;
       --border: #222d42;
@@ -624,21 +624,66 @@
     }
     footer span { color: var(--primary); font-weight: 700; }
 
+    /* ═══════════════════════════════
+        MEDIA QUERIES (RESPONSIVE)
+       ═══════════════════════════════ */
     @media (max-width: 768px) {
       .hero { height: 75vh; }
       .hero-content { padding: 0 4% 8%; }
       .hero-kanji { display: none; }
       .card-row { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+
+      /* 📱 FIX MENU TRÌNH PHÁT TRÊN ĐIỆN THOẠI/MÁY TÍNH BẢNG */
+      .player-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .back-btn {
+        width: 100%; /* Nút quay lại phủ kín dòng dễ bấm */
+        justify-content: center;
+      }
+      .ep-section-header {
+        flex-direction: column; /* Chuyển tiêu đề lên trên, nút điều hướng xuống dưới */
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .ep-nav {
+        width: 100%; /* Cụm nút Trước / Sau chiếm hết chiều rộng màn hình */
+      }
+      .ep-nav-btn {
+        flex: 1; /* Chia đôi tỷ lệ 50/50 đều nhau */
+        text-align: center;
+        padding: 10px;
+      }
+      .ep-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* Tự động chia đều thành 4 cột nút tập phim thẳng hàng */
+        gap: 8px;
+        width: 100%;
+      }
+      .ep-btn {
+        width: 100%;
+        padding: 11px 0; /* Xóa khoảng đệm ngang, chỉ giữ đệm dọc để chữ căn giữa */
+        text-align: center;
+      }
     }
+
     @media (max-width: 480px) {
       .hero-title { font-size: 38px; }
       .card-row { grid-template-columns: repeat(2, 1fr); }
       .btn-watch, .btn-info { padding: 10px 18px; font-size: 14px; }
+      
+      /* Màn hình điện thoại siêu nhỏ: Đổi sang 3 cột nút cho rộng rãi, không bị chen chúc */
+      .ep-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-logo">KHANG<span>HUB</span></div>
   <div class="nav-right">
@@ -646,6 +691,7 @@
   </div>
 </nav>
 
+<!-- HERO BANNER -->
 <section class="hero" id="hero-section">
   <div class="hero-bg"></div>
   <div class="hero-slash"></div>
@@ -682,6 +728,7 @@
   </div>
 </section>
 
+<!-- BROWSE SECTION -->
 <section class="browse" id="browse-section">
   <div class="row-label">
     <span>Danh sách phim</span>
@@ -691,6 +738,7 @@
   <div class="card-row" id="card-row"></div>
 </section>
 
+<!-- PLAYER SECTION -->
 <section class="player-section" id="player-section">
   <div class="player-header">
     <button class="back-btn" onclick="closeSeries()">
@@ -753,7 +801,7 @@
         { name: 'Tập 04', driveId: '1_DDRe7d2G0OL4SBU0NGJQfFOb1ML9U-B' },
         { name: 'Tập 05', driveId: '1ziV4ygz6ocbnc9qgxEicDXZF2ZzWLx7A' },
         { name: 'Tập 06', driveId: '1qJKf7X0YYDQ3ZCKYu6f52IoRFVrbALYf' },
-        { name: 'Tập 07', driveId: '15uXIGx79acu9zz9VTwf4knooDcptmpVP' },
+        { name: 'Taps 07', driveId: '15uXIGx79acu9zz9VTwf4knooDcptmpVP' },
         { name: 'Tập 08', driveId: '1oSD1fwayk2VHJ7AlBe0yIGhc_o3w8cMO' },
       ]
     }
@@ -833,7 +881,7 @@
 
   function closeSeries() {
     document.getElementById('player-section').classList.remove('visible');
-    document.getElementById('anime-player').src = 'about:blank'; // Tránh lỗi gọi lại thư mục
+    document.getElementById('anime-player').src = 'about:blank'; 
     document.querySelectorAll('.anime-card').forEach(c => c.classList.remove('active-series'));
     activeSeries = null;
     document.getElementById('browse-section').scrollIntoView({ behavior: 'smooth' });
@@ -868,7 +916,7 @@
     const err = document.getElementById('error-banner');
     if (!isValidId(ep.driveId)) {
       err.classList.add('visible');
-      document.getElementById('anime-player').src = 'about:blank'; // Sửa lỗi gọi nhầm link rỗng
+      document.getElementById('anime-player').src = 'about:blank'; 
       document.getElementById('loading-overlay').classList.add('hidden');
       return;
     }
