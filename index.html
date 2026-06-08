@@ -480,6 +480,7 @@
       .player-header { flex-direction: column; align-items: flex-start; gap: 12px; }
       .back-btn { width: 100%; justify-content: center; min-height: 40px; }
       .ep-section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .nav-badge { display: none; }
       .ep-nav { width: 100%; }
       .ep-nav-btn { flex: 1; text-align: center; padding: 12px; min-height: 40px; }
       .ep-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; }
@@ -525,7 +526,7 @@
       <div class="hero-badge-row">
         <span class="hero-badge">Mới nhất</span>
         <span class="hero-badge gold">Phần đặc biệt</span>
-        <span class="hero-year">2024</span>
+        <span class="hero-year">2026</span>
       </div>
       <div class="hero-title-jp">鬼滅の刃 — 柱稽古編</div>
       <h1 class="hero-title">THANH GƯƠM<br><span class="accent">DIỆT QUỶ</span></h1>
@@ -582,7 +583,7 @@
     </div>
 
     <div class="error-banner" id="error-banner">
-      ⚠️ Tập này chưa có link hoặc bị lỗi dữ liệu từ Drive. Vui lòng kiểm tra lại ID file.
+      ⚠️ Tập này chưa có link hoặc bị lỗi dữ liệu kết nối từ Google Cloud API. Vui lòng kiểm tra lại ID file.
     </div>
 
     <div class="ep-section">
@@ -598,7 +599,7 @@
   </section>
 
   <footer>
-    Làm bởi <span>Khang</span> · Powered by ArtPlayer HTML5 · Chỉ dùng cá nhân
+    Làm bởi <span>Khang</span> · Powered by Artplayer HTML5 · Chỉ dùng cá nhân
   </footer>
 </div>
 
@@ -640,6 +641,9 @@
   // ═══════════════════════════════════════════
   const STORAGE_KEY = 'khanghub_state';
 
+  // TÍCH HỢP KHÓA GOOGLE DRIVE API ĐỘC QUYỀN CỦA KHANG
+  const GOOGLE_API_KEY = 'AIzaSyAl1Wd6Djg2y666Vpn3gczmqFrUpRG0bnQ';
+
   const seriesList = [
     {
       id: 'tgdq-s4',
@@ -664,12 +668,12 @@
 
   let activeSeries = null;
   let currentEpIndex = -1;
-  let art = null; // Biến giữ phiên bản ArtPlayer toàn cục
+  let art = null; 
 
   const isValidId = id => id && id.trim() !== '' && !id.startsWith('ĐIỀN_');
   
-  // Ép link Drive xuất dữ liệu thô (Direct Stream) để nạp vào ArtPlayer
-  const buildDirectUrl = id => `https://docs.google.com/uc?export=download&id=${id}`;
+  // Tối ưu hóa: Sinh đường dẫn luồng (Direct Stream URL) chuẩn hóa qua cổng Google API Key công cộng
+  const buildDirectUrl = id => `https://www.googleapis.com/drive/3/files/${id}?alt=media&key=${GOOGLE_API_KEY}`;
 
   function saveState() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ seriesId: activeSeries?.id, epIndex: currentEpIndex })); } catch(_) {}
@@ -788,7 +792,7 @@
 
     const videoUrl = buildDirectUrl(ep.driveId);
 
-    // KIỂM TRA KHỞI TẠO HOẶC CHUYỂN LINK TRÊN ARTPLAYER
+    // SỬA LỖI ĐỒNG BỘ: SỬ DỤNG ĐÚNG ĐỊNH DẠNG ĐỐI TƯỢNG ARTPLAYER
     if (art) {
       art.switchUrl(videoUrl).then(() => {
         overlay.classList.add('hidden');
@@ -796,7 +800,7 @@
         overlay.classList.add('hidden');
       });
     } else {
-      art = new ArtPlayer({
+      art = new Artplayer({
         container: '#artplayer-container',
         url: videoUrl,
         volume: 0.7,
@@ -817,18 +821,22 @@
         miniProgressBar: true,
         mutex: true,
         backdrop: true,
-        theme: '#00ffaa', // Màu chủ đạo xanh Neon của KhangHub
+        theme: '#00ffaa', 
         whitelist: ['*'],
+        moreVideoAttr: {
+            crossOrigin: 'anonymous', // Bật cờ kiểm tra vượt rào CORS chặn file stream từ Google Cloud
+        },
       });
 
-      // LẮNG NGHE SỰ KIỆN ĐỂ ẨN MÀN HÌNH CHỜ KHI VIDEO SẴN SÀNG
+      // BỘ ĐIỀU KHIỂN SỰ KIỆN ĐỂ ẨN MÀN HÌNH CHỜ LOADER KHANGHUB
       art.on('ready', () => {
         overlay.classList.add('hidden');
       });
       art.on('video:canplay', () => {
         overlay.classList.add('hidden');
       });
-      art.on('error', () => {
+      art.on('error', (error) => {
+        console.error("Artplayer Error Core:", error);
         overlay.classList.add('hidden');
         err.classList.add('visible');
       });
