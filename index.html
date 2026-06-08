@@ -171,17 +171,15 @@
         
         <div class="episode-buttons">
             <button class="ep-btn active" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/demon.slayer.t.p.1.mp4', 'Tập 01', this)">Tập 01</button>
-            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.2.Vietsub.L.ng.mp4', 'Tập 02', this)">Tập 02</button>
-            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.3.Vietsub.L.ng.mp4', 'Tập 03', this)">Tập 03</button>
-            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.4.Vietsub.L.ng.mp4', 'Tập 04', this)">Tập 04</button>
-            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.5.Vietsub.L.ng.mp4', 'Tập 05', this)">Tập 05</button>
-            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.6.Vietsub.L.ng.mp4', 'Tập 06', this)">Tập 06</button>
-            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.7.Vietsub.L.ng.mp4', 'Tập 07', this)">Tập 07</button>
-            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.8.Vietsub.L.ng.mp4', 'Tập 08', this)">Tập 08</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap2.mp4', 'Tập 02', this)">Tập 02</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap3.mp4', 'Tập 03', this)">Tập 03</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap4.mp4', 'Tập 04', this)">Tập 04</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap5.mp4', 'Tập 05', this)">Tập 05</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap6.mp4', 'Tập 06', this)">Tập 06</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap7.mp4', 'Tập 07', this)">Tập 07</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/tgdq-tap8.mp4', 'Tập 08', this)">Tập 08</button>
         </div>
-    </div>
-
-    <script>
+    </div> <script>
         // Mật khẩu dạng obfuscate an toàn tuyệt đối
         const _0x1f2e = ['\x6b\x68\x61\x6e\x67\x32\x30\x32\x36', '\x6e\x6f\x6e\x65', '\x62\x6c\x6f\x63\x6b'];
         
@@ -190,12 +188,10 @@
             const errMsg = document.getElementById('err-msg');
             
             if (inputVal === _0x1f2e[0]) {
-                // Đúng pass: ẩn màn hình khóa, hiện kho phim
                 document.getElementById('lock-screen').style.display = _0x1f2e[1];
                 document.getElementById('anime-hub').style.display = _0x1f2e[2];
                 errMsg.style.display = _0x1f2e[1];
             } else {
-                // Sai pass: hiện thông báo lỗi chữ đỏ
                 errMsg.style.display = _0x1f2e[2];
             }
         }
