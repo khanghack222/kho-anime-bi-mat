@@ -3,528 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Động Anime Bí Mật Của Khang</title>
+    <title>Khang Anime Hub - Google Drive Stream</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #00ffcc;
             --primary-dark: #00cc99;
-            --bg-dark: #1a1c23;
-            --bg-card: #242734;
-            --border: #2e3440;
-            --text: #eceff4;
-            --text-sub: #a3be8c;
-            --error: #ff4757;
-            --success: #2ed573;
+            --bg-dark: #101216;
+            --bg-card: #171a21;
+            --border: #232834;
+            --text: #f0f3f5;
+            --text-sub: #8f9cae;
         }
-
-        html, body {
-            height: 100%;
-            width: 100%;
-        }
-
         body {
             background-color: var(--bg-dark);
             color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Quicksand', sans-serif;
-            padding-bottom: 30px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding-bottom: 40px;
             overflow-x: hidden;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            will-change: scroll-position;
         }
-
-        /* ===== NAVBAR ===== */
         .navbar {
-            background: linear-gradient(135deg, rgba(36, 39, 52, 0.98), rgba(26, 28, 35, 0.95));
-            backdrop-filter: blur(10px);
-            padding: 12px 16px;
+            background: rgba(23, 26, 33, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 2px solid var(--primary);
-            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.1);
+            border-bottom: 1px solid var(--border);
             position: sticky;
-            top: 0;
-            z-index: 100;
-            animation: slideDown 0.4s ease-out;
+            top: 0; z-index: 100;
         }
-
-        @media (prefers-reduced-motion: reduce) {
-            .navbar { animation: none; }
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
         .navbar-title {
             color: var(--primary);
-            font-size: clamp(18px, 5vw, 24px);
+            font-size: 20px;
             font-weight: 800;
             letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-
-        .tag-bimat {
+        .tag-status {
             background: linear-gradient(135deg, #00ffcc, #00cc99);
-            color: var(--bg-dark);
-            padding: 6px 12px;
-            border-radius: 20px;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 6px;
             font-size: 11px;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
-            animation: pulse 2s infinite;
         }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        /* ===== MAIN CONTAINER ===== */
         .main-container {
-            max-width: 950px;
-            margin: 20px auto;
-            padding: 0 12px;
-            animation: fadeIn 0.5s ease-out 0.2s both;
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 0 16px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .video-player-wrapper {
-            position: relative;
+        .artplayer-app {
             width: 100%;
-            background-color: #000;
-            border-radius: 16px;
-            border: 2px solid var(--border);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
-            overflow: hidden;
             aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            transition: all 0.3s ease;
-        }
-
-        .video-player-wrapper:hover {
-            box-shadow: 0 15px 50px rgba(0, 255, 204, 0.2);
-            border-color: var(--primary);
-        }
-
-        .video-player-wrapper video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
             background-color: #000;
-            display: block;
         }
-
-        .video-error {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: var(--error);
-            font-size: 14px;
-            text-align: center;
-            padding: 20px;
-            line-height: 1.6;
-            gap: 15px;
-        }
-
-        .retry-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--bg-dark);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .retry-btn:hover {
-            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
-        }
-
-        /* ===== ANIME INFO ===== */
-        .anime-info {
-            margin-bottom: 20px;
-            animation: slideInLeft 0.5s ease-out 0.3s both;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .anime-title {
-            font-size: clamp(20px, 6vw, 26px);
-            font-weight: 700;
-            color: var(--text);
-            margin: 12px 0 6px 0;
-            text-align: left;
-            letter-spacing: 0.5px;
-        }
-
-        .anime-sub {
-            color: var(--text-sub);
-            font-size: 13px;
-            text-align: left;
-            font-weight: 500;
-        }
-
+        .anime-info { margin: 20px 0; }
+        .anime-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .anime-sub { color: var(--text-sub); font-size: 14px; }
         .section-title {
             color: var(--primary);
-            font-size: clamp(16px, 4vw, 18px);
-            text-align: left;
-            margin: 20px 0 12px 0;
+            font-size: 16px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin: 25px 0 15px 0;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-
-        .section-title::before {
-            content: "▶";
-            font-size: 12px;
-        }
-
-        hr {
-            border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
-            margin: 20px 0;
-        }
-
-        /* ===== EPISODE BUTTONS ===== */
+        .section-title::before { content: "⚡"; }
         .episode-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            justify-content: flex-start;
-            animation: slideInUp 0.5s ease-out 0.4s both;
+            gap: 10px;
         }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .ep-btn {
-            background: linear-gradient(135deg, rgba(46, 52, 64, 0.8), rgba(42, 45, 60, 0.8));
-            color: rgba(216, 222, 233, 0.9);
-            border: 1px solid rgba(76, 86, 106, 0.6);
-            padding: 10px 16px;
-            font-size: 13px;
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             border-radius: 8px;
             transition: all 0.2s ease;
-            backdrop-filter: blur(10px);
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
         }
-
-        .ep-btn:hover:not(:disabled) {
-            background: rgba(0, 255, 204, 0.1);
+        .ep-btn:hover {
             border-color: var(--primary);
             color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 255, 204, 0.2);
         }
-
-        .ep-btn:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
         .ep-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: var(--primary);
             border-color: var(--primary);
-            color: var(--bg-dark);
-            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+            color: #000;
             font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
         }
-
-        .ep-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* ===== LOADING & STATUS ===== */
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            color: var(--primary);
-            margin: 15px 0;
-            font-size: 14px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .loading-spinner::after {
-            content: "⏳ Đang tải...";
-            animation: dots 1s steps(4, end) infinite;
-            letter-spacing: 0;
-        }
-
-        @keyframes dots {
-            0%, 20% { opacity: 0.5; }
-            40% { opacity: 0.7; }
-            60% { opacity: 1; }
-            80%, 100% { opacity: 0.5; }
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 640px) {
-            body { padding-bottom: 20px; }
-            .navbar { padding: 10px 12px; gap: 8px; }
-            .navbar-title { font-size: 18px; }
-            .tag-bimat { font-size: 10px; padding: 5px 10px; }
-            .main-container { margin: 15px auto; padding: 0 8px; }
-            .video-player-wrapper { margin-bottom: 15px; border-radius: 12px; }
-            .anime-title { font-size: 18px; }
-            .episode-buttons { gap: 6px; }
-            .ep-btn { padding: 9px 14px; font-size: 12px; border-radius: 6px; }
-            .section-title { font-size: 14px; margin: 15px 0 10px 0; }
-        }
-
-        @media (max-width: 380px) {
-            .navbar { flex-direction: column; gap: 6px; padding: 8px 10px; }
-            .navbar-title { font-size: 16px; }
-            .tag-bimat { width: 100%; padding: 5px 8px; }
-            .episode-buttons { gap: 5px; }
-            .ep-btn { padding: 8px 12px; font-size: 11px; flex: 1 1 calc(25% - 5px); }
-            .anime-title { font-size: 16px; margin: 10px 0 5px 0; }
-        }
-
-        /* ===== PERFORMANCE ===== */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            .ep-btn:hover { transform: none; }
+        @media (max-width: 768px) {
+            .anime-title { font-size: 20px; }
+            .ep-btn { padding: 10px 16px; font-size: 13px; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.js"></script>
 </head>
 <body>
 
     <div class="navbar">
         <div class="navbar-title">✨ KHANG ANIME HUB</div>
-        <div class="tag-bimat">PUBLIC</div>
+        <div class="tag-status">GOOGLE STREAM • NO ADS</div>
     </div>
 
-    <div class="main-container" id="anime-hub">
-        <div class="video-player-wrapper" id="video-container">
-            <video id="main-player" controls preload="metadata" crossorigin="anonymous"></video>
-        </div>
-
-        <div class="loading-spinner" id="loading-spinner"></div>
+    <div class="main-container">
+        <div class="artplayer-app"></div>
 
         <div class="anime-info">
-            <div class="anime-title" id="current-ep-title">Thanh Gươm Diệt Quỷ (Mùa 4)</div>
-            <div class="anime-sub">🌸 Vietsub lồng tiếng | Không quảng cáo</div>
+            <div class="anime-title" id="current-ep-title">Đang tải phim...</div>
+            <div class="anime-sub">🌸 Phát trực tiếp từ Google Drive Server tốc độ cực cao</div>
         </div>
 
-        <hr>
-
-        <div class="section-title">Danh sách tập</div>
-
+        <div class="section-title">Danh sách tập phim</div>
         <div class="episode-buttons" id="ep-buttons-container"></div>
     </div>
 
     <script>
-        // ===== CONFIG =====
-        const episodes = [
-            { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
-            { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
-            { name: 'Tập 03', file: 'tgdq-tap3.mp4' },
-            { name: 'Tập 04', file: 'tgdq-tap4.mp4' },
-            { name: 'Tập 05', file: 'tgdq-tap5.mp4' },
-            { name: 'Tập 06', file: 'tgdq-tap6.mp4' },
-            { name: 'Tập 07', file: 'tgdq-tap7.mp4' },
-            { name: 'Tập 08', file: 'tgdq-tap8.mp4' }
-        ];
-
-        // ===== HÀM TỰ ĐỘNG LẤY DIRECT LINK TỪ GITHUB RELEASES =====
-        function getVideoUrl(filename) {
-            return `https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
-        }
-
-        // ===== CREATE BUTTONS =====
-        function createEpisodeButtons() {
-            const container = document.getElementById('ep-buttons-container');
-            container.innerHTML = '';
-
-            episodes.forEach((ep, index) => {
-                const button = document.createElement('button');
-                button.className = 'ep-btn';
-                button.textContent = ep.name;
-                button.onclick = () => playEpisode(index);
-                container.appendChild(button);
-            });
-        }
-
-        // ===== PLAY EPISODE =====
-        let currentIndex = -1;
-        let retryCount = 0;
-        const MAX_RETRIES = 2;
-        
-        function playEpisode(index) {
-            if (index < 0 || index >= episodes.length) return;
-
-            currentIndex = index;
-            retryCount = 0;
-            const episode = episodes[index];
-            const container = document.getElementById('video-container');
-
-            // Lưu tập đang xem vào LocalStorage
-            localStorage.setItem('khang_anime_last_ep', index);
-
-            document.getElementById('current-ep-title').textContent = 
-                'Thanh Gươm Diệt Quỷ (Mùa 4) - ' + episode.name;
-
-            const buttons = document.querySelectorAll('.ep-btn');
-            buttons.forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
-
-            showLoading(true);
-            const videoUrl = getVideoUrl(episode.file);
-            
-            // Khởi tạo player mới
-            container.innerHTML = '<video id="main-player" controls preload="metadata" crossorigin="anonymous"></video>';
-            const newPlayer = document.getElementById('main-player');
-            
-            newPlayer.src = videoUrl;
-            newPlayer.onerror = () => handleVideoError(index);
-            newPlayer.onloadeddata = () => {
-                showLoading(false);
-                newPlayer.play().catch(err => {
-                    console.log('Auto-play prevented:', err);
-                });
-            };
-            newPlayer.ontimeupdate = () => {
-                if (newPlayer.currentTime > 0) {
-                    showLoading(false);
-                }
-            };
-
-            // Sự kiện Tự Động Chuyển Tập khi hết video
-            newPlayer.onended = () => {
-                if (currentIndex < episodes.length - 1) {
-                    console.log('Đang tự động chuyển sang tập tiếp theo...');
-                    playEpisode(currentIndex + 1);
-                }
-            };
-
-            newPlayer.load();
-        }
-
-        function handleVideoError(index) {
-            showLoading(false);
-            if (retryCount < MAX_RETRIES) {
-                retryCount++;
-                console.log(`Retry ${retryCount}/${MAX_RETRIES} for episode ${index}`);
-                setTimeout(() => playEpisode(index), 2000);
-                return;
-            }
-            showVideoError(index);
-        }
-
-        function showLoading(show) {
-            document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
-        }
-
-        function showVideoError(index) {
-            const container = document.getElementById('video-container');
-            const episode = episodes[index] || {};
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'video-error';
-            errorDiv.innerHTML = `
-                <div>❌ Không thể tải video</div>
-                <div style="font-size: 12px; opacity: 0.7;">
-                    ${episode.name || 'Tập không xác định'}<br>
-                    Kiểm tra kết nối internet hoặc file trên GitHub bị lỗi.
-                </div>
-                <button class="retry-btn" onclick="playEpisode(${index})">🔄 Thử lại</button>
-                ${index > 0 ? `<button class="retry-btn" onclick="playEpisode(${index - 1})" style="background: rgba(76, 86, 106, 0.8);">← Tập trước</button>` : ''}
-            `;
-            container.innerHTML = '';
-            container.appendChild(errorDiv);
-        }
-
-        // ===== INIT =====
-        window.addEventListener('DOMContentLoaded', () => {
-            createEpisodeButtons();
-            
-            // Đọc tập cũ đã xem, nếu không có thì bật luôn tập đầu tiên
-            const savedIndex = localStorage.getItem('khang_anime_last_ep');
-            const lastIndex = (savedIndex !== null && savedIndex < episodes.length) ? parseInt(savedIndex) : 0;
-            playEpisode(lastIndex);
-        });
-
-        // Cleanup giải phóng bộ nhớ khi chuyển trang
-        window.addEventListener('beforeunload', () => {
-            const player = document.getElementById('main-player');
-            if (player) {
-                player.src = '';
-                player.load();
-            }
-        });
-
-        // Điều khiển chuyển tập bằng bàn phím (Mũi tên Trái / Phải)
-        document.addEventListener('keydown', (e) => {
-            switch(e.key) {
-                case 'ArrowLeft':
-                    if (currentIndex > 0) playEpisode(currentIndex - 1);
-                    break;
-                case 'ArrowRight':
-                    if (currentIndex < episodes.length - 1) playEpisode(currentIndex + 1);
-                    break;
-            }
-        });
-    </script>
-
-</body>
-</html>
+        // ===== CẤU HÌNH ID VIDEO GO
