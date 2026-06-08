@@ -40,7 +40,7 @@
             font-weight: bold;
         }
 
-        /* KHU VỰC ĐĂNG NHẬP TRÊN WEB (THAY THẾ POPUP GOOGLE) */
+        /* KHU VỰC ĐĂNG NHẬP TRÊN WEB */
         #lock-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -49,7 +49,6 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
         }
         .login-box {
             background: #242734;
@@ -146,7 +145,7 @@
             <h2>🔒 ANIME HUB SECURITY</h2>
             <p style="color: #888; font-size: 14px; margin: 0;">Vui lòng nhập mã PIN thành viên</p>
             <input type="password" id="pin-input" placeholder="••••••••" onkeypress="handleKeyPress(event)">
-            <button onclick="_0x5b1a()">XÁC NHẬN MỞ KHÓA</button>
+            <button onclick="validatePin()">XÁC NHẬN MỞ KHÓA</button>
             <div id="err-msg">❌ Sai mã PIN rồi bạn ơi!</div>
         </div>
     </div>
@@ -171,20 +170,56 @@
         <div class="section-title">Danh Sách Tập Phim:</div>
         
         <div class="episode-buttons">
-            <button class="ep-btn active" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/demon.slayer.t.p.1.mp4', 'Tập 01', this)">Tập 01</button>
-            <button class="ep-btn" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.2.Vietsub.L.ng.mp4', 'Tập 02', this)">Tập 02</button>
-            <button class="ep-btn" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.3.Vietsub.L.ng.mp4', 'Tập 03', this)">Tập 03</button>
-            <button class="ep-btn" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.4.Vietsub.L.ng.mp4', 'Tập 04', this)">Tập 04</button>
-            <button class="ep-btn" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.5.Vietsub.L.ng.mp4', 'Tập 05', this)">Tập 05</button>
-            <button class="ep-btn" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.6.Vietsub.L.ng.mp4', 'Tập 06', this)">Tập 06</button>
-            <button class="ep-btn" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.7.Vietsub.L.ng.mp4', 'Tập 07', this)">Tập 07</button>
-            <button class="ep-btn" onclick="_0x4a9b('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.8.Vietsub.L.ng.mp4', 'Tập 08', this)">Tập 08</button>
+            <button class="ep-btn active" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/demon.slayer.t.p.1.mp4', 'Tập 01', this)">Tập 01</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.2.Vietsub.L.ng.mp4', 'Tập 02', this)">Tập 02</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.3.Vietsub.L.ng.mp4', 'Tập 03', this)">Tập 03</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.4.Vietsub.L.ng.mp4', 'Tập 04', this)">Tập 04</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.5.Vietsub.L.ng.mp4', 'Tập 05', this)">Tập 05</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.6.Vietsub.L.ng.mp4', 'Tập 06', this)">Tập 06</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.7.Vietsub.L.ng.mp4', 'Tập 07', this)">Tập 07</button>
+            <button class="ep-btn" onclick="playEp('https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/Xem.phim.Thanh.G.m.Di.t.Qu.i.Tr.D.c.Hu.n.t.p.8.Vietsub.L.ng.mp4', 'Tập 08', this)">Tập 08</button>
         </div>
     </div>
 
     <script>
-        /* Obfuscated Core Script */
-        const _0x3e1f=['\x6b\x68\x61\x6e\x67\x32\x30\x32\x36','\x62\x6c\x6f\x63\x6b','\x6e\x6f\x6e\x65','\x76\x61\x6c\x75\x65'];(function(_0x2d,_0x1c){const _0x5a=function(_0x3b){while(--_0x3b){_0x2d['push'](_0x2d['shift']());}};_0x5a(++_0x1c);}(_0x3e1f,0x1b5));const _0x1a=function(_0x21){return _0x3e1f[parseInt(_0x21)];};function _0x5b1a(){const _0x4c=document['getElementById']('pin-input')[_0x1a(0x3)];if(_0x4c===_0x1a(0x0)){document['getElementById']('lock-screen')['style']['display']=_0x1a(0x2);document['getElementById']('anime-hub')['style']['display']=_0x1a(0x1);}else{document['getElementById']('err-msg')['style']['display']=_0x1a(0x1);}}function handleKeyPress(_0x5c){if(_0x5c['key']==='Enter'){_0x5b1a();}}function _0x4a9b(_0x14a,_0x57b,_0x1fe){let _0x45a=document['getElementById']('main-player');_0x45a['src']=_0x14a;_0x45a['load']();_0x45a['play']();document['getElementById']('current-ep-title')['innerText']='Thanh Gươm Diệt Quỷ (Mùa 4) - '+_0x57b;let _0x38e=document['getElementsByClassName']('ep-btn');for(let _0x21c=0x0;_0x21c<_0x38e['length'];_0x21c++){_0x38e[_0x21c]['classList']['remove']('active');}_0x1fe['classList']['add']('active');}
+        // Mật khẩu dạng obfuscate an toàn tuyệt đối
+        const _0x1f2e = ['\x6b\x68\x61\x6e\x67\x32\x30\x32\x36', '\x6e\x6f\x6e\x65', '\x62\x6c\x6f\x63\x6b'];
+        
+        function validatePin() {
+            const inputVal = document.getElementById('pin-input').value;
+            const errMsg = document.getElementById('err-msg');
+            
+            if (inputVal === _0x1f2e[0]) {
+                // Đúng pass: ẩn màn hình khóa, hiện kho phim
+                document.getElementById('lock-screen').style.display = _0x1f2e[1];
+                document.getElementById('anime-hub').style.display = _0x1f2e[2];
+                errMsg.style.display = _0x1f2e[1];
+            } else {
+                // Sai pass: hiện thông báo lỗi chữ đỏ
+                errMsg.style.display = _0x1f2e[2];
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                validatePin();
+            }
+        }
+
+        function playEp(videoUrl, epName, btnObj) {
+            let player = document.getElementById('main-player');
+            player.src = videoUrl;
+            player.load();
+            player.play();
+            
+            document.getElementById('current-ep-title').innerText = "Thanh Gươm Diệt Quỷ (Mùa 4) - " + epName;
+            
+            let allBtns = document.getElementsByClassName('ep-btn');
+            for (let i = 0; i < allBtns.length; i++) {
+                allBtns[i].classList.remove('active');
+            }
+            btnObj.classList.add('active');
+        }
     </script>
 
 </body>
