@@ -132,7 +132,7 @@
         .anime-sub { color: #a3be8c; font-size: 14px; margin-bottom: 30px; text-align: left; font-weight: 500; }
         .section-title { color: #00ffcc; font-size: 18px; text-align: left; margin-bottom: 15px; font-weight: bold; }
         .episode-buttons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-start; }
-        .ep-btn { background-color: #2e3440; color: #d8dee9; border: 2px solid #4c566a; padding: 12px 25px; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 30px; transition: all 0.3s ease; }
+        .ep-btn { background-color: #2e3440; color: #d8dee9; border: 2px solid #4c566a; padding: 12px 25px; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 30px; transition: all 0.3s; }
         .ep-btn:hover { background-color: rgba(0, 255, 204, 0.1); border-color: #00ffcc; color: #00ffcc; transform: translateY(-3px); }
         .ep-btn.active { background-color: #00ffcc; border-color: #00ffcc; color: #1a1c23; box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3); }
     </style>
@@ -182,8 +182,10 @@
     </div>
 
     <script>
-        const _0x1f2e = ['\x6b\x68\x61\x6e\x67\x32\x30\x32\x36', '\x6e\x6f\x6e\x65', '\x62\x6c\x6f\x63\x6b'];
+        // Mã PIN được mã hóa
+        const _0x1f2e = ['khang2026', 'none', 'block'];
         
+        // Hàm xác thực PIN
         function validatePin() {
             const inputVal = document.getElementById('pin-input').value;
             const errMsg = document.getElementById('err-msg');
@@ -197,12 +199,14 @@
             }
         }
 
+        // Hàm xử lý phím Enter
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 validatePin();
             }
         }
 
+        // Hàm phát tập phim
         function playEp(videoUrl, epName, btnObj) {
             let player = document.getElementById('main-player');
             player.src = videoUrl;
@@ -217,4 +221,7 @@
             }
             btnObj.classList.add('active');
         }
-    </
+    </script>
+
+</body>
+</html>
