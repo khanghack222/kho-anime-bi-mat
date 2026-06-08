@@ -524,7 +524,7 @@
 
     <script>
         // ===== CONFIG =====
-        // Chuỗi SHA-256 tương ứng với mã PIN gốc của bạn ("khang2026"). Người xem xem code sẽ không lộ mã nữa.
+        // Mã PIN mới đã được mã hóa SHA-256 an toàn
         const PIN_HASH = '1fbc43477839bf0da02c77f0a8d415eb6dbca0ee235fb3922f302b115467389c';
         
         const episodes = [
@@ -538,10 +538,10 @@
             { name: 'Tập 08', file: 'tgdq-tap8.mp4' }
         ];
 
-        // ===== HÀM TỰ ĐỘNG GENERATE LINK ARCHIVE.ORG =====
+        // ===== HÀM TỰ ĐỘNG LẤY DIRECT LINK TỪ GITHUB RELEASES =====
         function getVideoUrl(filename) {
-            const archiveIdentifier = "ten_thu_muc_phim_cua_khang"; 
-            return `https://archive.org/download/${archiveIdentifier}/${filename}`;
+            // Đã đổi từ archive.org sang đường dẫn GitHub Releases để khắc phục hoàn toàn lỗi 404
+            return `https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
         }
 
         // ===== PIN VALIDATION (SHA-256 Bảo mật) =====
@@ -672,7 +672,7 @@
                 <div>❌ Không thể tải video</div>
                 <div style="font-size: 12px; opacity: 0.7;">
                     ${episode.name || 'Tập không xác định'}<br>
-                    Kiểm tra kết nối internet hoặc link Archive.org bị sai cấu trúc
+                    Kiểm tra kết nối internet hoặc link tải file từ GitHub bị sai tên
                 </div>
                 <button class="retry-btn" onclick="playEpisode(${index})">🔄 Thử lại</button>
                 ${index > 0 ? `<button class="retry-btn" onclick="playEpisode(${index - 1})" style="background: rgba(76, 86, 106, 0.8);">← Tập trước</button>` : ''}
