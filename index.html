@@ -264,12 +264,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: var(--error);
             font-size: 14px;
             text-align: center;
             padding: 20px;
             line-height: 1.6;
+            gap: 15px;
+        }
+
+        .retry-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--bg-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .retry-btn:hover {
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
         }
 
         /* ===== ANIME INFO ===== */
@@ -519,15 +536,6 @@
                 transform: none;
             }
         }
-
-        /* ===== DARK MODE OPTIMIZATION ===== */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #00ffcc;
-                --bg-dark: #0f1117;
-                --bg-card: #161b22;
-            }
-        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 </head>
@@ -572,9 +580,8 @@
     <script>
         // ===== CONFIG =====
         const PIN_CODE = 'khang2026';
-        const RELEASE_TAG = 'phim';
         
-        // Episodes - sử dụng jsdelivr CDN để tránh CORS
+        // Episodes - dùng github.io.neting.net proxy CORS-free
         const episodes = [
             { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
             { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
@@ -586,9 +593,10 @@
             { name: 'Tập 08', file: 'tgdq-tap8.mp4' }
         ];
 
-        // Tạo URL từ jsdelivr CDN
+        // Tạo URL từ GitHub Release qua proxy CORS-free
         function getVideoUrl(filename) {
-            return `https://cdn.jsdelivr.net/gh/khanghack222/kho-anime-bi-mat@${RELEASE_TAG}/${filename}`;
+            // Dùng github.io.neting.net - proxy CORS-free cho GitHub
+            return `https://github.io.neting.net/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
         }
 
         // ===== PIN VALIDATION =====
@@ -632,12 +640,15 @@
         }
 
         // ===== PLAY EPISODE =====
+        let currentIndex = -1;
+        
         function playEpisode(index) {
             if (index < 0 || index >= episodes.length) return;
 
+            currentIndex = index;
             const episode = episodes[index];
             const player = document.getElementById('main-player');
-            const spinner = document.getElementById('loading-spinner');
+            const container = document.getElementById('video-container');
 
             document.getElementById('current-ep-title').textContent = 
                 'Thanh Gươm Diệt Quỷ (Mùa 4) - ' + episode.name;
@@ -658,7 +669,7 @@
             
             player.onerror = () => {
                 showLoading(false);
-                showVideoError(`❌ Không thể tải video. Thử lại?`);
+                showVideoError();
             };
 
             player.load();
@@ -668,19 +679,22 @@
             document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
         }
 
-        function showVideoError(message) {
+        function showVideoError() {
             const container = document.getElementById('video-container');
             const errorDiv = document.querySelector('.video-error');
             
             if (errorDiv) {
-                errorDiv.textContent = message;
-            } else {
-                const newErrorDiv = document.createElement('div');
-                newErrorDiv.className = 'video-error';
-                newErrorDiv.textContent = message;
-                container.innerHTML = '';
-                container.appendChild(newErrorDiv);
+                return;
             }
+            
+            const newErrorDiv = document.createElement('div');
+            newErrorDiv.className = 'video-error';
+            newErrorDiv.innerHTML = `
+                <div>❌ Không thể tải video</div>
+                <button class="retry-btn" onclick="playEpisode(${currentIndex})">Thử lại</button>
+            `;
+            container.innerHTML = '';
+            container.appendChild(newErrorDiv);
         }
 
         // ===== INIT =====
@@ -688,7 +702,7 @@
             document.getElementById('pin-input').focus();
         });
 
-        // Preload metadata only (tiết kiệm dữ liệu)
+        // Cleanup
         window.addEventListener('beforeunload', () => {
             const player = document.getElementById('main-player');
             player.src = '';
