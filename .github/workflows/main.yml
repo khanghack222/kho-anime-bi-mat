@@ -12,20 +12,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Create videos folder
-        run: mkdir -p videos
-      
-      - name: Download release videos
+      - name: Create index of release videos
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd videos
-          gh release download phim -R khanghack222/kho-anime-bi-mat --clobber
-      
-      - name: Commit videos
+          gh release view phim -R khanghack222/kho-anime-bi-mat --json assets --jq '.assets[] | .name' > videos_list.txt || true
+          
+      - name: Generate video list
+        run: |
+          echo "# 📺 Anime Video List" > VIDEOS.md
+          echo "" >> VIDEOS.md
+          echo "## Available Videos" >> VIDEOS.md
+          echo "" >> VIDEOS.md
+          
+          if [ -f videos_list.txt ] && [ -s videos_list.txt ]; then
+            cat videos_list.txt | while read file; do
+              echo "- [$file](https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/$file)" >> VIDEOS.md
+            done
+          else
+            echo "No videos found in release" >> VIDEOS.md
+          fi
+          
+      - name: Commit video list
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add videos/
-          git commit -m "Add videos from release phim" || true
+          git add VIDEOS.md
+          git commit -m "Update video list from release" || true
           git push
