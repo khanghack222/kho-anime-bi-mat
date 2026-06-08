@@ -83,13 +83,13 @@
         }
 
         .tag-bimat {
-            background: linear-gradient(135deg, #ff4757, #ff6b7a);
-            color: white;
+            background: linear-gradient(135deg, #00ffcc, #00cc99);
+            color: var(--bg-dark);
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
             animation: pulse 2s infinite;
         }
 
@@ -98,142 +98,17 @@
             50% { transform: scale(1.05); }
         }
 
-        /* ===== LOCK SCREEN ===== */
-        #lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 204, 0.1), transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 71, 87, 0.1), transparent 50%),
-                        rgba(26, 28, 35, 0.98);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            backdrop-filter: blur(10px);
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                backdrop-filter: blur(0px);
-            }
-            to {
-                opacity: 1;
-                backdrop-filter: blur(10px);
-            }
-        }
-
-        .login-box {
-            background: linear-gradient(135deg, rgba(36, 39, 52, 0.95), rgba(42, 45, 60, 0.95));
-            padding: max(30px, 5vh);
-            border-radius: 20px;
-            border: 2px solid var(--primary);
-            box-shadow: 0 20px 60px rgba(0, 255, 204, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            text-align: center;
-            max-width: 380px;
-            width: 90%;
-            animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(20px);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-box h2 {
-            color: var(--text);
-            margin-bottom: 8px;
-            font-size: clamp(20px, 6vw, 26px);
-            letter-spacing: 1px;
-        }
-
-        .login-box p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 14px 16px;
-            margin: 12px 0;
-            border-radius: 12px;
-            border: 2px solid rgba(76, 86, 106, 0.5);
-            background: rgba(26, 28, 35, 0.8);
-            color: var(--text);
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
-        }
-
-        .login-box input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3), inset 0 0 10px rgba(0, 255, 204, 0.1);
-            background: rgba(26, 28, 35, 0.95);
-        }
-
-        .login-box button {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--bg-dark);
-            border: none;
-            padding: 14px 30px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            width: 100%;
-            margin-top: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
-        }
-
-        .login-box button:hover {
-            box-shadow: 0 8px 30px rgba(0, 255, 204, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .login-box button:active {
-            transform: translateY(0);
-        }
-
-        #err-msg {
-            color: var(--error) !important; /* Đã ép về màu đỏ cảnh báo */
-            font-size: 13px;
-            margin-top: 12px;
-            display: none;
-            font-weight: 600;
-            animation: shake 0.4s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-
         /* ===== MAIN CONTAINER ===== */
         .main-container {
             max-width: 950px;
             margin: 20px auto;
             padding: 0 12px;
-            display: none;
             animation: fadeIn 0.5s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .video-player-wrapper {
@@ -436,16 +311,6 @@
             80%, 100% { opacity: 0.5; }
         }
 
-        .info-box {
-            background: rgba(0, 255, 204, 0.1);
-            border-left: 3px solid var(--primary);
-            padding: 12px;
-            border-radius: 6px;
-            margin: 15px 0;
-            font-size: 12px;
-            color: var(--text-sub);
-        }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 640px) {
             body { padding-bottom: 20px; }
@@ -454,8 +319,6 @@
             .tag-bimat { font-size: 10px; padding: 5px 10px; }
             .main-container { margin: 15px auto; padding: 0 8px; }
             .video-player-wrapper { margin-bottom: 15px; border-radius: 12px; }
-            .login-box { width: 95%; padding: 25px 20px; border-radius: 16px; }
-            .login-box input { padding: 12px 14px; font-size: 16px; }
             .anime-title { font-size: 18px; }
             .episode-buttons { gap: 6px; }
             .ep-btn { padding: 9px 14px; font-size: 12px; border-radius: 6px; }
@@ -482,23 +345,12 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
 
-    <div id="lock-screen">
-        <div class="login-box">
-            <h2>🔒 SECURITY</h2>
-            <p>Nhập mã PIN thành viên</p>
-            <input type="password" id="pin-input" placeholder="Mật khẩu..." onkeypress="handleKeyPress(event)" autocomplete="off">
-            <button onclick="validatePin()">UNLOCK</button>
-            <div id="err-msg">❌ Sai mã PIN!</div>
-        </div>
-    </div>
-
     <div class="navbar">
         <div class="navbar-title">✨ KHANG ANIME HUB</div>
-        <div class="tag-bimat">🔒 VIP</div>
+        <div class="tag-bimat">PUBLIC</div>
     </div>
 
     <div class="main-container" id="anime-hub">
@@ -518,15 +370,10 @@
         <div class="section-title">Danh sách tập</div>
 
         <div class="episode-buttons" id="ep-buttons-container"></div>
-
-        <div class="info-box" id="info-box" style="display: none;"></div>
     </div>
 
     <script>
         // ===== CONFIG =====
-        // Khôi phục chính xác mã băm của mật khẩu "khang2026"
-        const PIN_HASH = '1fbc43477839bf0da02c77f0a8d415eb6dbca0ee235fb3922f302b115467389c';
-        
         const episodes = [
             { name: 'Tập 01', file: 'tgdq-tap1.mp4' },
             { name: 'Tập 02', file: 'tgdq-tap2.mp4' },
@@ -541,39 +388,6 @@
         // ===== HÀM TỰ ĐỘNG LẤY DIRECT LINK TỪ GITHUB RELEASES =====
         function getVideoUrl(filename) {
             return `https://github.com/khanghack222/kho-anime-bi-mat/releases/download/phim/${filename}`;
-        }
-
-        // ===== PIN VALIDATION (SHA-256 Bảo mật) =====
-        function validatePin() {
-            const inputVal = document.getElementById('pin-input').value.trim();
-            const errMsg = document.getElementById('err-msg');
-            
-            // Băm chuỗi người dùng nhập vào để so sánh với mã mẫu băm sẵn
-            const inputHash = CryptoJS.SHA256(inputVal).toString();
-            
-            if (inputHash === PIN_HASH) {
-                document.getElementById('lock-screen').style.display = 'none';
-                document.getElementById('anime-hub').style.display = 'block';
-                errMsg.style.display = 'none';
-                document.getElementById('pin-input').value = '';
-                
-                createEpisodeButtons();
-                
-                // Đọc tập đã xem gần nhất từ bộ nhớ máy tính, nếu chưa có thì bật tập 0
-                const savedIndex = localStorage.getItem('khang_anime_last_ep');
-                const lastIndex = (savedIndex !== null && savedIndex < episodes.length) ? parseInt(savedIndex) : 0;
-                playEpisode(lastIndex);
-            } else {
-                errMsg.style.display = 'block';
-                document.getElementById('pin-input').value = '';
-                document.getElementById('pin-input').focus();
-            }
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                validatePin();
-            }
         }
 
         // ===== CREATE BUTTONS =====
@@ -671,7 +485,7 @@
                 <div>❌ Không thể tải video</div>
                 <div style="font-size: 12px; opacity: 0.7;">
                     ${episode.name || 'Tập không xác định'}<br>
-                    Kiểm tra kết nối internet hoặc link tải file từ GitHub bị sai tên
+                    Kiểm tra kết nối internet hoặc file trên GitHub bị lỗi.
                 </div>
                 <button class="retry-btn" onclick="playEpisode(${index})">🔄 Thử lại</button>
                 ${index > 0 ? `<button class="retry-btn" onclick="playEpisode(${index - 1})" style="background: rgba(76, 86, 106, 0.8);">← Tập trước</button>` : ''}
@@ -681,15 +495,16 @@
         }
 
         // ===== INIT =====
-        window.addEventListener('load', () => {
-            const input = document.getElementById('pin-input');
-            if (input) {
-                input.focus();
-                input.select();
-            }
+        window.addEventListener('DOMContentLoaded', () => {
+            createEpisodeButtons();
+            
+            // Đọc tập cũ đã xem, nếu không có thì bật luôn tập đầu tiên
+            const savedIndex = localStorage.getItem('khang_anime_last_ep');
+            const lastIndex = (savedIndex !== null && savedIndex < episodes.length) ? parseInt(savedIndex) : 0;
+            playEpisode(lastIndex);
         });
 
-        // Cleanup
+        // Cleanup giải phóng bộ nhớ khi chuyển trang
         window.addEventListener('beforeunload', () => {
             const player = document.getElementById('main-player');
             if (player) {
@@ -698,11 +513,8 @@
             }
         });
 
-        // Keyboard shortcuts (Mũi tên Trái / Phải để chuyển tập)
+        // Điều khiển chuyển tập bằng bàn phím (Mũi tên Trái / Phải)
         document.addEventListener('keydown', (e) => {
-            const lockScreen = document.getElementById('lock-screen');
-            if (!lockScreen || lockScreen.style.display !== 'none') return;
-
             switch(e.key) {
                 case 'ArrowLeft':
                     if (currentIndex > 0) playEpisode(currentIndex - 1);
