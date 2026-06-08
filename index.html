@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Động Anime Bí Mật Của Khang</title>
     <style>
-        /* Phong cách tươi sáng, hiện đại kiểu Anime/Gaming */
         body {
             background-color: #1a1c23;
             color: #eceff4;
@@ -13,16 +12,17 @@
             margin: 0;
             padding: 0;
             padding-bottom: 50px;
+            overflow-x: hidden;
         }
 
-        /* Thanh Topbar màu Xanh Mint */
+        /* BANNER PHÍA TRÊN */
         .navbar {
             background-color: #242734;
             padding: 15px 4%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 3px solid #00ffcc; /* Viền neon dạ quang */
+            border-bottom: 3px solid #00ffcc;
             box-shadow: 0 4px 20px rgba(0, 255, 204, 0.1);
         }
         .navbar-title {
@@ -40,14 +40,79 @@
             font-weight: bold;
         }
 
+        /* KHU VỰC ĐĂNG NHẬP TRÊN WEB (THAY THẾ POPUP GOOGLE) */
+        #lock-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #1a1c23;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        .login-box {
+            background: #242734;
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid #00ffcc;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.2);
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+        }
+        .login-box h2 {
+            color: #fff;
+            margin-top: 0;
+            font-size: 22px;
+        }
+        .login-box input {
+            width: 85%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 25px;
+            border: 2px solid #4c566a;
+            background: #1a1c23;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .login-box input:focus {
+            border-color: #00ffcc;
+        }
+        .login-box button {
+            background: #00ffcc;
+            color: #1a1c23;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 93%;
+        }
+        .login-box button:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+            transform: scale(1.02);
+        }
+        #err-msg {
+            color: #ff4757;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+            font-weight: bold;
+        }
+
+        /* KHO PHIM CHÍNH (MẶC ĐỊNH ẨN) */
         .main-container {
             max-width: 950px;
             margin: 30px auto;
             padding: 0 20px;
-            display: none; /* Khóa cửa khi chưa nhập mã PIN */
+            display: none;
         }
-
-        /* Khung phát phim dùng thẻ video chuẩn HTML5 mượt đét */
         .video-player-wrapper {
             position: relative;
             width: 100%;
@@ -57,104 +122,47 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             margin-bottom: 25px;
             overflow: hidden;
-            aspect-ratio: 16/9; /* Tự động chuẩn tỉ lệ màn hình */
+            aspect-ratio: 16/9;
         }
         .video-player-wrapper video {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
-
-        .anime-title {
-            font-size: 26px;
-            font-weight: bold;
-            color: #fff;
-            margin: 0 0 8px 0;
-            text-align: left;
-        }
-        .anime-sub {
-            color: #a3be8c; 
-            font-size: 14px;
-            margin-bottom: 30px;
-            text-align: left;
-            font-weight: 500;
-        }
-
-        .section-title {
-            color: #00ffcc;
-            font-size: 18px;
-            text-align: left;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        /* Khu vực chọn tập dạng nút Bong Bóng xếp mượt mà */
-        .episode-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: flex-start;
-        }
-
-        .ep-btn {
-            background-color: #2e3440;
-            color: #d8dee9;
-            border: 2px solid #4c566a;
-            padding: 12px 25px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 30px; /* Bo tròn xịn sò như bong bóng */
-            transition: all 0.3s ease;
-        }
-
-        .ep-btn:hover {
-            background-color: rgba(0, 255, 204, 0.1);
-            border-color: #00ffcc;
-            color: #00ffcc;
-            transform: translateY(-3px); /* Nút tự nhô nhẹ lên */
-        }
-        
-        .ep-btn.active {
-            background-color: #00ffcc;
-            border-color: #00ffcc;
-            color: #1a1c23;
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
-        }
+        .anime-title { font-size: 26px; font-weight: bold; color: #fff; margin: 0 0 8px 0; text-align: left; }
+        .anime-sub { color: #a3be8c; font-size: 14px; margin-bottom: 30px; text-align: left; font-weight: 500; }
+        .section-title { color: #00ffcc; font-size: 18px; text-align: left; margin-bottom: 15px; font-weight: bold; }
+        .episode-buttons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-start; }
+        .ep-btn { background-color: #2e3440; color: #d8dee9; border: 2px solid #4c566a; padding: 12px 25px; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 30px; transition: all 0.3s ease; }
+        .ep-btn:hover { background-color: rgba(0, 255, 204, 0.1); border-color: #00ffcc; color: #00ffcc; transform: translateY(-3px); }
+        .ep-btn.active { background-color: #00ffcc; border-color: #00ffcc; color: #1a1c23; box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3); }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Hệ thống khóa cửa nhập PIN bảo mật -->
-    <script>
-        const MA_PIN_ANIME = "khang2026"; // Bạn đổi mật khẩu ở đây nhé
+    <!-- GIAO DIỆN KHÓA TRÊN WEB (Không dùng popup trình duyệt) -->
+    <div id="lock-screen">
+        <div class="login-box">
+            <h2>🔒 ANIME HUB SECURITY</h2>
+            <p style="color: #888; font-size: 14px; margin: 0;">Vui lòng nhập mã PIN thành viên</p>
+            <input type="password" id="pin-input" placeholder="ABC123" onkeypress="handleKeyPress(event)">
+            <button onclick="_0x5b1a()">XÁC NHẬN MỞ KHÓA</button>
+            <div id="err-msg">❌ Sai mã PIN rồi bạn ơi!</div>
+        </div>
+    </div>
 
-        let checkPin = prompt("Nhập mã PIN để mở khóa Động Anime:");
-        if (checkPin === MA_PIN_ANIME) {
-            window.onload = function() { document.getElementById('anime-hub').style.display = 'block'; }
-        } else {
-            alert("Sai mã PIN rồi fen ơi!");
-            window.location.href = "https://www.google.com";
-        }
-    </script>
-
-    <!-- Thanh NAVBAR phía trên đầu web -->
     <div class="navbar">
         <div class="navbar-title">✨ KHANG ANIME HUB</div>
         <div class="tag-bimat">🔒 KHU VỰC KÍN</div>
     </div>
 
-    <!-- Nội dung chính rạp phim -->
+    <!-- NỘI DUNG PHIM -->
     <div class="main-container" id="anime-hub">
-        
-        <!-- TRÌNH PHÁT VIDEO CHUẨN HTML5 -->
         <div class="video-player-wrapper">
-            <!-- Mặc định khi vào web sẽ load Tập 1. Bạn dán link .mp4 lấy từ GitHub Releases vào src dưới đây -->
             <video id="main-player" src="DÁN_LINK_MP4_TẬP_1_VÀO_ĐÂY" controls preload="auto"></video>
         </div>
 
-        <!-- Thông tin bộ phim -->
         <div class="anime-info">
             <div class="anime-title" id="current-ep-title">Thanh Gươm Diệt Quỷ (Mùa 4) - Tập 01</div>
             <div class="anime-sub">🌸 Trạng thái: Hoàn thành Vietsub lồng tiếng | Kho phim siêu mượt không quảng cáo</div>
@@ -164,36 +172,18 @@
 
         <div class="section-title">Danh Sách Tập Phim:</div>
         
-        <!-- Các nút bấm chọn tập -->
         <div class="episode-buttons">
-            <!-- Khang chỉ cần copy link .mp4 từ GitHub Releases dán vào trong dấu nháy đơn đầu tiên của hàm changeAnime nhé -->
-            <button class="ep-btn active" onclick="changeAnime('DÁN_LINK_MP4_TẬP_1_VÀO_ĐÂY', 'Tập 01', this)">Tập 01</button>
-            <button class="ep-btn" onclick="changeAnime('DÁN_LINK_MP4_TẬP_2_VÀO_ĐÂY', 'Tập 02', this)">Tập 02</button>
-            <button class="ep-btn" onclick="changeAnime('DÁN_LINK_MP4_TẬP_3_VÀO_ĐÂY', 'Tập 03', this)">Tập 03</button>
-            <button class="ep-btn" onclick="changeAnime('DÁN_LINK_MP4_TẬP_6_VÀO_ĐÂY', 'Tập 06', this)">Tập 06</button>
+            <button class="ep-btn active" onclick="_0x4a9b('DÁN_LINK_MP4_TẬP_1_VÀO_ĐÂY', 'Tập 01', this)">Tập 01</button>
+            <button class="ep-btn" onclick="_0x4a9b('DÁN_LINK_MP4_TẬP_2_VÀO_ĐÂY', 'Tập 02', this)">Tập 02</button>
+            <button class="ep-btn" onclick="_0x4a9b('DÁN_LINK_MP4_TẬP_3_VÀO_ĐÂY', 'Tập 03', this)">Tập 03</button>
+            <button class="ep-btn" onclick="_0x4a9b('DÁN_LINK_MP4_TẬP_6_VÀO_ĐÂY', 'Tập 06', this)">Tập 06</button>
         </div>
-
     </div>
 
+    <!-- JAVASCRIPT ĐÃ OBFUSCATE (MÃ HÓA) TOÀN BỘ LOGIC KHÓA VÀ TRÌNH PHÁT -->
     <script>
-        // Hàm chuyển tập phim mượt mà cho file dạng .mp4 trực tiếp
-        function changeAnime(linkMp4Direct, epNumber, buttonClicked) {
-            let player = document.getElementById('main-player');
-            
-            player.src = linkMp4Direct; // Thay link video mới
-            player.load();              // Tải lại trình phát
-            player.play();              // Tự động phát luôn cho máu
-            
-            // Cập nhật chữ tiêu đề
-            document.getElementById('current-ep-title').innerText = "Thanh Gươm Diệt Quỷ (Mùa 4) - " + epNumber;
-            
-            // Đổi nút active
-            let allButtons = document.getElementsByClassName('ep-btn');
-            for (let i = 0; i < allButtons.length; i++) {
-                allButtons[i].classList.remove('active');
-            }
-            buttonClicked.classList.add('active');
-        }
+        /* Obfuscated Core Script */
+        const _0x3e1f=['\x6b\x68\x61\x6e\x67\x32\x30\x32\x36','\x62\x6c\x6f\x63\x6b','\x6e\x6f\x6e\x65','\x76\x61\x6c\x75\x65'];(function(_0x2d,_0x1c){const _0x5a=function(_0x3b){while(--_0x3b){_0x2d['push'](_0x2d['shift']());}};_0x5a(++_0x1c);}(_0x3e1f,0x1b5));const _0x1a=function(_0x21){return _0x3e1f[parseInt(_0x21)];};function _0x5b1a(){const _0x4c=document['getElementById']('pin-input')[_0x1a(0x3)];if(_0x4c===_0x1a(0x0)){document['getElementById']('lock-screen')['style']['display']=_0x1a(0x2);document['getElementById']('anime-hub')['style']['display']=_0x1a(0x1);}else{document['getElementById']('err-msg')['style']['display']=_0x1a(0x1);}}function handleKeyPress(_0x5c){if(_0x5c['key']==='Enter'){_0x5b1a();}}function _0x4a9b(_0x14a,_0x57b,_0x1fe){let _0x45a=document['getElementById']('main-player');_0x45a['src']=_0x14a;_0x45a['load']();_0x45a['play']();document['getElementById']('current-ep-title')['innerText']='Thanh Gươm Diệt Quỷ (Mùa 4) - '+_0x57b;let _0x38e=document['getElementsByClassName']('ep-btn');for(let _0x21c=0x0;_0x21c<_0x38e['length'];_0x21c++){_0x38e[_0x21c]['classList']['remove']('active');}_0x1fe['classList']['add']('active');}
     </script>
 
 </body>
