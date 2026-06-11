@@ -1662,58 +1662,54 @@
     }
 
     function buildArchiveEmbedUrl(archiveId, file = '') {
-      const base = `https://archive.org/embed/${archiveId}`;
-      return file ? `${base}/${encodeURI(file)}?playlist=0&autoplay=1` : base;
+      const base = `https://archive.org/embed/${encodeURIComponent(archiveId)}`;
+      return file ? `${base}/${encodeURIComponent(file)}?playlist=0&autoplay=1` : base;
     }
 
     function normalizeBaseUrl(base) {
       return (base || '').trim().replace(/\/$/, '');
     }
 
+    // =============================================================
+    //  ƯU TIÊN: iframe embed archive làm nguồn #1 (cho video dài 2h+)
+    //  - archive.org tự xử lý streaming, seek, moov atom
+    //  - video 2-3GB bấm play là xem NGAY, không phải chờ download
+    // =============================================================
     function priorityForSource(source, mode) {
-      if (mode === 'archive') {
-        if (source.type === 'archive-fast') return 0;
-        if (source.type === 'archive-download') return 1;
-        if (source.label.includes('Link trực tiếp')) return 2;
-        if (source.label.includes('Proxy')) return 3;
-        if (source.label.includes('Google Drive API')) return 4;
-        if (source.type === 'iframe') return 5;
-        return 6;
-      }
+      // Mọi chế độ: ưu tiên Archive embed trước (nhanh nhất cho video dài)
+      if (source.type === 'iframe' && source.label.includes('Archive')) return 0;
+      if (source.type === 'archive-fast') return 1;
+      if (source.type === 'archive-download') return 2;
+
       if (mode === 'google') {
-        if (source.label.includes('Google Drive API')) return 0;
-        if (source.label.includes('Drive')) return 1;
-        if (source.type === 'archive-fast') return 2;
-        if (source.type === 'archive-download') return 3;
-        if (source.label.includes('Proxy')) return 4;
+        if (source.label.includes('Google Drive API')) return 3;
+        if (source.label.includes('Drive')) return 4;
         if (source.label.includes('Link trực tiếp')) return 5;
-        return 6;
+        if (source.label.includes('Proxy')) return 6;
+        return 7;
       }
       if (mode === 'proxy') {
-        if (source.label.includes('Proxy')) return 0;
-        if (source.type === 'archive-fast') return 1;
-        if (source.type === 'archive-download') return 2;
-        if (source.label.includes('Link trực tiếp')) return 3;
-        if (source.label.includes('Google Drive API')) return 4;
-        return 5;
+        if (source.label.includes('Proxy')) return 3;
+        if (source.label.includes('Link trực tiếp')) return 4;
+        if (source.label.includes('Google Drive API')) return 5;
+        if (source.label.includes('Drive')) return 6;
+        return 7;
       }
       if (mode === 'direct') {
-        if (source.type === 'archive-fast') return 0;
-        if (source.type === 'archive-download') return 1;
-        if (source.label.includes('Link trực tiếp')) return 2;
-        if (source.label.includes('Proxy')) return 3;
-        if (source.label.includes('Google Drive API')) return 4;
-        return 5;
+        if (source.label.includes('Link trực tiếp')) return 3;
+        if (source.label.includes('Proxy')) return 4;
+        if (source.label.includes('Google Drive API')) return 5;
+        if (source.label.includes('Drive')) return 6;
+        return 7;
       }
-      if (source.type === 'archive-fast') return 0;
-      if (source.type === 'archive-download') return 1;
-      if (source.label.includes('Link trực tiếp')) return 2;
-      if (source.label.includes('Proxy')) return 3;
-      if (source.label.includes('Google Drive API')) return 4;
-      if (source.label.includes('Drive fallback')) return 5;
-      if (source.label.includes('Drive usercontent')) return 6;
-      if (source.type === 'iframe') return 7;
-      return 8;
+      // mode auto / archive: tiếp tục ưu tiên link trực tiếp -> proxy -> drive
+      if (source.label.includes('Link trực tiếp')) return 3;
+      if (source.label.includes('Proxy')) return 4;
+      if (source.label.includes('Google Drive API')) return 5;
+      if (source.label.includes('Drive fallback')) return 6;
+      if (source.label.includes('Drive usercontent')) return 7;
+      if (source.type === 'iframe') return 8; // các iframe khác (Drive preview...)
+      return 9;
     }
 
     function buildSourcesForEpisode(episode) {
@@ -1728,9 +1724,16 @@
       };
 
       if (episode.archiveId && episode.file) {
+        // NGUỒN #1: iframe embed archive (cho video dài 2h+ - phát NGAY, không chờ download)
+        pushSource({
+          label: 'Archive embed (nhanh nhất)',
+          type: 'iframe',
+          url: `https://archive.org/embed/${encodeURIComponent(episode.archiveId)}/${encodeURI(episode.file)}?autoplay=1&playlist=0`
+        });
+        // NGUỒN #2: direct siêu nhanh (server vật lý)
         pushSource({ label: 'Archive trực tiếp siêu nhanh', type: 'archive-fast', archiveId: episode.archiveId, file: episode.file });
+        // NGUỒN #3: download chuẩn (fallback)
         pushSource({ label: 'Archive download chuẩn', type: 'archive-download', url: buildArchiveDownloadUrl(episode.archiveId, episode.file) });
-        pushSource({ label: 'Archive preview', type: 'iframe', url: buildArchiveEmbedUrl(episode.archiveId, episode.file) });
       }
       if (episode.url) pushSource({ label: 'Link trực tiếp', type: 'video', url: episode.url });
       if (episode.proxyPath && settings.proxyBaseUrl) {
@@ -1884,10 +1887,11 @@
 
       if (source.type === 'iframe') {
         showEmbedSurface(source.url);
-        setStatus(`Đang mở ${episode.name} bằng ${source.label}.`, 'ok');
+        setStatus(`Đang phát ${episode.name} bằng ${source.label}.`, 'ok');
+        // Archive embed tự xử lý loading bên trong → ẩn overlay nhanh để user thấy player archive ngay
         setTimeout(() => {
           if (token === playbackToken) hideOverlay();
-        }, 700);
+        }, 350);
         return;
       }
 
