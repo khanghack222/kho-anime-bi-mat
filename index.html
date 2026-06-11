@@ -1,10 +1,17 @@
 <!doctype html>
 <html lang="vi">
- <head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>KhangHub Stream</title>
   <meta name="color-scheme" content="dark">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://archive.org" crossorigin>
+  <link rel="dns-prefetch" href="https://archive.org">
+  <link rel="preconnect" href="https://www.googleapis.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googleapis.com">
+  <link rel="preconnect" href="https://drive.google.com" crossorigin>
+  <link rel="dns-prefetch" href="https://drive.google.com">
   <style>
     :root {
       --bg: #070b12;
@@ -47,14 +54,16 @@
         linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
       background-size: 32px 32px;
-      mask-image: radial-gradient(circle at center, rgba(0,0,0,0.85), transparent 85%);
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,0.9), transparent 85%);
       opacity: 0.35;
     }
+
     button, input, select, textarea { font: inherit; }
     button { cursor: pointer; }
     a { color: inherit; }
 
-    .lockscreen {
+    .lockscreen,
+    .modal {
       position: fixed;
       inset: 0;
       display: flex;
@@ -62,6 +71,8 @@
       justify-content: center;
       padding: 24px;
       z-index: 9999;
+    }
+    .lockscreen {
       background:
         radial-gradient(circle at top, rgba(96,245,194,0.15), transparent 40%),
         linear-gradient(160deg, #05070c 0%, #09111d 100%);
@@ -72,6 +83,14 @@
       visibility: hidden;
       pointer-events: none;
     }
+    .modal {
+      display: none;
+      z-index: 500;
+      background: rgba(4, 7, 12, 0.72);
+      backdrop-filter: blur(14px);
+    }
+    .modal.visible { display: flex; }
+
     .lock-card,
     .hero-main,
     .hero-side-card,
@@ -79,12 +98,20 @@
     .player-card,
     .player-panel,
     .modal-card,
-    .status-card {
+    .status-card,
+    .admin-summary-card {
       background: linear-gradient(180deg, rgba(16, 24, 40, 0.88), rgba(10, 15, 25, 0.96));
       border: 1px solid rgba(125, 140, 165, 0.12);
       border-radius: 26px;
       box-shadow: var(--shadow);
     }
+    .lock-card,
+    .hero-main,
+    .hero-side-card,
+    .catalog-card,
+    .player-card,
+    .player-panel,
+    .modal-card { padding: 22px; }
     .lock-card {
       width: min(100%, 430px);
       padding: 34px;
@@ -99,6 +126,7 @@
       background: linear-gradient(135deg, rgba(96,245,194,0.08), transparent 40%, rgba(0,217,255,0.05));
       pointer-events: none;
     }
+
     .lock-chip,
     .chip,
     .mini-pill,
@@ -125,6 +153,8 @@
       font-size: clamp(28px, 5vw, 40px);
       line-height: 1.02;
       letter-spacing: -0.04em;
+      position: relative;
+      z-index: 1;
     }
     .brand-word { color: var(--primary); }
     .lock-text,
@@ -140,6 +170,14 @@
       line-height: 1.68;
       font-size: 14px;
     }
+    .section-note code {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--primary);
+    }
     .lock-form,
     .settings-grid,
     .settings-item,
@@ -149,6 +187,12 @@
       display: grid;
       gap: 12px;
     }
+    .series-body {
+      padding: 16px;
+      flex: 1;
+      align-content: start;
+    }
+
     .lock-input,
     .settings-input,
     .settings-textarea,
@@ -172,11 +216,12 @@
       box-shadow: 0 0 0 4px rgba(96,245,194,0.09);
     }
     .settings-textarea {
-      min-height: 260px;
+      min-height: 280px;
       resize: vertical;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       line-height: 1.6;
     }
+
     .btn {
       border: 0;
       border-radius: 14px;
@@ -192,6 +237,7 @@
     }
     .btn:hover { filter: brightness(1.05); }
     .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), #7cf0ff);
       color: #041114;
@@ -261,6 +307,23 @@
       text-transform: uppercase;
       font-weight: 700;
     }
+    .brand-row { display: flex; align-items: center; gap: 12px; }
+    .collapse-btn {
+      width: 38px;
+      height: 38px;
+      min-height: 38px;
+      border-radius: 12px;
+      padding: 0;
+      flex: none;
+    }
+    .collapse-btn svg { transition: transform 0.25s ease; }
+
+    /* ===== TRẠNG THÁI TOPBAR THU GỌN ===== */
+    .topbar.collapsed .topbar-inner { min-height: 56px; padding: 8px 0; }
+    .topbar.collapsed .brand-logo { font-size: 22px; }
+    .topbar.collapsed .brand-note { display: none; }
+    .topbar.collapsed .topbar-actions { display: none; }
+    .topbar.collapsed .collapse-btn svg { transform: rotate(180deg); }
     .topbar-actions {
       display: flex;
       align-items: center;
@@ -308,11 +371,6 @@
         radial-gradient(circle at left center, rgba(96,245,194,0.10), transparent 42%),
         linear-gradient(180deg, rgba(16,24,40,0.88), rgba(9,14,24,0.96));
     }
-    .hero-side-card,
-    .catalog-card,
-    .player-card,
-    .player-panel,
-    .modal-card { padding: 22px; }
     .chip {
       min-height: 34px;
       padding: 8px 12px;
@@ -339,7 +397,8 @@
     .toolbar,
     .admin-toolbar,
     .mini-pills,
-    .player-meta-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .player-meta-pills,
+    .modal-actions { display: flex; flex-wrap: wrap; gap: 10px; }
     .eyebrow {
       color: var(--primary);
       text-transform: uppercase;
@@ -355,7 +414,13 @@
       letter-spacing: -0.07em;
       max-width: 10ch;
     }
-    .hero-subtitle { margin: 12px 0 0; font-size: clamp(16px, 2vw, 22px); font-weight: 700; letter-spacing: -0.02em; color: var(--text-soft); }
+    .hero-subtitle {
+      margin: 12px 0 0;
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-soft);
+    }
     .meta-row { margin-top: 22px; }
     .meta-box {
       min-width: 110px;
@@ -635,319 +700,6 @@
     }
     .footer-card strong { color: var(--primary); }
 
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(4, 7, 12, 0.7);
-      backdrop-filter: blur(14px);
-    }
-    .modal.visible { display: flex; }
-    .modal-card { width: min(100%, 720px); max-height: min(88vh, 860px); overflow: auto; }
-    .modal-card.sm { width: min(100%, 460px); }
-    .modal-title { margin: 0; font-size: 28px; letter-spacing: -0.05em; }
-    .settings-label { font-weight: 700; font-size: 14px; }
-    .admin-panel-section {amp(38px, 6vw, 72px);
-      line-height: 0.94;
-      letter-spacing: -0.07em;
-      max-width: 10ch;
-    }
-    .hero-subtitle { margin: 12px 0 0; font-size: clamp(16px, 2vw, 22px); font-weight: 700; letter-spacing: -0.02em; color: var(--text-soft); }
-    .meta-row { margin-top: 22px; }
-    .meta-box {
-      min-width: 110px;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(125, 140, 165, 0.12);
-    }
-    .meta-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
-    .meta-value { font-size: 16px; font-weight: 700; }
-    .side-title {
-      margin: 0 0 14px;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .stats-grid,
-    .admin-summary,
-    .settings-inline-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .status-card,
-    .admin-summary-card {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(125, 140, 165, 0.12);
-      box-shadow: none;
-    }
-    .status-value,
-    .admin-summary-value { font-size: 26px; font-weight: 800; letter-spacing: -0.05em; }
-    .status-label,
-    .admin-summary-label { color: var(--text-muted); font-size: 13px; line-height: 1.45; }
-    .continue-item {
-      padding: 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(96,245,194,0.14);
-      background: linear-gradient(180deg, rgba(96,245,194,0.06), rgba(0,217,255,0.03));
-    }
-    .continue-title { font-weight: 800; font-size: 18px; letter-spacing: -0.03em; margin-bottom: 6px; }
-
-    .catalog { padding: 14px 0 22px; }
-    .section-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-    .section-title { margin: 0; font-size: 26px; letter-spacing: -0.05em; }
-    .sort-select { min-width: 180px; min-height: 48px; }
-    .series-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-    .series-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      min-height: 320px;
-      border-radius: 24px;
-      overflow: hidden;
-      background: linear-gradient(180deg, rgba(15,24,38,0.9), rgba(8,12,20,0.96));
-      border: 1px solid rgba(125, 140, 165, 0.12);
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-    }
-    .series-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(96,245,194,0.32);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    }
-    .series-card.active {
-      border-color: rgba(96,245,194,0.45);
-      box-shadow: 0 0 0 1px rgba(96,245,194,0.25), 0 18px 50px rgba(0,0,0,0.32);
-    }
-    .series-visual {
-      min-height: 190px;
-      padding: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      position: relative;
-      overflow: hidden;
-    }
-    .series-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(160deg, rgba(255,255,255,0.08), transparent 35%, rgba(0,0,0,0.25));
-      pointer-events: none;
-    }
-    .series-symbol { font-size: 56px; z-index: 1; filter: drop-shadow(0 10px 24px rgba(0,0,0,0.4)); }
-    .series-kanji {
-      z-index: 1;
-      font-size: clamp(24px, 4vw, 42px);
-      font-weight: 800;
-      color: rgba(255,255,255,0.18);
-      writing-mode: vertical-rl;
-      letter-spacing: -0.12em;
-      line-height: 0.9;
-    }
-    .series-card-title { font-size: 20px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.08; }
-    .series-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: auto;
-    }
-    .mini-pill {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-soft);
-      padding: 7px 10px;
-      border: 1px solid rgba(125, 140, 165, 0.14);
-      background: rgba(255,255,255,0.04);
-    }
-    .mini-pill.ok {
-      color: var(--primary);
-      border-color: rgba(96,245,194,0.18);
-      background: rgba(96,245,194,0.08);
-    }
-    .empty-state {
-      padding: 36px 18px;
-      text-align: center;
-      color: var(--text-soft);
-      border-radius: 20px;
-      border: 1px dashed rgba(125, 140, 165, 0.18);
-      background: rgba(255,255,255,0.03);
-      line-height: 1.7;
-    }
-
-    .player { padding: 4px 0 42px; }
-    .player-card { display: none; }
-    .player-card.visible { display: block; }
-    .player-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-    .player-kicker {
-      color: var(--primary);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .player-title { margin: 0; font-size: clamp(24px, 4vw, 36px); letter-spacing: -0.05em; line-height: 1.05; }
-    .player-panel {
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(10,15,25,0.96), rgba(8,12,20,1));
-    }
-    .status-banner {
-      display: none;
-      margin-bottom: 14px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      font-size: 14px;
-      line-height: 1.6;
-      border: 1px solid rgba(125, 140, 165, 0.14);
-      background: rgba(255,255,255,0.04);
-      color: var(--text-soft);
-    }
-    .status-banner.visible { display: block; }
-    .status-banner.ok { background: rgba(96,245,194,0.08); border-color: rgba(96,245,194,0.18); color: #d8fff2; }
-    .status-banner.warn { background: rgba(255,204,102,0.08); border-color: rgba(255,204,102,0.16); color: #ffe6b3; }
-    .status-banner.error { background: rgba(255,125,125,0.08); border-color: rgba(255,125,125,0.16); color: #ffd8d8; }
-    .video-shell {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      border-radius: 24px;
-      background: #000;
-      border: 1px solid rgba(125, 140, 165, 0.12);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-    }
-    .video-shell video,
-    .video-shell iframe {
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: #000;
-      border: 0;
-      outline: none;
-    }
-    .video-player.hidden,
-    .embed-player { display: none; }
-    .embed-player.visible { display: block; }
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      background: radial-gradient(circle at center, rgba(9,14,24,0.88), rgba(4,6,10,0.96));
-      z-index: 5;
-      transition: opacity 0.28s ease, visibility 0.28s ease;
-    }
-    .video-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .spinner {
-      width: 46px;
-      height: 46px;
-      border-radius: 999px;
-      border: 3px solid rgba(96,245,194,0.16);
-      border-top-color: var(--primary);
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .video-overlay span { color: var(--text-soft); font-size: 14px; text-align: center; padding: 0 18px; line-height: 1.6; }
-    .source-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-      padding: 14px 0 4px;
-    }
-    .source-note strong { color: var(--primary); }
-    .runtime-tip {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255, 204, 102, 0.08);
-      border: 1px solid rgba(255, 204, 102, 0.16);
-      color: #ffe6b3;
-    }
-    .runtime-tip.hidden { display: none; }
-    .episode-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-      margin-bottom: 14px;
-    }
-    .episode-toolbar h3 { margin: 0; font-size: 20px; letter-spacing: -0.04em; }
-    .episode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
-    .episode-btn {
-      border-radius: 14px;
-      border: 1px solid rgba(125, 140, 165, 0.14);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      min-height: 52px;
-      padding: 10px;
-      font-weight: 700;
-      transition: border-color 0.18s ease, transform 0.16s ease, background 0.18s ease;
-    }
-    .episode-btn:hover:not(:disabled) { border-color: rgba(96,245,194,0.26); background: rgba(96,245,194,0.08); }
-    .episode-btn.active {
-      color: #041114;
-      background: linear-gradient(135deg, var(--primary), #7cf0ff);
-      border-color: transparent;
-      box-shadow: 0 12px 26px rgba(96,245,194,0.18);
-    }
-    .episode-btn.missing { opacity: 0.42; cursor: not-allowed; border-style: dashed; background: transparent; }
-
-    footer { padding: 0 0 36px; color: var(--text-muted); }
-    .footer-card {
-      padding: 18px 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(125, 140, 165, 0.1);
-      line-height: 1.7;
-      font-size: 13px;
-      text-align: center;
-    }
-    .footer-card strong { color: var(--primary); }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(4, 7, 12, 0.7);
-      backdrop-filter: blur(14px);
-    }
-    .modal.visible { display: flex; }
     .modal-card { width: min(100%, 720px); max-height: min(88vh, 860px); overflow: auto; }
     .modal-card.sm { width: min(100%, 460px); }
     .modal-title { margin: 0; font-size: 28px; letter-spacing: -0.05em; }
@@ -957,7 +709,8 @@
       padding-top: 18px;
       border-top: 1px solid rgba(125, 140, 165, 0.12);
     }
-    .admin-toolbar .btn { flex: 1 1 180px; }
+    .admin-toolbar .btn,
+    .modal-actions .btn { flex: 1 1 180px; }
 
     @media (max-width: 980px) {
       .hero-grid { grid-template-columns: 1fr; }
@@ -1012,7 +765,7 @@
       <h1 class="lock-title"><span class="brand-word">KhangHub</span> đã được làm mới</h1>
       <p class="lock-text">Nhập mật khẩu để vào web. Khu admin có mật khẩu riêng và chỉ mở khi xác thực đúng.</p>
       <form class="lock-form" id="lock-form">
-        <input class="lock-input" id="password-input" type="password" placeholder="Nhập mật khẩu truy cập" autocomplete="off" required />
+        <input class="lock-input" id="password-input" type="password" placeholder="Nhập mật khẩu truy cập" autocomplete="off" required>
         <button class="btn btn-primary" type="submit">Vào trang web</button>
         <div class="error-text" id="lock-error">Sai mật khẩu web. Vui lòng thử lại.</div>
       </form>
@@ -1023,15 +776,20 @@
     <header class="topbar">
       <div class="topbar-inner">
         <div class="brand">
-          <div class="brand-logo">KHANG<span>HUB</span></div>
-          <div class="brand-note">Anime streaming dashboard · Có admin panel · Có fallback nguồn</div>
+          <div class="brand-row">
+            <div class="brand-logo">KHANG<span>HUB</span></div>
+            <button class="btn btn-secondary collapse-btn" type="button" id="collapse-btn" title="Thu gọn / mở rộng thanh tiêu đề" aria-label="Thu gọn thanh tiêu đề">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 15 6-6 6 6"></path></svg>
+            </button>
+          </div>
+          <div class="brand-note">Anime streaming dashboard · Admin panel · Archive tăng tốc</div>
         </div>
         <div class="topbar-actions">
           <div class="search-wrap">
             <span class="search-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
             </span>
-            <input class="search-input" id="search-input" type="text" placeholder="Tìm anime, tiêu đề Nhật, thể loại..." />
+            <input class="search-input" id="search-input" type="text" placeholder="Tìm anime, tiêu đề Nhật, thể loại...">
           </div>
           <select class="sort-select" id="sort-select" aria-label="Sắp xếp danh sách">
             <option value="available">Ưu tiên phim có tập</option>
@@ -1051,7 +809,7 @@
       <section class="hero">
         <div class="shell">
           <div class="hero-grid">
-            <div class="hero-main">
+            <div class="hero-main" id="hero-main">
               <div>
                 <div class="hero-badges" id="hero-badges"></div>
                 <div class="eyebrow" id="hero-jp"></div>
@@ -1086,7 +844,7 @@
             <div class="section-head">
               <div>
                 <h2 class="section-title">Kho anime</h2>
-                <p class="section-note">Có fallback nhiều nguồn: direct link, proxy, Google Drive API, Drive fallback và preview iframe.</p>
+                <p class="section-note">Đã nhúng dashboard của bạn và mở rộng fallback nguồn: Archive direct tăng tốc, direct link, proxy, Google Drive API, Drive fallback và preview iframe.</p>
               </div>
               <div class="toolbar">
                 <button class="btn btn-secondary" type="button" id="clear-search-btn">Xóa tìm kiếm</button>
@@ -1108,7 +866,7 @@
               </div>
               <div class="player-head-actions">
                 <button class="btn btn-secondary" type="button" id="close-player-btn">Đóng trình phát</button>
-                <button class="btn btn-ghost" type="button" id="external-btn">Mở trình duyệt ngoài</button>
+                <button class="btn btn-ghost" type="button" id="external-btn">Mở nguồn ngoài</button>
               </div>
             </div>
 
@@ -1132,7 +890,7 @@
                 </div>
               </div>
               <div class="runtime-tip hidden" id="runtime-tip">
-                Bạn đang xem trong khung preview bị sandbox nên video Google Drive có thể bị chặn. Nếu thấy lỗi nguồn, hãy bấm <strong>Mở trình duyệt ngoài</strong> để test đúng hơn.
+                Bạn đang xem trong khung preview bị sandbox nên một số nguồn có thể bị chặn. Nếu thấy lỗi, hãy bấm <strong>Mở nguồn ngoài</strong> để test chính xác hơn.
               </div>
 
               <div class="episode-toolbar">
@@ -1151,7 +909,7 @@
 
     <footer>
       <div class="shell">
-        <div class="footer-card">Web này có <strong>admin panel riêng</strong>, <strong>mật khẩu admin riêng</strong>, và nhiều <strong>fallback nguồn phát</strong>. Nếu preview bị chặn mạng, hãy dùng nút mở ngoài trình duyệt.</div>
+        <div class="footer-card">Web này có <strong>admin panel riêng</strong>, <strong>mật khẩu admin riêng</strong>, và nhiều <strong>fallback nguồn phát</strong>. Với Archive.org, hệ thống sẽ ưu tiên <strong>server trực tiếp nhanh nhất</strong> trước khi rơi về nguồn dự phòng.</div>
       </div>
     </footer>
   </div>
@@ -1163,7 +921,7 @@
       <form class="settings-grid" id="admin-auth-form">
         <div class="settings-item">
           <label class="settings-label" for="admin-auth-input">Mật khẩu admin</label>
-          <input class="settings-input" id="admin-auth-input" type="password" placeholder="Nhập mật khẩu admin" autocomplete="off" required />
+          <input class="settings-input" id="admin-auth-input" type="password" placeholder="Nhập mật khẩu admin" autocomplete="off" required>
         </div>
         <div class="error-text" id="admin-auth-error">Sai mật khẩu admin. Vui lòng thử lại.</div>
         <div class="modal-actions">
@@ -1185,12 +943,12 @@
         <div class="settings-inline-grid">
           <div class="settings-item">
             <label class="settings-label" for="settings-password">Mật khẩu web</label>
-            <input class="settings-input" id="settings-password" type="text" placeholder="Ví dụ: khang2026" />
+            <input class="settings-input" id="settings-password" type="text" placeholder="Ví dụ: khang2026">
             <div class="settings-help">Mật khẩu để vào website.</div>
           </div>
           <div class="settings-item">
             <label class="settings-label" for="settings-admin-password">Mật khẩu admin</label>
-            <input class="settings-input" id="settings-admin-password" type="text" placeholder="Ví dụ: khangadmin2026" />
+            <input class="settings-input" id="settings-admin-password" type="text" placeholder="Ví dụ: khangadmin2026">
             <div class="settings-help">Chỉ người biết mật khẩu này mới mở được admin.</div>
           </div>
         </div>
@@ -1198,12 +956,12 @@
         <div class="settings-inline-grid">
           <div class="settings-item">
             <label class="settings-label" for="settings-api-key">Google Drive API Key</label>
-            <input class="settings-input" id="settings-api-key" type="text" placeholder="AIza..." />
+            <input class="settings-input" id="settings-api-key" type="text" placeholder="AIza...">
             <div class="settings-help">API chính dùng endpoint Drive v3.</div>
           </div>
           <div class="settings-item">
             <label class="settings-label" for="settings-proxy-base">Proxy API base URL</label>
-            <input class="settings-input" id="settings-proxy-base" type="text" placeholder="https://your-domain.com/api" />
+            <input class="settings-input" id="settings-proxy-base" type="text" placeholder="https://your-domain.com/api">
             <div class="settings-help">Nếu có backend riêng, nhập URL gốc tại đây.</div>
           </div>
         </div>
@@ -1212,6 +970,7 @@
           <label class="settings-label" for="settings-source-mode">Ưu tiên nguồn phát</label>
           <select class="settings-input" id="settings-source-mode">
             <option value="auto">Tự động</option>
+            <option value="archive">Ưu tiên Archive</option>
             <option value="google">Ưu tiên Google API</option>
             <option value="proxy">Ưu tiên Proxy API</option>
             <option value="direct">Ưu tiên link trực tiếp</option>
@@ -1221,17 +980,83 @@
       </div>
 
       <div class="settings-grid admin-panel-section">
+        <div class="settings-label" style="font-size:15px;color:var(--primary);">🎨 Thông tin hiển thị trang web</div>
+        <div class="settings-inline-grid">
+          <div class="settings-item">
+            <label class="settings-label" for="settings-site-title">Tiêu đề trang</label>
+            <input class="settings-input" id="settings-site-title" type="text" placeholder="KhangHub Stream">
+            <div class="settings-help">Hiện trên tab trình duyệt.</div>
+          </div>
+          <div class="settings-item">
+            <label class="settings-label" for="settings-brand-note">Dòng dưới logo</label>
+            <input class="settings-input" id="settings-brand-note" type="text" placeholder="Anime streaming dashboard...">
+            <div class="settings-help">Mô tả ngắn dưới logo KHANGHUB.</div>
+          </div>
+        </div>
+        <div class="settings-inline-grid">
+          <div class="settings-item">
+            <label class="settings-label" for="settings-hero-tagline">Nhãn badge chính</label>
+            <input class="settings-input" id="settings-hero-tagline" type="text" placeholder="Đã cập nhật web">
+            <div class="settings-help">Badge xanh ở phần hero.</div>
+          </div>
+          <div class="settings-item">
+            <label class="settings-label" for="settings-footer-text">Nội dung footer (HTML)</label>
+            <input class="settings-input" id="settings-footer-text" type="text" placeholder="...">
+            <div class="settings-help">Hỗ trợ HTML (<strong>, <em>...).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-grid admin-panel-section">
+        <div class="settings-label" style="font-size:15px;color:var(--primary-2);">☁️ Nguồn dữ liệu tập trung (GitHub)</div>
+        <p class="section-note">Cấu hình để <strong>đồng bộ dữ liệu phim với tất cả người dùng</strong>. Web sẽ đọc file <code>data.json</code> từ GitHub thay vì localStorage. Admin bấm "Đẩy lên GitHub" để cập nhật bản chung.</p>
+        <div class="settings-inline-grid">
+          <div class="settings-item">
+            <label class="settings-label" for="settings-github-owner">Repo Owner</label>
+            <input class="settings-input" id="settings-github-owner" type="text" placeholder="khanghack222">
+            <div class="settings-help">Tên tài khoản GitHub chứa repo.</div>
+          </div>
+          <div class="settings-item">
+            <label class="settings-label" for="settings-github-repo">Repo Name</label>
+            <input class="settings-input" id="settings-github-repo" type="text" placeholder="khanghub-data">
+            <div class="settings-help">Tên repo chứa file dữ liệu.</div>
+          </div>
+        </div>
+        <div class="settings-inline-grid">
+          <div class="settings-item">
+            <label class="settings-label" for="settings-github-branch">Branch</label>
+            <input class="settings-input" id="settings-github-branch" type="text" placeholder="main">
+            <div class="settings-help">Mặc định: main.</div>
+          </div>
+          <div class="settings-item">
+            <label class="settings-label" for="settings-github-path">Path file JSON</label>
+            <input class="settings-input" id="settings-github-path" type="text" placeholder="data.json">
+            <div class="settings-help">Đường dẫn tới file dữ liệu trong repo.</div>
+          </div>
+        </div>
+        <div class="settings-item">
+          <label class="settings-label" for="settings-github-token">GitHub Personal Access Token (classic)</label>
+          <input class="settings-input" id="settings-github-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxx" autocomplete="off">
+          <div class="settings-help">Token cần quyền <code>repo</code>. Không chia sẻ token này. Token được lưu trong localStorage của bạn.</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-ghost" type="button" id="push-github-btn"> Đẩy dữ liệu lên GitHub ngay</button>
+          <span id="github-status" class="section-note" style="margin:0;">Chưa cấu hình GitHub.</span>
+        </div>
+      </div>
+
+      <div class="settings-grid admin-panel-section">
         <div class="settings-item">
           <label class="settings-label" for="series-json">Dữ liệu phim (JSON)</label>
           <textarea class="settings-textarea" id="series-json" spellcheck="false" placeholder='[{"id":"anime-1","title":"Tên phim","episodes":[]}]'></textarea>
-          <div class="settings-help">Mỗi tập có thể dùng <strong>driveId</strong>, <strong>url</strong> hoặc <strong>proxyPath</strong>.</div>
+          <div class="settings-help">Mỗi tập hỗ trợ <strong>archiveId + file</strong>, <strong>driveId</strong>, <strong>url</strong>, <strong>proxyPath</strong> hoặc <strong>embedUrl</strong>.</div>
         </div>
         <div class="admin-toolbar">
           <button class="btn btn-secondary" type="button" id="export-series-btn">Xuất JSON</button>
           <button class="btn btn-secondary" type="button" id="restore-series-btn">Khôi phục phim mặc định</button>
           <button class="btn btn-danger" type="button" id="logout-admin-btn">Khóa admin</button>
         </div>
-        <div class="admin-note">Mặc định: web = <strong>khang2026</strong>, admin = <strong>khangadmin2026</strong>.</div>
+        <div class="admin-note">Mặc định: web = <strong>khang2026</strong>, admin = <strong>khangadmin2026</strong>. Để đồng bộ GitHub, tạo token tại: <strong>Settings → Developer Settings → Personal Access Tokens → Generate new token (classic)</strong>, tích quyền <code>repo</code>.</div>
       </div>
 
       <div class="modal-actions">
@@ -1250,15 +1075,29 @@
       storage: {
         auth: 'khanghub_authenticated',
         adminAuth: 'khanghub_admin_authenticated',
-        state: 'khanghub_state_v4',
-        settings: 'khanghub_settings_v4',
-        seriesData: 'khanghub_series_data_v4',
+        state: 'khanghub_state_v5',
+        settings: 'khanghub_settings_v5',
+        seriesData: 'khanghub_series_data_v5',
       },
       api: {
         googleApiKey: 'AIzaSyAl1Wd6Djg2y666Vpn3gczmqFrUpRG0bnQ',
         proxyBaseUrl: '',
         sourceMode: 'auto',
       },
+      siteInfo: {
+        title: 'KhangHub Stream',
+        brandNote: 'Anime streaming dashboard · Admin panel · Archive tăng tốc',
+        heroTagline: 'Đã cập nhật web',
+        heroTaglineNote: 'Có admin panel',
+        footerText: 'Web này có <strong>admin panel riêng</strong>, <strong>mật khẩu admin riêng</strong>, và nhiều <strong>fallback nguồn phát</strong>. Với Archive.org, hệ thống sẽ ưu tiên <strong>server trực tiếp nhanh nhất</strong> trước khi rơi về nguồn dự phòng.'
+      },
+      github: {
+        owner: '',
+        repo: '',
+        branch: 'main',
+        path: 'data.json',
+        token: ''
+      }
     };
 
     const DEFAULT_SERIES_DATA = [
@@ -1276,116 +1115,32 @@
         colorTo: '#09131b',
         featured: true,
         episodes: [
-          { name: 'Tập 01', driveId: '1yVFRDbwDUKvqOlL4j8ldgJrxrZdJy0UF' },
-          { name: 'Tập 02', driveId: '1kCJ3lNziXY_14x0BDFQmPyUUCRPTP87l' },
-          { name: 'Tập 03', driveId: '1fFjkZ0a1w-cm_Uv4bIWtutxtTuw3MFmz' },
-          { name: 'Tập 04', driveId: '1_DDRe7d2G0OL4SBU0NGJQfFOb1ML9U-B' },
-          { name: 'Tập 05', driveId: '1ziV4ygz6ocbnc9qgxEicDXZF2ZzWLx7A' },
-          { name: 'Tập 06', driveId: '1qJKf7X0YYDQ3ZCKYu6f52IoRFVrbALYf' },
-          { name: 'Tập 07', driveId: '15uXIGx79acu9zz9VTwf4knooDcptmpVP' },
-          { name: 'Tập 08', driveId: '1oSD1fwayk2VHJ7AlBe0yIGhc_o3w8cMO' },
+          { name: 'Tập 01', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_01.mp4' },
+          { name: 'Tập 02', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_02.mp4' },
+          { name: 'Tập 03', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_03.mp4' },
+          { name: 'Tập 04', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_04.mp4' },
+          { name: 'Tập 05', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_05.mp4' },
+          { name: 'Tập 06', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_06.mp4' },
+          { name: 'Tập 07', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_07.mp4' },
+          { name: 'Tập 08', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_08.mp4' }
         ],
       },
       {
-        id: 'jjk',
-        title: 'Chú Thuật Hồi Chiến',
-        subtitle: 'Jujutsu Kaisen',
-        titleJP: '呪術廻戦',
-        icon: '👊',
-        year: 2023,
-        studio: 'MAPPA',
-        genres: ['Hành động', 'Phép thuật'],
-        description: 'Itadori Yuji bước vào thế giới chú thuật, nơi mỗi trận chiến đều phải trả giá bằng sinh mạng và lời nguyền.',
-        colorFrom: '#25152d',
-        colorTo: '#0b1017',
+        id: 'tgdq-movie',
+        title: 'Thanh Gươm Diệt Quỷ',
+        subtitle: 'Vô Hạn Thành',
+        titleJP: '無限城編',
+        icon: '🏯',
+        year: 2025,
+        studio: 'ufotable',
+        genres: ['Điện ảnh', 'Hành động', 'Siêu nhiên'],
+        description: 'Bản movie đang dùng nguồn Archive.org trực tiếp để tránh gợi ý video và vào file nhanh hơn.',
+        colorFrom: '#2d1920',
+        colorTo: '#0f1017',
         episodes: [
-          { name: 'Tập 01', driveId: '' },
-          { name: 'Tập 02', driveId: '' },
-          { name: 'Tập 03', driveId: '' },
-          { name: 'Tập 04', driveId: '' },
-          { name: 'Tập 05', driveId: '' },
-          { name: 'Tập 06', driveId: '' },
+          { name: 'Movie 01', archiveId: 'khang-tgdq-tgdq-vo-han-thanh', file: 'Thanh_Gươm_Diệt_Quỷ_Vô_Hạn_Thành_Tập_01.mp4' }
         ],
-      },
-      {
-        id: 'aot',
-        title: 'Đại Chiến Titan',
-        subtitle: 'Attack on Titan',
-        titleJP: '進撃の巨人',
-        icon: '🗡️',
-        year: 2023,
-        studio: 'MAPPA',
-        genres: ['Hành động', 'Dark fantasy'],
-        description: 'Cuộc chiến sinh tồn giữa loài người và Titan đi đến hồi kết bằng những lựa chọn vô cùng tàn khốc.',
-        colorFrom: '#302216',
-        colorTo: '#0b1017',
-        episodes: [
-          { name: 'Tập 01', driveId: '' },
-          { name: 'Tập 02', driveId: '' },
-          { name: 'Tập 03', driveId: '' },
-          { name: 'Tập 04', driveId: '' },
-        ],
-      },
-      {
-        id: 'op',
-        title: 'Đảo Hải Tặc',
-        subtitle: 'One Piece',
-        titleJP: 'ワンピース',
-        icon: '🏴‍☠️',
-        year: 2024,
-        studio: 'Toei Animation',
-        genres: ['Phiêu lưu', 'Hài', 'Shounen'],
-        description: 'Luffy cùng băng Mũ Rơm tiếp tục tiến về đại hải trình với những cuộc đối đầu ngày càng khốc liệt.',
-        colorFrom: '#14283a',
-        colorTo: '#0b1017',
-        episodes: [
-          { name: 'Tập 01', driveId: '' },
-          { name: 'Tập 02', driveId: '' },
-          { name: 'Tập 03', driveId: '' },
-          { name: 'Tập 04', driveId: '' },
-          { name: 'Tập 05', driveId: '' },
-        ],
-      },
-      {
-        id: 'naruto',
-        title: 'Naruto',
-        subtitle: 'Shippuden',
-        titleJP: 'ナルト',
-        icon: '🍥',
-        year: 2022,
-        studio: 'Pierrot',
-        genres: ['Ninja', 'Phiêu lưu'],
-        description: 'Naruto trưởng thành hơn, mạnh hơn và tiếp tục hành trình bảo vệ làng Lá cũng như những người thân yêu.',
-        colorFrom: '#3a2411',
-        colorTo: '#0b1017',
-        episodes: [
-          { name: 'Tập 01', driveId: '' },
-          { name: 'Tập 02', driveId: '' },
-          { name: 'Tập 03', driveId: '' },
-          { name: 'Tập 04', driveId: '' },
-        ],
-      },
-      {
-        id: 'csm',
-        title: 'Người Quỷ Cưa',
-        subtitle: 'Chainsaw Man',
-        titleJP: 'チェンソーマン',
-        icon: '🪚',
-        year: 2023,
-        studio: 'MAPPA',
-        genres: ['Kinh dị', 'Hành động'],
-        description: 'Denji đánh đổi tất cả để sinh tồn trong một thế giới nơi quỷ dữ và con người đều cực kỳ tàn nhẫn.',
-        colorFrom: '#30130f',
-        colorTo: '#0b1017',
-        episodes: [
-          { name: 'Tập 01', driveId: '' },
-          { name: 'Tập 02', driveId: '' },
-          { name: 'Tập 03', driveId: '' },
-          { name: 'Tập 04', driveId: '' },
-          { name: 'Tập 05', driveId: '' },
-          { name: 'Tập 06', driveId: '' },
-        ],
-      },
+      }
     ];
 
     let started = false;
@@ -1397,6 +1152,10 @@
     let currentSourceIndex = 0;
     let isRecoveringSource = false;
     let seriesList = [];
+    let playbackToken = 0;
+
+    const archiveMetaCache = {};
+    const memoryStorage = {};
 
     const els = {
       app: document.getElementById('app'),
@@ -1409,6 +1168,9 @@
       clearSearchBtn: document.getElementById('clear-search-btn'),
       settingsBtn: document.getElementById('settings-btn'),
       adminIndicator: document.getElementById('admin-indicator'),
+      topbar: document.querySelector('.topbar'),
+      collapseBtn: document.getElementById('collapse-btn'),
+      heroMain: document.getElementById('hero-main'),
       heroBadges: document.getElementById('hero-badges'),
       heroJP: document.getElementById('hero-jp'),
       heroTitle: document.getElementById('hero-title'),
@@ -1450,38 +1212,39 @@
       settingsApiKey: document.getElementById('settings-api-key'),
       settingsProxyBase: document.getElementById('settings-proxy-base'),
       settingsSourceMode: document.getElementById('settings-source-mode'),
+      settingsSiteTitle: document.getElementById('settings-site-title'),
+      settingsBrandNote: document.getElementById('settings-brand-note'),
+      settingsHeroTagline: document.getElementById('settings-hero-tagline'),
+      settingsFooterText: document.getElementById('settings-footer-text'),
+      settingsGitHubOwner: document.getElementById('settings-github-owner'),
+      settingsGitHubRepo: document.getElementById('settings-github-repo'),
+      settingsGitHubBranch: document.getElementById('settings-github-branch'),
+      settingsGitHubPath: document.getElementById('settings-github-path'),
+      settingsGitHubToken: document.getElementById('settings-github-token'),
+      pushGitHubBtn: document.getElementById('push-github-btn'),
+      githubStatus: document.getElementById('github-status'),
       seriesJson: document.getElementById('series-json'),
       exportSeriesBtn: document.getElementById('export-series-btn'),
       restoreSeriesBtn: document.getElementById('restore-series-btn'),
       logoutAdminBtn: document.getElementById('logout-admin-btn'),
       closeSettingsBtn: document.getElementById('close-settings-btn'),
       saveSettingsBtn: document.getElementById('save-settings-btn'),
-      resetSettingsBtn: document.getElementById('reset-settings-btn'),
+      resetSettingsBtn: document.getElementById('reset-settings-btn')
     };
 
-    const memoryStorage = {};
     const storage = {
       getItem(key) {
-        try {
-          return window.localStorage.getItem(key);
-        } catch (_) {
-          return Object.prototype.hasOwnProperty.call(memoryStorage, key) ? memoryStorage[key] : null;
-        }
+        try { return window.localStorage.getItem(key); }
+        catch (_) { return Object.prototype.hasOwnProperty.call(memoryStorage, key) ? memoryStorage[key] : null; }
       },
       setItem(key, value) {
-        try {
-          window.localStorage.setItem(key, value);
-        } catch (_) {
-          memoryStorage[key] = String(value);
-        }
+        try { window.localStorage.setItem(key, value); }
+        catch (_) { memoryStorage[key] = String(value); }
       },
       removeItem(key) {
-        try {
-          window.localStorage.removeItem(key);
-        } catch (_) {
-          delete memoryStorage[key];
-        }
-      },
+        try { window.localStorage.removeItem(key); }
+        catch (_) { delete memoryStorage[key]; }
+      }
     };
 
     function cloneData(data) {
@@ -1495,6 +1258,9 @@
         driveId: typeof episode?.driveId === 'string' ? episode.driveId.trim() : '',
         url: typeof episode?.url === 'string' ? episode.url.trim() : '',
         proxyPath: typeof episode?.proxyPath === 'string' ? episode.proxyPath.trim() : '',
+        archiveId: typeof episode?.archiveId === 'string' ? episode.archiveId.trim() : '',
+        file: typeof episode?.file === 'string' ? episode.file.trim() : '',
+        embedUrl: typeof episode?.embedUrl === 'string' ? episode.embedUrl.trim() : ''
       }));
     }
 
@@ -1517,12 +1283,43 @@
           colorFrom: typeof series?.colorFrom === 'string' && series.colorFrom.trim() ? series.colorFrom.trim() : '#17352d',
           colorTo: typeof series?.colorTo === 'string' && series.colorTo.trim() ? series.colorTo.trim() : '#09131b',
           featured: Boolean(series?.featured),
-          episodes: normalizeEpisodeData(series?.episodes),
+          episodes: normalizeEpisodeData(series?.episodes)
         };
       });
     }
 
-    function loadSeriesData() {
+    // Xây dựng URL GitHub RAW và API từ config
+    function buildGitHubUrls(github) {
+      if (!github || !github.owner || !github.repo) return null;
+      const owner = github.owner.trim();
+      const repo = github.repo.trim();
+      const branch = (github.branch || 'main').trim();
+      const path = (github.path || 'data.json').trim().replace(/^\/+/, '');
+      return {
+        raw: `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`,
+        api: `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`
+      };
+    }
+
+    async function loadSeriesData() {
+      // 1. Ưu tiên: nếu admin đã cấu hình GitHub → fetch từ đó (đồng bộ thật sự)
+      try {
+        const settings = getSettings();
+        const urls = buildGitHubUrls(settings.github);
+        if (urls) {
+          console.log('[KhangHub] Đang fetch dữ liệu tập trung từ GitHub:', urls.raw);
+          const response = await fetch(urls.raw + '?t=' + Date.now(), { cache: 'no-store' });
+          if (response.ok) {
+            const remoteData = await response.json();
+            storage.setItem(DEFAULT_CONFIG.storage.seriesData, JSON.stringify(remoteData));
+            return normalizeSeriesData(remoteData);
+          }
+          console.warn('[KhangHub] Fetch GitHub thất bại, fallback về local.');
+        }
+      } catch (error) {
+        console.warn('[KhangHub] Không kết nối được GitHub, fallback về local:', error);
+      }
+      // 2. Fallback: đọc từ localStorage
       try {
         const raw = storage.getItem(DEFAULT_CONFIG.storage.seriesData);
         if (!raw) return cloneData(DEFAULT_SERIES_DATA);
@@ -1547,6 +1344,14 @@
           apiKey: typeof saved.apiKey === 'string' ? saved.apiKey : DEFAULT_CONFIG.api.googleApiKey,
           proxyBaseUrl: typeof saved.proxyBaseUrl === 'string' ? saved.proxyBaseUrl : DEFAULT_CONFIG.api.proxyBaseUrl,
           sourceMode: typeof saved.sourceMode === 'string' ? saved.sourceMode : DEFAULT_CONFIG.api.sourceMode,
+          siteInfo: {
+            ...DEFAULT_CONFIG.siteInfo,
+            ...(saved.siteInfo && typeof saved.siteInfo === 'object' ? saved.siteInfo : {})
+          },
+          github: {
+            ...DEFAULT_CONFIG.github,
+            ...(saved.github && typeof saved.github === 'object' ? saved.github : {})
+          }
         };
       } catch (error) {
         console.error('[KhangHub] Không đọc được settings:', error);
@@ -1556,6 +1361,8 @@
           apiKey: DEFAULT_CONFIG.api.googleApiKey,
           proxyBaseUrl: '',
           sourceMode: DEFAULT_CONFIG.api.sourceMode,
+          siteInfo: { ...DEFAULT_CONFIG.siteInfo },
+          github: { ...DEFAULT_CONFIG.github }
         };
       }
     }
@@ -1567,6 +1374,8 @@
         apiKey: typeof settings.apiKey === 'string' ? settings.apiKey.trim() : DEFAULT_CONFIG.api.googleApiKey,
         proxyBaseUrl: typeof settings.proxyBaseUrl === 'string' ? settings.proxyBaseUrl.trim() : '',
         sourceMode: typeof settings.sourceMode === 'string' ? settings.sourceMode : DEFAULT_CONFIG.api.sourceMode,
+        siteInfo: settings.siteInfo && typeof settings.siteInfo === 'object' ? settings.siteInfo : DEFAULT_CONFIG.siteInfo,
+        github: settings.github && typeof settings.github === 'object' ? settings.github : DEFAULT_CONFIG.github
       }));
     }
 
@@ -1596,11 +1405,8 @@
     }
 
     function isSandboxedPreview() {
-      try {
-        return window.self !== window.top;
-      } catch (_) {
-        return true;
-      }
+      try { return window.self !== window.top; }
+      catch (_) { return true; }
     }
 
     function updateRuntimeTip() {
@@ -1611,7 +1417,7 @@
       try {
         storage.setItem(DEFAULT_CONFIG.storage.state, JSON.stringify({
           seriesId: activeSeries?.id || '',
-          episodeIndex: currentEpisodeIndex,
+          episodeIndex: currentEpisodeIndex
         }));
       } catch (error) {
         console.error('[KhangHub] Không lưu được state:', error);
@@ -1619,15 +1425,18 @@
     }
 
     function loadState() {
-      try {
-        return JSON.parse(storage.getItem(DEFAULT_CONFIG.storage.state) || 'null');
-      } catch {
-        return null;
-      }
+      try { return JSON.parse(storage.getItem(DEFAULT_CONFIG.storage.state) || 'null'); }
+      catch { return null; }
     }
 
     function isEpisodePlayable(episode) {
-      return !!(episode && ((episode.driveId && episode.driveId.trim()) || (episode.url && episode.url.trim()) || (episode.proxyPath && episode.proxyPath.trim())));
+      return !!(episode && (
+        (episode.archiveId && episode.file) ||
+        (episode.driveId && episode.driveId.trim()) ||
+        (episode.url && episode.url.trim()) ||
+        (episode.proxyPath && episode.proxyPath.trim()) ||
+        (episode.embedUrl && episode.embedUrl.trim())
+      ));
     }
 
     function getAvailableEpisodeCount(series) {
@@ -1635,7 +1444,10 @@
     }
 
     function getFeaturedSeries() {
-      return activeSeries || seriesList.find((item) => item.featured) || seriesList.find((item) => getAvailableEpisodeCount(item) > 0) || seriesList[0];
+      return activeSeries ||
+        seriesList.find((item) => item.featured) ||
+        seriesList.find((item) => getAvailableEpisodeCount(item) > 0) ||
+        seriesList[0];
     }
 
     function getMetrics() {
@@ -1647,7 +1459,7 @@
         { value: totalSeries, label: 'Series đang có' },
         { value: totalEpisodes, label: 'Tổng số tập khai báo' },
         { value: totalAvailable, label: 'Tập có thể phát' },
-        { value: settings.sourceMode === 'auto' ? 'AUTO' : settings.sourceMode.toUpperCase(), label: 'Chế độ API hiện tại' },
+        { value: settings.sourceMode === 'auto' ? 'AUTO' : settings.sourceMode.toUpperCase(), label: 'Chế độ API hiện tại' }
       ];
     }
 
@@ -1664,10 +1476,13 @@
       const series = getFeaturedSeries();
       if (!series) return;
       const available = getAvailableEpisodeCount(series);
+      const settings = getSettings();
+      const info = settings.siteInfo || DEFAULT_CONFIG.siteInfo;
+      els.heroMain.style.background = `radial-gradient(circle at top right, rgba(0,217,255,0.08), transparent 32%), radial-gradient(circle at left center, rgba(96,245,194,0.10), transparent 42%), linear-gradient(135deg, ${series.colorFrom}, ${series.colorTo})`;
       els.heroBadges.innerHTML = [
-        '<span class="chip primary">Đã cập nhật web</span>',
-        '<span class="chip">Có admin panel</span>',
-        `<span class="chip warning">${available > 0 ? available + ' tập sẵn sàng' : 'Đang chờ cập nhật tập'}</span>`,
+        `<span class="chip primary">${info.heroTagline || 'Đã cập nhật web'}</span>`,
+        `<span class="chip">${info.heroTaglineNote || 'Có admin panel'}</span>`,
+        `<span class="chip warning">${available > 0 ? available + ' tập sẵn sàng' : 'Đang chờ cập nhật tập'}</span>`
       ].join('');
       els.heroJP.textContent = series.titleJP;
       els.heroTitle.textContent = series.title;
@@ -1676,7 +1491,7 @@
       els.heroMeta.innerHTML = [
         { label: 'Thể loại', value: (series.genres || []).join(' · ') || 'Chưa rõ' },
         { label: 'Studio', value: series.studio },
-        { label: 'Tập phát được', value: `${available}/${series.episodes.length}` },
+        { label: 'Tập phát được', value: `${available}/${series.episodes.length}` }
       ].map((item) => `
         <div class="meta-box">
           <div class="meta-label">${item.label}</div>
@@ -1802,6 +1617,8 @@
     function resetPlayerSurface() {
       els.videoPlayer.pause();
       els.videoPlayer.classList.remove('hidden');
+      els.videoPlayer.removeAttribute('src');
+      els.videoPlayer.load();
       els.embedPlayer.classList.remove('visible');
       els.embedPlayer.removeAttribute('src');
     }
@@ -1831,7 +1648,7 @@
       const safeId = encodeURIComponent(id);
       return [
         `https://drive.google.com/uc?export=download&id=${safeId}`,
-        `https://drive.usercontent.google.com/download?id=${safeId}&export=download&confirm=t`,
+        `https://drive.usercontent.google.com/download?id=${safeId}&export=download&confirm=t`
       ];
     }
 
@@ -1840,68 +1657,99 @@
       return `https://drive.google.com/file/d/${safeId}/preview`;
     }
 
+    function buildArchiveDownloadUrl(archiveId, file) {
+      return `https://archive.org/download/${archiveId}/${encodeURI(file)}`;
+    }
+
+    function buildArchiveEmbedUrl(archiveId, file = '') {
+      const base = `https://archive.org/embed/${archiveId}`;
+      return file ? `${base}/${encodeURI(file)}?playlist=0&autoplay=1` : base;
+    }
+
     function normalizeBaseUrl(base) {
       return (base || '').trim().replace(/\/$/, '');
+    }
+
+    function priorityForSource(source, mode) {
+      if (mode === 'archive') {
+        if (source.type === 'archive-fast') return 0;
+        if (source.type === 'archive-download') return 1;
+        if (source.label.includes('Link trực tiếp')) return 2;
+        if (source.label.includes('Proxy')) return 3;
+        if (source.label.includes('Google Drive API')) return 4;
+        if (source.type === 'iframe') return 5;
+        return 6;
+      }
+      if (mode === 'google') {
+        if (source.label.includes('Google Drive API')) return 0;
+        if (source.label.includes('Drive')) return 1;
+        if (source.type === 'archive-fast') return 2;
+        if (source.type === 'archive-download') return 3;
+        if (source.label.includes('Proxy')) return 4;
+        if (source.label.includes('Link trực tiếp')) return 5;
+        return 6;
+      }
+      if (mode === 'proxy') {
+        if (source.label.includes('Proxy')) return 0;
+        if (source.type === 'archive-fast') return 1;
+        if (source.type === 'archive-download') return 2;
+        if (source.label.includes('Link trực tiếp')) return 3;
+        if (source.label.includes('Google Drive API')) return 4;
+        return 5;
+      }
+      if (mode === 'direct') {
+        if (source.type === 'archive-fast') return 0;
+        if (source.type === 'archive-download') return 1;
+        if (source.label.includes('Link trực tiếp')) return 2;
+        if (source.label.includes('Proxy')) return 3;
+        if (source.label.includes('Google Drive API')) return 4;
+        return 5;
+      }
+      if (source.type === 'archive-fast') return 0;
+      if (source.type === 'archive-download') return 1;
+      if (source.label.includes('Link trực tiếp')) return 2;
+      if (source.label.includes('Proxy')) return 3;
+      if (source.label.includes('Google Drive API')) return 4;
+      if (source.label.includes('Drive fallback')) return 5;
+      if (source.label.includes('Drive usercontent')) return 6;
+      if (source.type === 'iframe') return 7;
+      return 8;
     }
 
     function buildSourcesForEpisode(episode) {
       const settings = getSettings();
       const sources = [];
-      const pushSource = (label, url, type = 'video') => {
-        if (!url) return;
-        const clean = String(url).trim();
-        if (!clean) return;
-        if (!sources.some((item) => item.url === clean && item.type === type)) {
-          sources.push({ label, url: clean, type });
+      const pushSource = (source) => {
+        if (!source) return;
+        const key = [source.type, source.url || '', source.archiveId || '', source.file || ''].join('|');
+        if (!sources.some((item) => [item.type, item.url || '', item.archiveId || '', item.file || ''].join('|') === key)) {
+          sources.push(source);
         }
       };
 
-      if (episode.url) pushSource('Link trực tiếp', episode.url, 'video');
+      if (episode.archiveId && episode.file) {
+        pushSource({ label: 'Archive trực tiếp siêu nhanh', type: 'archive-fast', archiveId: episode.archiveId, file: episode.file });
+        pushSource({ label: 'Archive download chuẩn', type: 'archive-download', url: buildArchiveDownloadUrl(episode.archiveId, episode.file) });
+        pushSource({ label: 'Archive preview', type: 'iframe', url: buildArchiveEmbedUrl(episode.archiveId, episode.file) });
+      }
+      if (episode.url) pushSource({ label: 'Link trực tiếp', type: 'video', url: episode.url });
       if (episode.proxyPath && settings.proxyBaseUrl) {
-        pushSource('Proxy API', `${normalizeBaseUrl(settings.proxyBaseUrl)}/${String(episode.proxyPath).replace(/^\//, '')}`, 'video');
+        pushSource({ label: 'Proxy API', type: 'video', url: `${normalizeBaseUrl(settings.proxyBaseUrl)}/${String(episode.proxyPath).replace(/^\//, '')}` });
       }
       if (episode.driveId && settings.apiKey) {
-        pushSource('Google Drive API v3', buildGoogleApiUrl(episode.driveId, settings.apiKey), 'video');
+        pushSource({ label: 'Google Drive API v3', type: 'video', url: buildGoogleApiUrl(episode.driveId, settings.apiKey) });
       }
       if (episode.driveId) {
         buildDriveFallbackUrls(episode.driveId).forEach((url, index) => {
-          pushSource(index === 0 ? 'Drive fallback' : 'Drive usercontent', url, 'video');
+          pushSource({ label: index === 0 ? 'Drive fallback' : 'Drive usercontent', type: 'video', url });
         });
-        pushSource('Google Drive preview', buildDrivePreviewUrl(episode.driveId), 'iframe');
+        pushSource({ label: 'Google Drive preview', type: 'iframe', url: buildDrivePreviewUrl(episode.driveId) });
+      }
+      if (episode.embedUrl) {
+        pushSource({ label: 'Embed tùy chỉnh', type: 'iframe', url: episode.embedUrl });
       }
 
-      const priority = (source) => {
-        if (settings.sourceMode === 'google') {
-          if (source.label.includes('Google Drive API')) return 0;
-          if (source.label.includes('Drive')) return 1;
-          if (source.label.includes('Proxy')) return 2;
-          if (source.label.includes('Link trực tiếp')) return 3;
-          return 4;
-        }
-        if (settings.sourceMode === 'proxy') {
-          if (source.label.includes('Proxy')) return 0;
-          if (source.label.includes('Link trực tiếp')) return 1;
-          if (source.label.includes('Google Drive API')) return 2;
-          if (source.label.includes('Drive')) return 3;
-          return 4;
-        }
-        if (settings.sourceMode === 'direct') {
-          if (source.label.includes('Link trực tiếp')) return 0;
-          if (source.label.includes('Proxy')) return 1;
-          if (source.label.includes('Google Drive API')) return 2;
-          if (source.label.includes('Drive')) return 3;
-          return 4;
-        }
-        if (source.label.includes('Link trực tiếp')) return 0;
-        if (source.label.includes('Proxy')) return 1;
-        if (source.label.includes('Google Drive API')) return 2;
-        if (source.label.includes('Drive fallback')) return 3;
-        if (source.label.includes('Drive usercontent')) return 4;
-        if (source.label.includes('preview')) return 5;
-        return 6;
-      };
-
-      sources.sort((a, b) => priority(a) - priority(b));
+      sources.sort((a, b) => priorityForSource(a, settings.sourceMode) - priorityForSource(b, settings.sourceMode));
       return sources;
     }
 
@@ -1966,7 +1814,58 @@
       els.nextEpBtn.disabled = !activeSeries || currentEpisodeIndex >= activeSeries.episodes.length - 1;
     }
 
-    function trySourceAt(index) {
+    function getDirectBase(archiveId) {
+      if (!archiveId) return Promise.resolve(null);
+      if (archiveMetaCache[archiveId] !== undefined) {
+        return Promise.resolve(archiveMetaCache[archiveId]);
+      }
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 3000);
+      return fetch(`https://archive.org/metadata/${encodeURIComponent(archiveId)}`, { signal: controller.signal })
+        .then((response) => response.json())
+        .then((meta) => {
+          clearTimeout(timer);
+          const server = meta.server || (Array.isArray(meta.workable_servers) ? meta.workable_servers[0] : '');
+          const dir = meta.dir || '';
+          const base = server && dir ? `https://${server}${dir}` : null;
+          archiveMetaCache[archiveId] = base;
+          return base;
+        })
+        .catch(() => {
+          clearTimeout(timer);
+          archiveMetaCache[archiveId] = null;
+          return null;
+        });
+    }
+
+    function warmArchiveMetaCache() {
+      const ids = [...new Set(seriesList.flatMap((series) => (series.episodes || []).map((ep) => ep.archiveId).filter(Boolean)))];
+      ids.forEach((id) => getDirectBase(id));
+    }
+
+    async function resolveSourceUrl(source) {
+      if (!source) return '';
+      if (source.type === 'archive-fast') {
+        const base = await getDirectBase(source.archiveId);
+        if (!base) return '';
+        return `${base}/${encodeURI(source.file)}`;
+      }
+      return source.url || '';
+    }
+
+    function playResolvedVideo(url) {
+      showVideoSurface();
+      els.videoPlayer.src = url;
+      els.videoPlayer.load();
+      const playPromise = els.videoPlayer.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          setStatus('Trình duyệt chặn tự phát. Bạn chỉ cần bấm nút play để xem.', 'warn');
+        });
+      }
+    }
+
+    async function trySourceAt(index) {
       if (!activeSeries) return;
       const episode = activeSeries.episodes[currentEpisodeIndex];
       if (!episode) return;
@@ -1978,6 +1877,7 @@
         return;
       }
 
+      const token = ++playbackToken;
       isRecoveringSource = false;
       showOverlay(`Đang tải ${episode.name} bằng nguồn ${currentSourceIndex + 1}/${currentSources.length}...`);
       updateSourceNote();
@@ -1985,20 +1885,28 @@
       if (source.type === 'iframe') {
         showEmbedSurface(source.url);
         setStatus(`Đang mở ${episode.name} bằng ${source.label}.`, 'ok');
-        setTimeout(hideOverlay, 800);
+        setTimeout(() => {
+          if (token === playbackToken) hideOverlay();
+        }, 700);
         return;
       }
 
-      showVideoSurface();
       setStatus(`Đang thử phát ${episode.name} bằng ${source.label}.`, 'warn');
-      els.videoPlayer.src = source.url;
-      els.videoPlayer.load();
-      const playPromise = els.videoPlayer.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {
-          setStatus('Trình duyệt chặn tự phát. Bạn chỉ cần bấm nút play để xem.', 'warn');
-        });
+      const resolvedUrl = await resolveSourceUrl(source);
+      if (token !== playbackToken) return;
+
+      if (!resolvedUrl) {
+        if (currentSourceIndex < currentSources.length - 1) {
+          setStatus(`Không lấy được URL của ${source.label}. Đang chuyển sang nguồn tiếp theo...`, 'warn');
+          trySourceAt(currentSourceIndex + 1);
+          return;
+        }
+        hideOverlay();
+        setStatus('Không thể tạo URL phát cho tập này.', 'error');
+        return;
       }
+
+      playResolvedVideo(resolvedUrl);
     }
 
     function tryNextSource() {
@@ -2024,8 +1932,6 @@
         currentSources = [];
         currentSourceIndex = 0;
         resetPlayerSurface();
-        els.videoPlayer.removeAttribute('src');
-        els.videoPlayer.load();
         updateSourceNote();
         hideOverlay();
         setStatus('Tập này chưa có link phát hoặc chưa cấu hình API phù hợp.', 'error');
@@ -2036,14 +1942,11 @@
       currentSourceIndex = 0;
       if (!currentSources.length) {
         resetPlayerSurface();
-        els.videoPlayer.removeAttribute('src');
-        els.videoPlayer.load();
         updateSourceNote();
         hideOverlay();
-        setStatus('Không tạo được URL phát. Hãy kiểm tra API key hoặc proxy base URL.', 'error');
+        setStatus('Không tạo được URL phát. Hãy kiểm tra API key, archiveId/file hoặc proxy base URL.', 'error');
         return;
       }
-
       trySourceAt(0);
     }
 
@@ -2055,7 +1958,15 @@
       renderHero();
       renderSeriesGrid();
 
-      let targetIndex = episodeIndex;
+      if (!series.episodes.length) {
+        currentEpisodeIndex = -1;
+        updateEpisodeGrid();
+        resetPlayerSurface();
+        setStatus('Series này chưa có tập nào.', 'error');
+        return;
+      }
+
+      let targetIndex = Math.min(Math.max(episodeIndex, 0), series.episodes.length - 1);
       if (!isEpisodePlayable(series.episodes[targetIndex])) {
         const firstPlayableIndex = series.episodes.findIndex(isEpisodePlayable);
         targetIndex = firstPlayableIndex >= 0 ? firstPlayableIndex : targetIndex;
@@ -2072,9 +1983,8 @@
       currentEpisodeIndex = -1;
       currentSources = [];
       currentSourceIndex = 0;
+      playbackToken++;
       resetPlayerSurface();
-      els.videoPlayer.removeAttribute('src');
-      els.videoPlayer.load();
       els.playerCard.classList.remove('visible');
       clearStatus();
       hideOverlay();
@@ -2112,10 +2022,27 @@
       document.getElementById('catalog-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function openExternalBrowser() {
-      const target = window.location.href;
+    function toggleTopbar() {
+      const collapsed = els.topbar.classList.toggle('collapsed');
+      storage.setItem('khanghub_topbar_collapsed', collapsed ? '1' : '0');
+    }
+
+    function restoreTopbarState() {
+      if (storage.getItem('khanghub_topbar_collapsed') === '1') {
+        els.topbar.classList.add('collapsed');
+      }
+    }
+
+    async function openExternalBrowser() {
+      let target = window.location.href;
+      const source = currentSources[currentSourceIndex];
+      if (source) {
+        if (source.type === 'iframe') target = source.url;
+        else if (source.type === 'archive-fast') target = await resolveSourceUrl(source) || buildArchiveDownloadUrl(source.archiveId, source.file);
+        else target = source.url || target;
+      }
       const isAndroid = /Android/i.test(navigator.userAgent);
-      if (isAndroid) {
+      if (isAndroid && /^https?:\/\//i.test(target)) {
         const clean = target.replace(/^https?:\/\//, '');
         window.location.href = `intent://${clean}#Intent;scheme=https;package=com.android.chrome;end`;
         return;
@@ -2123,15 +2050,102 @@
       window.open(target, '_blank', 'noopener,noreferrer');
     }
 
+    // ===== Áp dụng thông tin trang web (tiêu đề, brand note, footer...) =====
+    function applySiteInfo() {
+      const settings = getSettings();
+      const info = settings.siteInfo || DEFAULT_CONFIG.siteInfo;
+
+      document.title = info.title || DEFAULT_CONFIG.siteInfo.title;
+      const brandNoteEl = document.querySelector('.brand-note');
+      if (brandNoteEl) brandNoteEl.textContent = info.brandNote || DEFAULT_CONFIG.siteInfo.brandNote;
+
+      const footerCard = document.querySelector('.footer-card');
+      if (footerCard) footerCard.innerHTML = info.footerText || DEFAULT_CONFIG.siteInfo.footerText;
+      // Hero badges được cập nhật khi renderHero chạy
+    }
+
+    function getGitHubStatusText() {
+      const settings = getSettings();
+      const g = settings.github || DEFAULT_CONFIG.github;
+      if (!g.owner || !g.repo) return 'Chưa cấu hình GitHub.';
+      return `Repo: ${g.owner}/${g.repo}/${g.branch}/${g.path}`;
+    }
+
+    async function pushDataToGitHub() {
+      const settings = getSettings();
+      const g = settings.github;
+      if (!g.owner || !g.repo || !g.token) {
+        setStatus('Chưa cấu hình đầy đủ thông tin GitHub (owner, repo, token).', 'error');
+        return;
+      }
+      const urls = buildGitHubUrls(g);
+      if (!urls) return;
+
+      setStatus('Đang đẩy dữ liệu lên GitHub...', 'warn');
+      els.githubStatus.textContent = '⏳ Đang kết nối GitHub...';
+
+      try {
+        // Lấy SHA hiện tại của file (nếu đã tồn tại)
+        let sha = '';
+        try {
+          const getResponse = await fetch(urls.api, {
+            headers: {
+              'Authorization': `token ${g.token}`,
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          });
+          if (getResponse.ok) {
+            const existing = await getResponse.json();
+            sha = existing.sha || '';
+          } else if (getResponse.status !== 404) {
+            throw new Error('Không thể kiểm tra file hiện tại.');
+          }
+        } catch (err) {
+          console.warn('[KhangHub] Bỏ qua lấy SHA:', err);
+        }
+
+        const body = {
+          message: `KhangHub: cập nhật dữ liệu phim lúc ${new Date().toISOString()}`,
+          content: btoa(unescape(encodeURIComponent(JSON.stringify(seriesList, null, 2)))),
+          branch: g.branch,
+          ...(sha ? { sha } : {})
+        };
+
+        const response = await fetch(urls.api, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${g.token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+          const errText = await response.text();
+          throw new Error(`GitHub API trả về lỗi ${response.status}: ${errText.slice(0, 200)}`);
+        }
+
+        els.githubStatus.textContent = `✅ Đẩy thành công lúc ${new Date().toLocaleTimeString('vi-VN')}`;
+        setStatus('Đã đồng bộ dữ liệu lên GitHub — mọi người dùng sẽ thấy bản mới.', 'ok');
+      } catch (error) {
+        els.githubStatus.textContent = `❌ Lỗi: ${error.message}`;
+        setStatus(`Không đẩy được lên GitHub: ${error.message}`, 'error');
+      }
+    }
+
     function renderAdminSummary() {
       const settings = getSettings();
+      const g = settings.github || DEFAULT_CONFIG.github;
+      const hasGitHub = g.owner && g.repo;
       const rows = [
         { label: 'Trạng thái admin', value: isAdminAuthenticated() ? 'Đã mở khóa' : 'Đang khóa' },
         { label: 'Mật khẩu web', value: getSitePassword() },
         { label: 'Mật khẩu admin', value: getAdminPassword() },
         { label: 'API key', value: settings.apiKey ? `${settings.apiKey.slice(0, 10)}...` : 'Chưa cấu hình' },
         { label: 'Proxy base', value: settings.proxyBaseUrl || 'Không dùng proxy' },
-        { label: 'Tổng series', value: String(seriesList.length) },
+        { label: 'Nguồn tập trung', value: hasGitHub ? `${g.owner}/${g.repo}` : 'Chưa cấu hình' },
+        { label: 'Tổng series', value: String(seriesList.length) }
       ];
       els.adminSummary.innerHTML = rows.map((item) => `
         <div class="admin-summary-card">
@@ -2143,11 +2157,23 @@
 
     function syncAdminPanel() {
       const settings = getSettings();
+      const info = settings.siteInfo || DEFAULT_CONFIG.siteInfo;
+      const g = settings.github || DEFAULT_CONFIG.github;
       els.settingsPassword.value = settings.password;
       els.settingsAdminPassword.value = settings.adminPassword;
       els.settingsApiKey.value = settings.apiKey;
       els.settingsProxyBase.value = settings.proxyBaseUrl;
       els.settingsSourceMode.value = settings.sourceMode;
+      els.settingsSiteTitle.value = info.title;
+      els.settingsBrandNote.value = info.brandNote;
+      els.settingsHeroTagline.value = info.heroTagline;
+      els.settingsFooterText.value = info.footerText;
+      els.settingsGitHubOwner.value = g.owner;
+      els.settingsGitHubRepo.value = g.repo;
+      els.settingsGitHubBranch.value = g.branch;
+      els.settingsGitHubPath.value = g.path;
+      els.settingsGitHubToken.value = g.token;
+      els.githubStatus.textContent = getGitHubStatusText();
       els.seriesJson.value = JSON.stringify(seriesList, null, 2);
       renderAdminSummary();
     }
@@ -2221,7 +2247,13 @@
       saveSeriesData(seriesList);
       syncAdminPanel();
       renderAll();
+      warmArchiveMetaCache();
       setStatus('Đã khôi phục dữ liệu phim mặc định.', 'ok');
+
+      const settings = getSettings();
+      if (settings.github.token && settings.github.owner && settings.github.repo) {
+        pushDataToGitHub();
+      }
       if (activeSeries) {
         const matched = seriesList.find((item) => item.id === activeSeries.id);
         if (matched) openSeries(matched.id, currentEpisodeIndex >= 0 ? currentEpisodeIndex : 0, false);
@@ -2240,19 +2272,45 @@
         return;
       }
 
-      saveSettings({
+      const newSettings = {
         password: els.settingsPassword.value.trim(),
         adminPassword: els.settingsAdminPassword.value.trim(),
         apiKey: els.settingsApiKey.value.trim(),
         proxyBaseUrl: els.settingsProxyBase.value.trim(),
         sourceMode: els.settingsSourceMode.value,
-      });
+        siteInfo: {
+          title: els.settingsSiteTitle.value.trim() || DEFAULT_CONFIG.siteInfo.title,
+          brandNote: els.settingsBrandNote.value.trim() || DEFAULT_CONFIG.siteInfo.brandNote,
+          heroTagline: els.settingsHeroTagline.value.trim() || DEFAULT_CONFIG.siteInfo.heroTagline,
+          heroTaglineNote: DEFAULT_CONFIG.siteInfo.heroTaglineNote,
+          footerText: els.settingsFooterText.value.trim() || DEFAULT_CONFIG.siteInfo.footerText
+        },
+        github: {
+          owner: els.settingsGitHubOwner.value.trim(),
+          repo: els.settingsGitHubRepo.value.trim(),
+          branch: els.settingsGitHubBranch.value.trim() || DEFAULT_CONFIG.github.branch,
+          path: els.settingsGitHubPath.value.trim() || DEFAULT_CONFIG.github.path,
+          token: els.settingsGitHubToken.value.trim()
+        }
+      };
+
+      saveSettings(newSettings);
       seriesList = parsedSeries;
       saveSeriesData(seriesList);
       updateAdminIndicator();
+      applySiteInfo();
       renderAll();
+      warmArchiveMetaCache();
       closeSettingsModal();
-      setStatus('Đã lưu toàn bộ thay đổi trong admin panel.', 'ok');
+
+      // Tự động đẩy lên GitHub nếu admin đã cấu hình token
+      if (newSettings.github.token && newSettings.github.owner && newSettings.github.repo) {
+        setStatus('Đã lưu cục bộ. Đang đồng bộ lên GitHub...', 'ok');
+        pushDataToGitHub();
+      } else {
+        setStatus('Đã lưu toàn bộ thay đổi trong admin panel.', 'ok');
+      }
+
       if (activeSeries) {
         const matched = seriesList.find((item) => item.id === activeSeries.id);
         if (matched) openSeries(matched.id, currentEpisodeIndex >= 0 ? currentEpisodeIndex : 0, false);
@@ -2268,8 +2326,11 @@
         apiKey: DEFAULT_CONFIG.api.googleApiKey,
         proxyBaseUrl: '',
         sourceMode: DEFAULT_CONFIG.api.sourceMode,
+        siteInfo: { ...DEFAULT_CONFIG.siteInfo },
+        github: { ...DEFAULT_CONFIG.github }
       });
       syncAdminPanel();
+      applySiteInfo();
       updateAdminIndicator();
       renderStats();
       renderHero();
@@ -2329,6 +2390,7 @@
         renderSeriesGrid();
       });
       els.heroScrollBtn.addEventListener('click', scrollToCatalog);
+      els.collapseBtn.addEventListener('click', toggleTopbar);
       els.settingsBtn.addEventListener('click', requestAdminAccess);
       els.closeSettingsBtn.addEventListener('click', closeSettingsModal);
       els.saveSettingsBtn.addEventListener('click', saveSettingsFromModal);
@@ -2336,6 +2398,7 @@
       els.exportSeriesBtn.addEventListener('click', exportSeriesJson);
       els.restoreSeriesBtn.addEventListener('click', restoreDefaultSeries);
       els.logoutAdminBtn.addEventListener('click', logoutAdmin);
+      els.pushGitHubBtn.addEventListener('click', pushDataToGitHub);
       els.settingsModal.addEventListener('click', (event) => {
         if (event.target === els.settingsModal) closeSettingsModal();
       });
@@ -2371,7 +2434,7 @@
           return;
         }
         hideOverlay();
-        setStatus('Tất cả nguồn video đều lỗi. Hãy thử mở ngoài trình duyệt hoặc kiểm tra API/proxy trong admin.', 'error');
+        setStatus('Tất cả nguồn video đều lỗi. Hãy thử mở ngoài trình duyệt hoặc kiểm tra API/proxy/archive trong admin.', 'error');
       });
 
       els.embedPlayer.addEventListener('load', () => {
@@ -2404,6 +2467,7 @@
       if (started) return;
       started = true;
       renderAll();
+      warmArchiveMetaCache();
       const loadedFromHash = loadFromHash();
       if (!loadedFromHash) {
         const saved = loadState();
@@ -2411,11 +2475,15 @@
       }
     }
 
-    seriesList = loadSeriesData();
-    attachEvents();
-    updateAdminIndicator();
-    updateRuntimeTip();
-    checkAuth();
+    (async () => {
+      seriesList = await loadSeriesData();
+      attachEvents();
+      restoreTopbarState();
+      applySiteInfo();
+      updateAdminIndicator();
+      updateRuntimeTip();
+      checkAuth();
+    })();
   </script>
 </body>
 </html>
