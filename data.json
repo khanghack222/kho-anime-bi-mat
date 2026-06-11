@@ -4,91 +4,24 @@
     "title": "Thanh Gươm Diệt Quỷ",
     "subtitle": "Phần Đặc Huấn Đại Trụ",
     "titleJP": "鬼滅の刃",
-    "icon": "⚔️",
+    "icon": "️",
     "year": 2024,
     "studio": "ufotable",
-    "genres": [
-      "Hành động",
-      "Siêu nhiên",
-      "Shounen"
-    ],
+    "genres": ["Hành động", "Siêu nhiên", "Shounen"],
     "description": "Tanjiro và các thành viên Diệt Quỷ Đoàn bước vào đợt huấn luyện khắc nghiệt cuối cùng cùng các Đại Trụ trước cuộc chiến quyết định với Muzan.",
     "colorFrom": "#17352d",
     "colorTo": "#09131b",
+    "poster": "",
     "featured": true,
     "episodes": [
-      {
-        "name": "Tập 01",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_01.mp4",
-        "embedUrl": ""
-      },
-      {
-        "name": "Tập 02",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_02.mp4",
-        "embedUrl": ""
-      },
-      {
-        "name": "Tập 03",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_03.mp4",
-        "embedUrl": ""
-      },
-      {
-        "name": "Tập 04",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_04.mp4",
-        "embedUrl": ""
-      },
-      {
-        "name": "Tập 05",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_05.mp4",
-        "embedUrl": ""
-      },
-      {
-        "name": "Tập 06",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_06.mp4",
-        "embedUrl": ""
-      },
-      {
-        "name": "Tập 07",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_07.mp4",
-        "embedUrl": ""
-      },
-      {
-        "name": "Tập 08",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-s4",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_08.mp4",
-        "embedUrl": ""
-      }
+      { "name": "Tập 01", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_01.mp4" },
+      { "name": "Tập 02", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_02.mp4" },
+      { "name": "Tập 03", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_03.mp4" },
+      { "name": "Tập 04", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_04.mp4" },
+      { "name": "Tập 05", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_05.mp4" },
+      { "name": "Tập 06", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_06.mp4" },
+      { "name": "Tập 07", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_07.mp4" },
+      { "name": "Tập 08", "archiveId": "khang-tgdq-tgdq-s4", "file": "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_08.mp4" }
     ]
   },
   {
@@ -99,25 +32,30 @@
     "icon": "🏯",
     "year": 2025,
     "studio": "ufotable",
-    "genres": [
-      "Điện ảnh",
-      "Hành động",
-      "Siêu nhiên"
-    ],
-    "description": "Bản movie đang dùng nguồn Archive.org trực tiếp để tránh gợi ý video và vào file nhanh hơn.",
+    "genres": ["Điện ảnh", "Hành động", "Siêu nhiên"],
+    "description": "Sau khi khoá huấn luyện đặc biệt kết thúc, các thành viên Sát Quỷ Đoàn đột ngột bị kéo vào Vô Hạn Thành – sào huyệt chết chóc biến hóa khôn lường của Chúa quỷ Muzan. Tại đây, Tanjiro cùng các Trụ Cột phải chia ngả, dốc toàn lực quyết chiến sinh tử với những con quỷ Thượng Huyền mạnh nhất.",
     "colorFrom": "#2d1920",
     "colorTo": "#0f1017",
-    "featured": false,
+    "poster": "",
     "episodes": [
-      {
-        "name": "Movie 01",
-        "driveId": "",
-        "url": "",
-        "proxyPath": "",
-        "archiveId": "khang-tgdq-tgdq-vo-han-thanh",
-        "file": "Thanh_Gươm_Diệt_Quỷ_Vô_Hạn_Thành_Tập_01.mp4",
-        "embedUrl": ""
-      }
+      { "name": "Movie 01", "archiveId": "khang-tgdq-tgdq-vo-han-thanh", "file": "Thanh_Gươm_Diệt_Quỷ_Vô_Hạn_Thành_Tập_01.mp4" }
+    ]
+  },
+  {
+    "id": "tgdq-2026",
+    "title": "Doraemon Movie 45 (2026): Nobita Và Lâu Đài Dưới Đáy Biển",
+    "subtitle": "Moive 45",
+    "titleJP": "鬼滅の刃 2026",
+    "icon": "⛴",
+    "year": 2026,
+    "studio": "Shin-Ei Animation ",
+    "genres": ["Hành động", "Phiêu lưu", "Khoa học viễn tưởng"],
+    "description": "Bản mới nhất 2026 —Doraemon Movie 45 (2026): Nobita Và Lâu Đài Dưới Đáy Biển",
+    "colorFrom": "#1a0a2e",
+    "colorTo": "#0b0515",
+    "poster": "",
+    "episodes": [
+      { "name": "Tập 01", "archiveId": "khang-tgdq-2026", "file": "20260608_042451_UTC_0.mp4" }
     ]
   }
 ]
