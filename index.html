@@ -1302,19 +1302,32 @@
     }
 
     async function loadSeriesData() {
+      // 0. Try loading from local data.json first (for local development)
+      try {
+        const localResponse = await fetch('/data.json?t=' + Date.now(), { cache: 'no-store' });
+        if (localResponse.ok) {
+          const localData = await localResponse.json();
+          console.log('[KhangHub] Đã tải dữ liệu từ data.json cục bộ.');
+          storage.setItem(DEFAULT_CONFIG.storage.seriesData, JSON.stringify(localData));
+          return normalizeSeriesData(localData);
+        }
+      } catch (error) {
+        console.warn('[KhangHub] Không tải được data.json cục bộ, bỏ qua:', error);
+      }
+
       // 1. Ưu tiên: nếu admin đã cấu hình GitHub → fetch từ đó (đồng bộ thật sự)
       try {
         const settings = getSettings();
         const urls = buildGitHubUrls(settings.github);
         if (urls) {
-          console.log('[KhangHub] Đang fetch dữ liệu tập trung từ GitHub:', urls.raw);
+          console.log('[KhangHub] Đang tải dữ liệu tập trung từ GitHub:', urls.raw);
           const response = await fetch(urls.raw + '?t=' + Date.now(), { cache: 'no-store' });
           if (response.ok) {
             const remoteData = await response.json();
             storage.setItem(DEFAULT_CONFIG.storage.seriesData, JSON.stringify(remoteData));
             return normalizeSeriesData(remoteData);
           }
-          console.warn('[KhangHub] Fetch GitHub thất bại, fallback về local.');
+          console.warn('[KhangHub] Tải GitHub thất bại, fallback về local.');
         }
       } catch (error) {
         console.warn('[KhangHub] Không kết nối được GitHub, fallback về local:', error);
@@ -1327,6 +1340,24 @@
       } catch (error) {
         console.error('[KhangHub] Không đọc được series data:', error);
         return cloneData(DEFAULT_SERIES_DATA);
+      }
+    }
+
+    async function saveDataToLocalFile(data) {
+      try {
+        const response = await fetch('/api/save-data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (response.ok) {
+          console.log('[KhangHub] Đã lưu dữ liệu vào data.json cục bộ.');
+          return true;
+        }
+        return false;
+      } catch (error) {
+        console.warn('[KhangHub] Không lưu được vào data.json cục bộ (có thể là môi trường production):', error);
+        return false;
       }
     }
 
@@ -2245,14 +2276,18 @@
       setStatus('Đã xuất file JSON dữ liệu phim.', 'ok');
     }
 
-    function restoreDefaultSeries() {
+    async function restoreDefaultSeries() {
       if (!isAdminAuthenticated()) return requestAdminAccess();
       seriesList = cloneData(DEFAULT_SERIES_DATA);
       saveSeriesData(seriesList);
+      
+      // Save to local data.json if possible
+      await saveDataToLocalFile(seriesList);
+      
       syncAdminPanel();
       renderAll();
       warmArchiveMetaCache();
-      setStatus('Đã khôi phục dữ liệu phim mặc định.', 'ok');
+      setStatus('Đã khôi phục dữ liệu phim mặc định và cập nhật data.json.', 'ok');
 
       const settings = getSettings();
       if (settings.github.token && settings.github.owner && settings.github.repo) {
@@ -2265,7 +2300,7 @@
       }
     }
 
-    function saveSettingsFromModal() {
+    async function saveSettingsFromModal() {
       if (!isAdminAuthenticated()) return requestAdminAccess();
 
       let parsedSeries;
@@ -2301,6 +2336,10 @@
       saveSettings(newSettings);
       seriesList = parsedSeries;
       saveSeriesData(seriesList);
+      
+      // Save to local data.json if possible
+      await saveDataToLocalFile(seriesList);
+      
       updateAdminIndicator();
       applySiteInfo();
       renderAll();
@@ -2312,7 +2351,7 @@
         setStatus('Đã lưu cục bộ. Đang đồng bộ lên GitHub...', 'ok');
         pushDataToGitHub();
       } else {
-        setStatus('Đã lưu toàn bộ thay đổi trong admin panel.', 'ok');
+        setStatus('Đã lưu toàn bộ thay đổi trong admin panel và data.json cục bộ.', 'ok');
       }
 
       if (activeSeries) {
