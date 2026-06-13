@@ -1393,7 +1393,7 @@ function buildGitHubUrls(github) {
 }
 async function loadSeriesData() {
   try {
-    const localRes = await fetch('/data.json?t=' + Date.now(), { cache: 'no-store' });
+    const localRes = await fetch('./data.json?t=' + Date.now(), { cache: 'no-store' });
     if (localRes.ok) {
       const localData = await localRes.json();
       console.log('[KhangHub] Đã tải dữ liệu từ data.json cục bộ.');
@@ -2289,7 +2289,15 @@ function warmArchiveMetaCache() {
 async function init() {
   loadWatchHistory();
   seriesList = await loadSeriesData();
-  startApp();
+  renderAll();
+  warmArchiveMetaCache();
+  const loadedFromHash = loadFromHash();
+  if (!loadedFromHash) { 
+    const saved = loadState();
+    if (saved && saved.seriesId) {
+      openSeries(saved.seriesId, saved.episodeIndex || 0, false);
+    }
+  }
   els.app.classList.add('ready');
 }
 
