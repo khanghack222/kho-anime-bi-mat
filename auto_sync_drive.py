@@ -13,7 +13,7 @@ NYAA_RSS_URLS = [
 ]
 
 MAX_DOWNLOADS = int(os.environ.get("MAX_EPISODES", 20))
-DEST_FOLDER = os.environ.get("DRIVE_DEST", "gdrive:Anime_Clean_5TB")
+DEST_FOLDER = os.environ.get("DRIVE_DEST", "gdrive:KhangFlix_Anime")
 
 def parse_rss():
     items = []
@@ -95,13 +95,46 @@ def main():
             if os.environ.get("RCLONE_CONFIG_DATA"):
                 print(f"[>] Đang đẩy file sang Google Drive 5TB: {DEST_FOLDER}")
                 subprocess.run(["rclone", "copy", "downloads", DEST_FOLDER, "--progress", "--drive-chunk-size", "64M"])
+                
+                # Quét lại file ID trên Drive để tạo link direct
+                try:
+                    res = subprocess.run(["rclone", "lsjson", DEST_FOLDER], capture_output=True, text=True)
+                    if res.returncode == 0:
+                        drive_files = json.loads(res.stdout)
+                        for df in drive_files:
+                            fname = df.get("Path", "")
+                            fid = df.get("ID", "")
+                            fsize_mb = round(df.get("Size", 0) / (1024 * 1024), 1)
+                            
+                            # Kiểm tra nếu chưa có trong catalog thì thêm
+                            if not any(x.get("title") == fname for x in catalog):
+                                stream_url = f"https://drive.google.com/uc?id={fid}&export=download"
+                                play_url = f"https://drive.google.com/file/d/{fid}/preview"
+                                catalog.append({
+                                    "title": fname,
+                                    "url": play_url,
+                                    "download_url": stream_url,
+                                    "size_mb": fsize_mb,
+                                    "episodes": [{
+                                        "name": "Tập Full HD (Clean 1080p)",
+                                        "url": play_url,
+                                        "direct": stream_url
+                                    }]
+                                })
+                except Exception as ex:
+                    print(f"[!] Lỗi update catalog từ Drive: {ex}")
+
                 # Xóa local sau khi upload
                 for f in os.listdir("downloads"):
                     file_p = os.path.join("downloads", f)
                     if os.path.isfile(file_p):
                         os.remove(file_p)
 
-    print(f"\n[*] Hoàn tất lượt tải. Đã xử lý {downloaded_count} tập.")
+    # Lưu catalog.json mới
+    with open("catalog.json", "w", encoding="utf-8") as f:
+        json.dump(catalog, f, ensure_ascii=False, indent=2)
+
+    print(f"\n[*] Hoàn tất lượt tải. Đã xử lý {downloaded_count} tập. Tổng catalog: {len(catalog)} anime.")
 
 if __name__ == "__main__":
     main()
