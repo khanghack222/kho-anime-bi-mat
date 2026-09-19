@@ -32,11 +32,19 @@ jobs:
 
       - name: Setup Rclone Config
         env:
-          RCLONE_CONFIG_BASE64: ${{ secrets.RCLONE_CONFIG_BASE64 }}
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
         run: |
-          mkdir -p ~/.config/rclone
-          echo "$RCLONE_CONFIG_BASE64" | base64 -d > ~/.config/rclone/rclone.conf
-          sed -i -e '1s/^\xef\xbb\xbf//' ~/.config/rclone/rclone.conf # Strip BOM if any
+          python -c '
+          import os, pathlib
+          conf = os.environ.get("RCLONE_CONFIG_DATA", "").strip()
+          if conf.startswith("\ufeff"):
+              conf = conf[1:]
+          conf = conf.replace("\r\n", "\n")
+          conf_path = pathlib.Path.home() / ".config" / "rclone" / "rclone.conf"
+          conf_path.parent.mkdir(parents=True, exist_ok=True)
+          conf_path.write_text(conf, encoding="utf-8")
+          print("Rclone config written successfully.")
+          '
           echo "Kiểm tra kết nối Google Drive..."
           rclone lsd gdrive:
 
