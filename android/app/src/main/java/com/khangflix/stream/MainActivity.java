@@ -74,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Cache trên RAM thấp để chống tràn bộ nhớ 16GB
         ws.setCacheMode(WebSettings.LOAD_DEFAULT);
-        ws.setAppCacheEnabled(true);
-        File cacheDir = getCacheDir();
-        if (cacheDir != null) {
-            ws.setAppCachePath(cacheDir.getAbsolutePath());
-        }
 
         // Tắt zoom rườm rà
         ws.setSupportZoom(false);
