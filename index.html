@@ -14,6 +14,7 @@
   <link rel="dns-prefetch" href="https://www.googleapis.com">
   <link rel="preconnect" href="https://drive.google.com" crossorigin>
   <link rel="dns-prefetch" href="https://drive.google.com">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
   <style>
 :root {
   --bg: #070b12;
@@ -1151,6 +1152,33 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
           <span id="github-status" class="section-note" style="margin:0;">Chưa cấu hình GitHub.</span>
         </div>
       </div>
+      <div class="settings-grid admin-panel-section" style="border-color: rgba(96,245,194,0.35);">
+        <div class="settings-label" style="font-size:15px;color:var(--primary);display:flex;align-items:center;justify-content:space-between;">
+          <span>🚀 Tìm & Tự động thêm Anime mới (Auto-Importer)</span>
+          <span class="mini-pill ok">Tự động lấy link HD & m3u8</span>
+        </div>
+        <p class="section-note">Nhập tên anime (ví dụ: <em>Solo Leveling, One Piece, Naruto, Frieren, Spy x Family, Bleach, Attack on Titan...</em>). Hệ thống sẽ tự tìm kiếm tập phim, m3u8 và thêm trực tiếp vào kho phim của web.</p>
+        <div style="display:flex;gap:10px;">
+          <input class="settings-input" id="anime-search-input" type="text" placeholder="Nhập tên anime muốn tìm kiếm...">
+          <button class="btn btn-primary" type="button" id="anime-search-btn" style="white-space:nowrap;">🔍 Tìm kiếm</button>
+        </div>
+        <div id="anime-search-results" style="display:grid;gap:8px;max-height:280px;overflow-y:auto;margin-top:8px;"></div>
+      </div>
+      <div class="settings-grid admin-panel-section" style="border-color: rgba(0,217,255,0.35);">
+        <div class="settings-label" style="font-size:15px;color:var(--primary-2);display:flex;align-items:center;justify-content:space-between;">
+          <span>⚡ Trợ lý Google Drive & Colab Downloader</span>
+          <span class="mini-pill">Drive 100MB/s</span>
+        </div>
+        <p class="section-note">Dán bất kỳ link chia sẻ từ Google Drive (hoặc file ID) để trích xuất chuẩn ID và tạo link stream preview/download:</p>
+        <div style="display:flex;gap:10px;">
+          <input class="settings-input" id="drive-link-input" type="text" placeholder="https://drive.google.com/file/d/1yVFRDbwDUKvqOlL4j8ldgJrxrZdJy0UF/view">
+          <button class="btn btn-secondary" type="button" id="drive-extract-btn" style="white-space:nowrap;">Trích xuất ID</button>
+        </div>
+        <div id="drive-extracted-result" style="display:none;background:rgba(8,14,24,0.7);border-radius:10px;padding:12px;border:1px solid rgba(0,217,255,0.25);margin-top:8px;"></div>
+        <div class="section-note" style="margin-top:8px;background:rgba(255,255,255,0.03);padding:10px;border-radius:8px;">
+          💡 <strong>Tải phim về Drive không tốn dung lượng máy tính:</strong> Mở file <code>Anime_Drive_Downloader.ipynb</code> hoặc <code>Auto_1000_Anime_Drive.ipynb</code> bằng Google Colab, kết nối Google Drive và dán link magnet/torrent (từ Nyaa/SubsPlease) để tải tốc độ cao trực tiếp vào Google Drive!
+        </div>
+      </div>
       <div class="settings-grid admin-panel-section">
         <div class="settings-item">
           <label class="settings-label" for="series-json">Dữ liệu phim (JSON)</label>
@@ -1212,14 +1240,14 @@ const DEFAULT_SERIES_DATA = [
     colorTo: '#09131b',
     featured: true,
     episodes: [
-      { name: 'Tập 01', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_01.mp4' },
-      { name: 'Tập 02', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_02.mp4' },
-      { name: 'Tập 03', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_03.mp4' },
-      { name: 'Tập 04', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_04.mp4' },
-      { name: 'Tập 05', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_05.mp4' },
-      { name: 'Tập 06', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_06.mp4' },
-      { name: 'Tập 07', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_07.mp4' },
-      { name: 'Tập 08', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_08.mp4' }
+      { name: 'Tập 01', driveId: '1yVFRDbwDUKvqOlL4j8ldgJrxrZdJy0UF', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_01.mp4' },
+      { name: 'Tập 02', driveId: '1kCJ3lNziXY_14x0BDFQmPyUUCRPTP87l', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_02.mp4' },
+      { name: 'Tập 03', driveId: '1fFjkZ0a1w-cm_Uv4bIWtutxtTuw3MFmz', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_03.mp4' },
+      { name: 'Tập 04', driveId: '1_DDRe7d2G0OL4SBU0NGJQfFOb1ML9U-B', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_04.mp4' },
+      { name: 'Tập 05', driveId: '1ziV4ygz6ocbnc9qgxEicDXZF2ZzWLx7A', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_05.mp4' },
+      { name: 'Tập 06', driveId: '1qJKf7X0YYDQ3ZCKYu6f52IoRFVrbALYf', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_06.mp4' },
+      { name: 'Tập 07', driveId: '15uXIGx79acu9zz9VTwf4knooDcptmpVP', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_07.mp4' },
+      { name: 'Tập 08', driveId: '1oSD1fwayk2VHJ7AlBe0yIGhc_o3w8cMO', archiveId: 'khang-tgdq-tgdq-s4', file: 'Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_08.mp4' }
     ]
   },
   {
@@ -1310,6 +1338,12 @@ const els = {
   settingsGithubToken: document.getElementById('settings-github-token'),
   pushGithubBtn: document.getElementById('push-github-btn'),
   githubStatus: document.getElementById('github-status'),
+  animeSearchInput: document.getElementById('anime-search-input'),
+  animeSearchBtn: document.getElementById('anime-search-btn'),
+  animeSearchResults: document.getElementById('anime-search-results'),
+  driveLinkInput: document.getElementById('drive-link-input'),
+  driveExtractBtn: document.getElementById('drive-extract-btn'),
+  driveExtractedResult: document.getElementById('drive-extracted-result'),
   seriesJson: document.getElementById('series-json'),
   exportSeriesBtn: document.getElementById('export-series-btn'),
   restoreSeriesBtn: document.getElementById('restore-series-btn'),
@@ -1765,7 +1799,12 @@ function showOverlay(msg) {
 function hideOverlay() {
   els.videoOverlay.classList.add('hidden');
 }
+let currentHlsInstance = null;
 function resetPlayerSurface() {
+  if (currentHlsInstance) {
+    try { currentHlsInstance.destroy(); } catch (_) {}
+    currentHlsInstance = null;
+  }
   els.videoPlayer.pause();
   els.customVideoContainer.style.display = 'none';
   els.videoPlayer.removeAttribute('src');
@@ -1958,12 +1997,48 @@ function playResolvedVideo(url) {
   hideOverlay();
   els.customVideoContainer.style.display = 'block';
   els.embedPlayer.style.display = 'none';
-  els.videoPlayer.src = url;
-  els.videoPlayer.load();
+
+  if (currentHlsInstance) {
+    try { currentHlsInstance.destroy(); } catch (_) {}
+    currentHlsInstance = null;
+  }
+
+  const isM3u8 = typeof url === 'string' && url.includes('.m3u8');
+  if (isM3u8 && typeof Hls !== 'undefined' && Hls.isSupported()) {
+    currentHlsInstance = new Hls({
+      enableWorker: true,
+      lowLatencyMode: false,
+    });
+    currentHlsInstance.loadSource(url);
+    currentHlsInstance.attachMedia(els.videoPlayer);
+    currentHlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+      const playPromise = els.videoPlayer.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => setStatus('Trình duyệt chặn tự phát. Bạn chỉ cần bấm nút play để xem.', 'warn'));
+      }
+    });
+    currentHlsInstance.on(Hls.Events.ERROR, function (event, data) {
+      if (data.fatal) {
+        console.warn('[KhangHub] HLS fatal error:', data.type, data.details);
+        if (currentHlsInstance) {
+          try { currentHlsInstance.destroy(); } catch (_) {}
+          currentHlsInstance = null;
+        }
+        if (currentSourceIndex < currentSources.length - 1) {
+          tryNextSource();
+        } else {
+          setStatus('Lỗi giải mã luồng video. Vui lòng chọn nguồn phát khác.', 'error');
+        }
+      }
+    });
+  } else {
+    els.videoPlayer.src = url;
+    els.videoPlayer.load();
+    const playPromise = els.videoPlayer.play();
+    if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => setStatus('Trình duyệt chặn tự phát. Bạn chỉ cần bấm nút play để xem.', 'warn'));
+  }
   els.bufferingIndicator.style.display = 'none';
   hideResumeNotification();
-  const playPromise = els.videoPlayer.play();
-  if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => setStatus('Trình duyệt chặn tự phát. Bạn chỉ cần bấm nút play để xem.', 'warn'));
   els.videoPlayer.addEventListener('loadedmetadata', function onLoaded() {
     els.videoPlayer.removeEventListener('loadedmetadata', onLoaded);
     const savedData = loadSavedPlaybackPosition();
@@ -2330,6 +2405,138 @@ els.restoreSeriesBtn.addEventListener('click', restoreDefaultSeries);
 els.logoutAdminBtn.addEventListener('click', logoutAdmin);
 els.pushGithubBtn.addEventListener('click', pushDataToGitHub);
 els.clearWatchHistoryBtn.addEventListener('click', clearWatchHistory);
+if (els.animeSearchBtn) els.animeSearchBtn.addEventListener('click', handleAnimeSearch);
+if (els.animeSearchInput) els.animeSearchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAnimeSearch(); });
+if (els.driveExtractBtn) els.driveExtractBtn.addEventListener('click', handleDriveExtraction);
+if (els.driveLinkInput) els.driveLinkInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleDriveExtraction(); });
+
+// Anime Search & Auto-Importer
+async function handleAnimeSearch() {
+  const kw = els.animeSearchInput.value.trim();
+  if (!kw) {
+    els.animeSearchResults.innerHTML = '<div class="section-note" style="color:var(--warning);">Vui lòng nhập tên anime để tìm kiếm.</div>';
+    return;
+  }
+  els.animeSearchResults.innerHTML = '<div class="section-note">Đang tìm kiếm phim...</div>';
+  try {
+    const res = await fetch(`https://phimapi.com/v1/api/tim-kiem?keyword=${encodeURIComponent(kw)}&limit=8`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const items = data?.data?.items || [];
+    if (!items.length) {
+      els.animeSearchResults.innerHTML = '<div class="section-note">Không tìm thấy anime phù hợp. Hãy thử từ khóa khác.</div>';
+      return;
+    }
+    els.animeSearchResults.innerHTML = items.map(item => {
+      const isAlreadyAdded = seriesList.some(s => s.id === item.slug);
+      return `
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;gap:8px;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;color:var(--text);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.name}</div>
+            <div style="font-size:12px;color:var(--text-muted);">${item.origin_name || ''} · ${item.year || ''}</div>
+          </div>
+          <button class="btn btn-secondary ${isAlreadyAdded ? 'disabled' : ''}" type="button" onclick="addAnimeFromApi('${item.slug}')" style="font-size:12px;padding:4px 10px;white-space:nowrap;">
+            ${isAlreadyAdded ? '✓ Đã có' : '+ Thêm vào web'}
+          </button>
+        </div>
+      `;
+    }).join('');
+  } catch (err) {
+    els.animeSearchResults.innerHTML = `<div class="section-note" style="color:var(--danger);">Lỗi tìm kiếm: ${err.message}</div>`;
+  }
+}
+
+async function addAnimeFromApi(slug) {
+  setStatus('Đang tải dữ liệu và danh sách tập phim...', 'warn');
+  try {
+    const res = await fetch(`https://phimapi.com/phim/${slug}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const m = data?.movie || {};
+    const epsData = data?.episodes || [];
+    const episodes = [];
+    if (epsData.length && epsData[0].server_data) {
+      epsData[0].server_data.forEach(it => {
+        episodes.push({
+          name: it.name || 'Tập',
+          url: it.link_m3u8 || '',
+          embedUrl: it.link_embed || '',
+          driveId: '',
+          proxyPath: '',
+          archiveId: '',
+          file: ''
+        });
+      });
+    }
+    const genres = (m.category && m.category.length) ? m.category.map(c => c.name) : ['Anime', 'Hành động'];
+    const desc = (m.content || '').replace(/<[^>]+>/g, '').trim().slice(0, 300);
+    const newAnime = {
+      id: slug,
+      title: m.name || slug,
+      subtitle: m.origin_name || '',
+      titleJP: m.origin_name || m.name || slug,
+      icon: '🎬',
+      year: parseInt(m.year) || 2024,
+      studio: 'Anime Studio',
+      genres: genres,
+      description: desc || `Phim ${m.name}`,
+      colorFrom: '#1e1b4b',
+      colorTo: '#0f172a',
+      featured: false,
+      episodes: episodes
+    };
+
+    const existingIdx = seriesList.findIndex(s => s.id === slug);
+    if (existingIdx >= 0) {
+      seriesList[existingIdx] = newAnime;
+    } else {
+      seriesList.unshift(newAnime);
+    }
+    saveSeriesData(seriesList);
+    await saveDataToLocalFile(seriesList);
+    els.seriesJson.value = JSON.stringify(seriesList, null, 2);
+    renderAll();
+    setStatus(`Đã thêm thành công anime "${newAnime.title}" với ${episodes.length} tập!`, 'ok');
+    handleAnimeSearch();
+  } catch (err) {
+    setStatus(`Không thể thêm anime: ${err.message}`, 'error');
+  }
+}
+window.addAnimeFromApi = addAnimeFromApi;
+
+// Google Drive Link Extractor
+function handleDriveExtraction() {
+  const val = els.driveLinkInput.value.trim();
+  if (!val) {
+    els.driveExtractedResult.style.display = 'none';
+    return;
+  }
+  let driveId = '';
+  const matchD = val.match(/\/d\/([a-zA-Z0-9_-]{25,})/);
+  const matchId = val.match(/[?&]id=([a-zA-Z0-9_-]{25,})/);
+  if (matchD) driveId = matchD[1];
+  else if (matchId) driveId = matchId[1];
+  else if (/^[a-zA-Z0-9_-]{25,}$/.test(val)) driveId = val;
+
+  if (!driveId) {
+    els.driveExtractedResult.style.display = 'block';
+    els.driveExtractedResult.innerHTML = '<div style="color:var(--danger);font-size:13px;">❌ Không tìm thấy Google Drive File ID hợp lệ. Hãy dán link dạng <code>https://drive.google.com/file/d/ID/view</code>.</div>';
+    return;
+  }
+
+  const previewUrl = `https://drive.google.com/file/d/${driveId}/preview`;
+  const snippet = `{\\n  "name": "Tập mới",\\n  "driveId": "${driveId}"\\n}`;
+
+  els.driveExtractedResult.style.display = 'block';
+  els.driveExtractedResult.innerHTML = `
+    <div style="font-size:13px;color:var(--primary-2);font-weight:600;margin-bottom:6px;">✓ Trích xuất thành công:</div>
+    <div style="font-size:13px;color:var(--text);word-break:break-all;margin-bottom:4px;"><strong>Drive ID:</strong> <code>${driveId}</code></div>
+    <div style="font-size:12px;color:var(--text-soft);margin-bottom:8px;"><strong>Stream Preview:</strong> <a href="${previewUrl}" target="_blank" style="color:var(--primary);">${previewUrl}</a></div>
+    <div style="font-size:12px;color:var(--text-soft);margin-bottom:4px;"><strong>JSON tập phim:</strong></div>
+    <pre style="background:rgba(0,0,0,0.5);padding:6px;border-radius:6px;font-size:12px;color:var(--primary);margin:0 0 8px 0;">{\n  "name": "Tập mới",\n  "driveId": "${driveId}"\n}</pre>
+    <button class="btn btn-ghost" type="button" style="font-size:12px;padding:4px 10px;" onclick="navigator.clipboard.writeText('${snippet}');setStatus('Đã chép mã JSON tập phim vào bộ nhớ tạm.','ok');">📋 Sao chép JSON</button>
+  `;
+}
 
 // Topbar
 els.collapseBtn.addEventListener('click', toggleTopbar);

@@ -19,7 +19,7 @@
     "episodes": [
       {
         "name": "Tập 01",
-        "driveId": "",
+        "driveId": "1yVFRDbwDUKvqOlL4j8ldgJrxrZdJy0UF",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -28,7 +28,7 @@
       },
       {
         "name": "Tập 02",
-        "driveId": "",
+        "driveId": "1kCJ3lNziXY_14x0BDFQmPyUUCRPTP87l",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -37,7 +37,7 @@
       },
       {
         "name": "Tập 03",
-        "driveId": "",
+        "driveId": "1fFjkZ0a1w-cm_Uv4bIWtutxtTuw3MFmz",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -46,7 +46,7 @@
       },
       {
         "name": "Tập 04",
-        "driveId": "",
+        "driveId": "1_DDRe7d2G0OL4SBU0NGJQfFOb1ML9U-B",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -55,7 +55,7 @@
       },
       {
         "name": "Tập 05",
-        "driveId": "",
+        "driveId": "1ziV4ygz6ocbnc9qgxEicDXZF2ZzWLx7A",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -64,7 +64,7 @@
       },
       {
         "name": "Tập 06",
-        "driveId": "",
+        "driveId": "1qJKf7X0YYDQ3ZCKYu6f52IoRFVrbALYf",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -73,7 +73,7 @@
       },
       {
         "name": "Tập 07",
-        "driveId": "",
+        "driveId": "15uXIGx79acu9zz9VTwf4knooDcptmpVP",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -82,7 +82,7 @@
       },
       {
         "name": "Tập 08",
-        "driveId": "",
+        "driveId": "1oSD1fwayk2VHJ7AlBe0yIGhc_o3w8cMO",
         "url": "",
         "proxyPath": "",
         "archiveId": "khang-tgdq-tgdq-s4",
@@ -21622,6 +21622,1722 @@
         "url": "https://v7.kkphimplayer7.com/20260917/quycbAcq/index.m3u8",
         "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260917/quycbAcq/index.m3u8",
         "driveId": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "thang-cap-mot-minh",
+    "title": "Thăng cấp một mình",
+    "subtitle": "Solo Leveling",
+    "titleJP": "Solo Leveling",
+    "icon": "⚔️",
+    "year": 2024,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hành Động",
+      "Phiêu Lưu",
+      "Khoa Học",
+      "Viễn Tưởng"
+    ],
+    "description": "Thợ săn hạng E Sung Jinwoo là người yếu nhất trong số họ. Bị mọi người coi thường, anh ta không có tiền, không có khả năng nói và không có triển vọng công việc nào khác. Vì vậy, khi nhóm của anh ấy tìm thấy một hầm ngục ẩn giấu, anh ấy quyết tâm sử dụng cơ hội này để thay đổi cuộ...",
+    "colorFrom": "#1e1b4b",
+    "colorTo": "#0f172a",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s4.phim1280.tv/20250105/5c8S0WpL/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/5c8S0WpL/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s4.phim1280.tv/20250105/VyXIxSaW/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/VyXIxSaW/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s4.phim1280.tv/20250105/DWhZSgPJ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/DWhZSgPJ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s4.phim1280.tv/20250105/mL2rChH8/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/mL2rChH8/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s4.phim1280.tv/20250105/ZizmCDba/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/ZizmCDba/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s4.phim1280.tv/20250105/3SWN11Qg/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/3SWN11Qg/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s4.phim1280.tv/20250105/3tnJQwYS/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/3tnJQwYS/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s4.phim1280.tv/20250105/XLInj7kd/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/XLInj7kd/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s4.phim1280.tv/20250105/GxWhKO0t/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/GxWhKO0t/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s4.phim1280.tv/20250105/prHz1npE/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/prHz1npE/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s4.phim1280.tv/20250105/aOt9jUP4/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/aOt9jUP4/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s4.phim1280.tv/20250105/B7OwSz1c/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/B7OwSz1c/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "thang-cap-mot-minh-phan-2",
+    "title": "Thăng cấp một mình (Phần 2)",
+    "subtitle": "Solo Leveling (Season 2)",
+    "titleJP": "Solo Leveling (Season 2)",
+    "icon": "⚡",
+    "year": 2025,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hành Động",
+      "Phiêu Lưu",
+      "Khoa Học",
+      "Viễn Tưởng"
+    ],
+    "description": "Mùa 2 của&nbsp;Thăng cấp một mình (Solo Leveling) 2025!",
+    "colorFrom": "#1e1b4b",
+    "colorTo": "#312e81",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s4.phim1280.tv/20250105/VPZnq9BL/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250105/VPZnq9BL/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s5.phim1280.tv/20250112/y09iw0vx/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250112/y09iw0vx/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s5.phim1280.tv/20250119/USwXXsux/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250119/USwXXsux/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s4.phim1280.tv/20250126/AvF41BqZ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250126/AvF41BqZ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s5.phim1280.tv/20250209/fg3sRrFq/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250209/fg3sRrFq/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s5.phim1280.tv/20250209/ZPD6fPKl/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250209/ZPD6fPKl/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s5.phim1280.tv/20250216/XWcq53YR/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250216/XWcq53YR/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s4.phim1280.tv/20250224/R81CmWYN/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250224/R81CmWYN/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s5.phim1280.tv/20250302/Bb3rmzhA/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250302/Bb3rmzhA/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s5.phim1280.tv/20250309/LeQ757pl/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250309/LeQ757pl/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s5.phim1280.tv/20250316/hfAZz9fv/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250316/hfAZz9fv/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s5.phim1280.tv/20250323/tiNovcUz/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250323/tiNovcUz/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 13",
+        "url": "https://s4.phim1280.tv/20250330/9UdPpXRc/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250330/9UdPpXRc/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "frieren-phap-su-tien-tang-phan-1",
+    "title": "Frieren: Pháp Sư Tiễn Táng (Phần 1)",
+    "subtitle": "Frieren: Beyond Journey's End (Season 1)",
+    "titleJP": "Frieren: Beyond Journey's End (Season 1)",
+    "icon": "🪄",
+    "year": 2023,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hành Động",
+      "Phiêu Lưu",
+      "Khoa Học",
+      "Viễn Tưởng",
+      "Chính Kịch",
+      "Tâm Lý"
+    ],
+    "description": "Sau một thập kỷ phiêu lưu, Frieren cùng tổ đội của dũng sĩ Himmel đã đánh bại Ma vương và mang lại hòa bình cho thế giới. Thế rồi cô ấy, một Elf với thọ mệnh hơn cả ngàn năm tuổi, lập lời hứa sẽ tái ngộ cùng nhóm Himmel rồi lên đường đi phiêu lưu một mình. 50 năm sau, Frieren đến...",
+    "colorFrom": "#14532d",
+    "colorTo": "#052e16",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s6.kkphimplayer6.com/20250528/olIObxjc/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/olIObxjc/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s6.kkphimplayer6.com/20250528/DHPF5P4D/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/DHPF5P4D/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s6.kkphimplayer6.com/20250528/jja5eRei/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/jja5eRei/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s6.kkphimplayer6.com/20250528/tKqiUjmR/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/tKqiUjmR/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s6.kkphimplayer6.com/20250528/E9YFlUZT/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/E9YFlUZT/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s6.kkphimplayer6.com/20250528/mR9F6Ihx/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/mR9F6Ihx/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s6.kkphimplayer6.com/20250528/HF1KSNhd/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/HF1KSNhd/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s6.kkphimplayer6.com/20250528/RPdLaj3K/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/RPdLaj3K/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s6.kkphimplayer6.com/20250528/m2saJ0bh/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/m2saJ0bh/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s6.kkphimplayer6.com/20250528/aaCJ5brA/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/aaCJ5brA/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s6.kkphimplayer6.com/20250528/nSeXW5Ao/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/nSeXW5Ao/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s6.kkphimplayer6.com/20250528/BjP1wTuK/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/BjP1wTuK/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 13",
+        "url": "https://s6.kkphimplayer6.com/20250528/yr6URVfD/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/yr6URVfD/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 14",
+        "url": "https://s6.kkphimplayer6.com/20250528/pOzpbmPu/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/pOzpbmPu/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 15",
+        "url": "https://s6.kkphimplayer6.com/20250528/o85qNjOI/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/o85qNjOI/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 16",
+        "url": "https://s6.kkphimplayer6.com/20250528/tFdnfToK/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/tFdnfToK/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 17",
+        "url": "https://s6.kkphimplayer6.com/20250528/uClzRNqm/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/uClzRNqm/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 18",
+        "url": "https://s6.kkphimplayer6.com/20250528/ZZXTWlSj/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/ZZXTWlSj/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 19",
+        "url": "https://s6.kkphimplayer6.com/20250528/ZQh1L8Ph/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/ZQh1L8Ph/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 20",
+        "url": "https://s6.kkphimplayer6.com/20250528/X5CVOxgY/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/X5CVOxgY/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 21",
+        "url": "https://s6.kkphimplayer6.com/20250528/gWtlcCGL/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/gWtlcCGL/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 22",
+        "url": "https://s6.kkphimplayer6.com/20250528/mao8kVQB/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/mao8kVQB/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 23",
+        "url": "https://s6.kkphimplayer6.com/20250528/7M9SeiIY/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/7M9SeiIY/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 24",
+        "url": "https://s6.kkphimplayer6.com/20250528/WkWWtIMR/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/WkWWtIMR/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 25",
+        "url": "https://s6.kkphimplayer6.com/20250528/nji2Z6p3/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/nji2Z6p3/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 26",
+        "url": "https://s6.kkphimplayer6.com/20250528/Br2R7qzR/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/Br2R7qzR/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 27",
+        "url": "https://s6.kkphimplayer6.com/20250528/DdVsM6uL/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/DdVsM6uL/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 28",
+        "url": "https://s6.kkphimplayer6.com/20250528/1FbXSYu5/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20250528/1FbXSYu5/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "luc-do-toi-da-chuyen-sinh-thanh-slime-phan-4",
+    "title": "Lúc Đó Tôi Đã Chuyển Sinh Thành Slime (Phần 4)",
+    "subtitle": "That Time I Got Reincarnated As A Slime (Season 4)",
+    "titleJP": "That Time I Got Reincarnated As A Slime (Season 4)",
+    "icon": "💧",
+    "year": 2026,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hài Hước",
+      "Hành Động",
+      "Khoa Học",
+      "Phiêu Lưu",
+      "Tâm Lý",
+      "Viễn Tưởng"
+    ],
+    "description": "Chuyển thể từ light novel cùng tên của tác giả Fuse. Anh chàng Satoru Mikami, 37 tuổi, FA nhiều năm với sống cuộc sống chán chường và không mấy vui vẻ gì. Ngày kia vận số đen đủi bám lấy anh chàng, bị cướp tấn công, giết ngay tại chỗ, tưởng chừng tháng ngày chán ngắt ấy đã kết th...",
+    "colorFrom": "#0369a1",
+    "colorTo": "#082f49",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s6.kkphimplayer6.com/20260406/brgfq685/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20260406/brgfq685/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s6.kkphimplayer6.com/20260411/zuh3NIzj/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s6.kkphimplayer6.com/20260411/zuh3NIzj/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://v7.kkphimplayer7.com/20260418/qQpsOFw4/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260418/qQpsOFw4/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://v7.kkphimplayer7.com/20260425/8TrTyKe4/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260425/8TrTyKe4/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://v7.kkphimplayer7.com/20260509/NvWvb2Jx/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260509/NvWvb2Jx/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://v7.kkphimplayer7.com/20260515/EJLr0RXg/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260515/EJLr0RXg/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://v7.kkphimplayer7.com/20260522/zWrwpKYt/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260522/zWrwpKYt/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://v7.kkphimplayer7.com/20260529/5rM2oKk0/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260529/5rM2oKk0/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://v7.kkphimplayer7.com/20260605/zaDdltRS/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260605/zaDdltRS/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://v7.kkphimplayer7.com/20260612/4UvNv1nO/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260612/4UvNv1nO/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://v7.kkphimplayer7.com/20260620/yUp1eqhi/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260620/yUp1eqhi/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://v7.kkphimplayer7.com/20260626/HXWh0Ryl/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260626/HXWh0Ryl/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 13",
+        "url": "https://v7.kkphimplayer7.com/20260703/yKTR3HsP/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260703/yKTR3HsP/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 14",
+        "url": "https://v7.kkphimplayer7.com/20260710/2U1NyzAQ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260710/2U1NyzAQ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 15",
+        "url": "https://v7.kkphimplayer7.com/20260717/l4AcYVCx/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260717/l4AcYVCx/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 16",
+        "url": "https://v7.kkphimplayer7.com/20260724/AWmVtRO8/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260724/AWmVtRO8/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 17",
+        "url": "https://v7.kkphimplayer7.com/20260807/0bfMnFIA/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260807/0bfMnFIA/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 18",
+        "url": "https://v7.kkphimplayer7.com/20260814/vgyJ4voO/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260814/vgyJ4voO/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 19",
+        "url": "https://v7.kkphimplayer7.com/20260822/dF726kMy/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260822/dF726kMy/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 20",
+        "url": "https://v7.kkphimplayer7.com/20260828/BigpAw6w/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260828/BigpAw6w/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 21",
+        "url": "https://v7.kkphimplayer7.com/20260904/Jnb32CPr/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260904/Jnb32CPr/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 22",
+        "url": "https://v7.kkphimplayer7.com/20260911/alUT63cy/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://v7.kkphimplayer7.com/20260911/alUT63cy/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 23",
+        "url": "https://a.kvp726.com/20260918/kG9z7OrQ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://a.kvp726.com/20260918/kG9z7OrQ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "gia-dinh-diep-vien-phan-1",
+    "title": "Gia Đình Điệp Viên (Phần 1)",
+    "subtitle": "Spy x Family (Season 1)",
+    "titleJP": "Spy x Family (Season 1)",
+    "icon": "🕵️",
+    "year": 2022,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hài Hước",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Tâm Lý"
+    ],
+    "description": "Nhằm ngăn những kẻ cực đoan châm ngòi cho cuộc chiến với quốc gia láng giềng Ostania, Twilight, điệp viên hàng đầu của Westalis phải điều tra chính trị gia người Ostanian là Donovan Desmond bằng cách xâm nhập vào trường học của con trai ông ta - học viện Eden danh giá. Dưới vỏ bọ...",
+    "colorFrom": "#065f46",
+    "colorTo": "#022c22",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s5.phim1280.tv/20250504/RMSz1Ptk/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250504/RMSz1Ptk/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s5.phim1280.tv/20250504/DBnPkfEH/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250504/DBnPkfEH/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s5.phim1280.tv/20250504/221orMAk/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250504/221orMAk/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s5.phim1280.tv/20250504/8y3SDwoN/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250504/8y3SDwoN/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s5.phim1280.tv/20250504/FvT99fKz/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250504/FvT99fKz/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s5.phim1280.tv/20250504/nv1j32BY/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250504/nv1j32BY/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s5.phim1280.tv/20250503/WSU662ES/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/WSU662ES/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s5.phim1280.tv/20250503/nMyxM18l/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/nMyxM18l/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s5.phim1280.tv/20250503/lrqKWrej/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/lrqKWrej/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s5.phim1280.tv/20250503/VzTEueiv/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/VzTEueiv/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s5.phim1280.tv/20250503/tn9GSuOK/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/tn9GSuOK/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s5.phim1280.tv/20250503/6MvnYHDb/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/6MvnYHDb/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 13",
+        "url": "https://s5.phim1280.tv/20250503/F5Enoy11/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/F5Enoy11/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 14",
+        "url": "https://s5.phim1280.tv/20250503/GEiX2swz/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/GEiX2swz/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 15",
+        "url": "https://s5.phim1280.tv/20250503/9297PJr1/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/9297PJr1/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 16",
+        "url": "https://s5.phim1280.tv/20250503/dJvO0Voy/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/dJvO0Voy/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 17",
+        "url": "https://s5.phim1280.tv/20250503/wWddQf7G/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/wWddQf7G/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 18",
+        "url": "https://s5.phim1280.tv/20250503/HQ1uON6F/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/HQ1uON6F/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 19",
+        "url": "https://s5.phim1280.tv/20250503/ZCsyZnby/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/ZCsyZnby/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 20",
+        "url": "https://s5.phim1280.tv/20250503/nXxYHVgS/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/nXxYHVgS/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 21",
+        "url": "https://s5.phim1280.tv/20250503/IgEmhigj/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/IgEmhigj/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 22",
+        "url": "https://s5.phim1280.tv/20250503/w3ECB1Bf/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/w3ECB1Bf/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 23",
+        "url": "https://s5.phim1280.tv/20250503/gBlrJDuf/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/gBlrJDuf/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 24",
+        "url": "https://s5.phim1280.tv/20250503/7XGYHsRj/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/7XGYHsRj/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 25",
+        "url": "https://s5.phim1280.tv/20250503/uf3BRNCl/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250503/uf3BRNCl/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "tho-san-quy-2022",
+    "title": "Thợ Săn Quỷ",
+    "subtitle": "Chainsaw Man",
+    "titleJP": "Chainsaw Man",
+    "icon": "🪚",
+    "year": 2022,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hành Động",
+      "Phiêu Lưu",
+      "Khoa Học",
+      "Viễn Tưởng"
+    ],
+    "description": "Denji có một ước mơ đơn giản là sống một cuộc sống hạnh phúc và yên bình, dành thời gian cho một cô gái anh thích. Tuy nhiên, điều này khác xa với thực tế, vì Denji bị yakuza buộc phải giết quỷ để trả những món nợ chồng chất của mình. Sử dụng con quỷ cưng Pochita của mình làm vũ ...",
+    "colorFrom": "#831843",
+    "colorTo": "#4c0519",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s4.phim1280.tv/20250106/qEAz8bQM/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/qEAz8bQM/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s4.phim1280.tv/20250106/48mjT4c6/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/48mjT4c6/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s4.phim1280.tv/20250106/BJmgvqP3/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/BJmgvqP3/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s4.phim1280.tv/20250106/zstsrdcg/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/zstsrdcg/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s4.phim1280.tv/20250106/lmuIg2cF/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/lmuIg2cF/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s4.phim1280.tv/20250106/aUj6Mmur/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/aUj6Mmur/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s4.phim1280.tv/20250106/yBS5f4yZ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/yBS5f4yZ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s4.phim1280.tv/20250106/lW4OItP7/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/lW4OItP7/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s4.phim1280.tv/20250106/EcUYuFxf/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/EcUYuFxf/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s4.phim1280.tv/20250106/dfShHHSZ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/dfShHHSZ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s4.phim1280.tv/20250106/48wf27dA/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/48wf27dA/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s4.phim1280.tv/20250106/jPDXlnwG/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250106/jPDXlnwG/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "dragon-ball-daima",
+    "title": "Dragon Ball Daima",
+    "subtitle": "Dragon Ball DAIMA",
+    "titleJP": "Dragon Ball DAIMA",
+    "icon": "🐉",
+    "year": 2024,
+    "studio": "Anime Studio",
+    "genres": [
+      "Phiêu Lưu",
+      "Hài Hước",
+      "Viễn Tưởng",
+      "Trẻ Em"
+    ],
+    "description": "Dragon Ball DAIMA là phần tiếp theo của Dragon Ball Z và là phần tiền truyện của Dragon Ball Super. Dòng thời gian của Dragon Ball vốn đã phức tạp, và DAIMA càng làm cho nó khó hiểu hơn. Trong series, một số nhân vật có thể đến từ Ma giới (Demon Realm) sẽ biến Goku, Vegeta và các...",
+    "colorFrom": "#9a3412",
+    "colorTo": "#431407",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s5.phim1280.tv/20241013/jzvgsg3U/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20241013/jzvgsg3U/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s4.phim1280.tv/20241021/2SR54vug/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20241021/2SR54vug/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s5.phim1280.tv/20241102/OO7mHapc/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20241102/OO7mHapc/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s5.phim1280.tv/20241109/aBIr4m3U/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20241109/aBIr4m3U/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s5.phim1280.tv/20241116/SqvjOVih/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20241116/SqvjOVih/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s5.phim1280.tv/20241123/l8k3HTmv/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20241123/l8k3HTmv/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s4.phim1280.tv/20241129/qkseRjnP/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20241129/qkseRjnP/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s5.phim1280.tv/20241206/gu0bJwys/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20241206/gu0bJwys/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s4.phim1280.tv/20241213/B3L8gRW1/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20241213/B3L8gRW1/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s4.phim1280.tv/20241221/q21X6nhZ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20241221/q21X6nhZ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s4.phim1280.tv/20241227/s2UcWnM2/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20241227/s2UcWnM2/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s5.phim1280.tv/20241231/TA5PsbKm/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20241231/TA5PsbKm/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 13",
+        "url": "https://s5.phim1280.tv/20250119/4tbIXeeJ/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250119/4tbIXeeJ/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 14",
+        "url": "https://s4.phim1280.tv/20250124/balUcE0Q/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250124/balUcE0Q/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 15",
+        "url": "https://s4.phim1280.tv/20250201/bPw1HWCc/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250201/bPw1HWCc/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 16",
+        "url": "https://s5.phim1280.tv/20250208/8b1DwOPG/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250208/8b1DwOPG/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 17",
+        "url": "https://s5.phim1280.tv/20250214/7Otpyj7w/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250214/7Otpyj7w/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 18",
+        "url": "https://s4.phim1280.tv/20250222/TCqhNfDO/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250222/TCqhNfDO/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 19",
+        "url": "https://s4.phim1280.tv/20250301/nzWq9VSY/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250301/nzWq9VSY/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 20",
+        "url": "https://s5.phim1280.tv/20250302/V3C9tZ5M/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250302/V3C9tZ5M/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "dam-phat-chet-luon-phan-1",
+    "title": "Đấm Phát Chết Luôn (Phần 1)",
+    "subtitle": "One Punch Man (Season 1)",
+    "titleJP": "One Punch Man (Season 1)",
+    "icon": "👊",
+    "year": 2015,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hài Hước",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Viễn Tưởng",
+      "Tâm Lý"
+    ],
+    "description": "Câu chuyện diễn ra tại thành phố Z của Nhật Bản tại thời điểm thế giới đầy những quái vật bí ẩn với sức mạnh ghê gớm đã xuất hiện và gây ra biết bao nhiêu thảm họa. &nbsp;Nhưng cũng chính tại đây xuất hiện 1 siêu anh hùng đấm phát chết luôn, có thể dễ dàng đánh bại và tiêu diệt n...",
+    "colorFrom": "#854d0e",
+    "colorTo": "#422006",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s5.phim1280.tv/20250306/35T3MoCM/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/35T3MoCM/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s5.phim1280.tv/20250306/4fnhc2eR/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/4fnhc2eR/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s5.phim1280.tv/20250306/Aip7bv8d/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/Aip7bv8d/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s5.phim1280.tv/20250306/wg8Tt2yR/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/wg8Tt2yR/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s5.phim1280.tv/20250306/Yyqit1aC/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/Yyqit1aC/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s5.phim1280.tv/20250306/3CvKxLJd/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/3CvKxLJd/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s5.phim1280.tv/20250306/H0C2o76u/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/H0C2o76u/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s5.phim1280.tv/20250306/yvYE9eoT/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/yvYE9eoT/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s5.phim1280.tv/20250306/wugizKtF/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/wugizKtF/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s5.phim1280.tv/20250306/TZyQJqKH/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/TZyQJqKH/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s5.phim1280.tv/20250306/CJqxCB9j/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/CJqxCB9j/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s5.phim1280.tv/20250306/HreHyuBS/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s5.phim1280.tv/20250306/HreHyuBS/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      }
+    ]
+  },
+  {
+    "id": "chu-thuat-hoi-chien-phan-1",
+    "title": "Chú Thuật Hồi Chiến (Phần 1)",
+    "subtitle": "Jujutsu Kaisen (Season 1)",
+    "titleJP": "Jujutsu Kaisen (Season 1)",
+    "icon": "🔮",
+    "year": 2020,
+    "studio": "Anime Studio",
+    "genres": [
+      "Hành Động",
+      "Phiêu Lưu",
+      "Khoa Học",
+      "Viễn Tưởng",
+      "Tâm Lý"
+    ],
+    "description": "Vì một lý do kỳ lạ nào đó, Yuji Itadori, mặc dù với thể chất hoàn hảo nhưng anh lại đâm đầu vào tham gia CLB Huyền Bí. Tuy nhiên, họ đã sớm phát hiện ra là những câu chuyện huyền bí hoàn toàn có thật khi các thành viên trong CLB lần lượt bị tấn công! Trong khi đó, Megumi Fushigur...",
+    "colorFrom": "#3b0764",
+    "colorTo": "#1e1b4b",
+    "featured": false,
+    "episodes": [
+      {
+        "name": "Tập 01",
+        "url": "https://s3.phim1280.tv/20240326/p0TBSxU4/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/p0TBSxU4/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 02",
+        "url": "https://s3.phim1280.tv/20240326/MkA28Als/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/MkA28Als/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 03",
+        "url": "https://s3.phim1280.tv/20240326/dNA5JtXc/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/dNA5JtXc/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 04",
+        "url": "https://s3.phim1280.tv/20240326/PfQ3813h/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/PfQ3813h/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 05",
+        "url": "https://s3.phim1280.tv/20240326/V6VluYTm/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/V6VluYTm/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 06",
+        "url": "https://s3.phim1280.tv/20240326/Q3g9WH0J/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/Q3g9WH0J/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 07",
+        "url": "https://s3.phim1280.tv/20240326/x14m8JtK/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/x14m8JtK/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 08",
+        "url": "https://s3.phim1280.tv/20240326/p4oz3nqs/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/p4oz3nqs/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 09",
+        "url": "https://s3.phim1280.tv/20240326/xiGG8ODY/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/xiGG8ODY/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 10",
+        "url": "https://s3.phim1280.tv/20240326/7JikaWgI/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/7JikaWgI/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 11",
+        "url": "https://s3.phim1280.tv/20240326/XwYLCCEd/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/XwYLCCEd/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 12",
+        "url": "https://s3.phim1280.tv/20240326/fE91exnc/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/fE91exnc/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 13",
+        "url": "https://s3.phim1280.tv/20240326/5Wz8IYhR/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/5Wz8IYhR/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 14",
+        "url": "https://s3.phim1280.tv/20240326/RKrcHffb/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/RKrcHffb/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 15",
+        "url": "https://s3.phim1280.tv/20240326/SxagBQ7M/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/SxagBQ7M/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 16",
+        "url": "https://s3.phim1280.tv/20240326/YfdbIBuM/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/YfdbIBuM/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 17",
+        "url": "https://s3.phim1280.tv/20240326/s7kQDqgs/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/s7kQDqgs/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 18",
+        "url": "https://s3.phim1280.tv/20240326/n7DDMqL6/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/n7DDMqL6/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 19",
+        "url": "https://s3.phim1280.tv/20240326/ck6apVfw/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/ck6apVfw/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 20",
+        "url": "https://s3.phim1280.tv/20240326/fVYVP3lI/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/fVYVP3lI/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 21",
+        "url": "https://s3.phim1280.tv/20240326/remyLRUN/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/remyLRUN/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 22",
+        "url": "https://s3.phim1280.tv/20240326/tuHYzbcO/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/tuHYzbcO/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 23",
+        "url": "https://s3.phim1280.tv/20240326/Cl9phWzE/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/Cl9phWzE/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
+        "archiveId": "",
+        "file": ""
+      },
+      {
+        "name": "Tập 24",
+        "url": "https://s3.phim1280.tv/20240326/1f1PlrcD/index.m3u8",
+        "embedUrl": "https://player.phimapi.com/player/?url=https://s3.phim1280.tv/20240326/1f1PlrcD/index.m3u8",
+        "driveId": "",
+        "proxyPath": "",
         "archiveId": "",
         "file": ""
       }
