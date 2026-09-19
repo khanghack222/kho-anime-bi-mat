@@ -32,21 +32,19 @@ jobs:
 
       - name: Setup Rclone Config
         env:
-          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+          RCLONE_CONFIG_BASE64: ${{ secrets.RCLONE_CONFIG_BASE64 }}
         run: |
-          if [ -n "$RCLONE_CONFIG_DATA" ]; then
-            mkdir -p ~/.config/rclone
-            echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
-            echo "Rclone config đã được nạp."
-          else
-            echo "Chưa có secret RCLONE_CONFIG_DATA. Quá trình tải sẽ thử nghiệm local."
-          fi
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_BASE64" | base64 -d > ~/.config/rclone/rclone.conf
+          sed -i -e '1s/^\xef\xbb\xbf//' ~/.config/rclone/rclone.conf # Strip BOM if any
+          echo "Kiểm tra kết nối Google Drive..."
+          rclone lsd gdrive:
 
       - name: Run Auto Sync Worker
         env:
           MAX_EPISODES: ${{ github.event.inputs.max_episodes || '20' }}
-          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
-          DRIVE_DEST: "gdrive:Anime_Clean_5TB"
+          RCLONE_CONFIG_DATA: "configured"
+          DRIVE_DEST: "gdrive:KhangFlix_Anime"
         run: |
           python auto_sync_drive.py
 
