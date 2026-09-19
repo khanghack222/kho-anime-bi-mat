@@ -811,8 +811,35 @@
       }
     }
 
-    // Khởi tạo hiển thị
+    // Khởi tạo hiển thị ban đầu
     renderHomeScreen(catalog);
+
+    // Tự động kết nối VPS 200GB NVMe để lấy anime sạch mới nhất từ Google Drive 5TB
+    fetch("http://nvnmc.asia:25592/api/catalog")
+      .then(res => res.json())
+      .then(driveMovies => {
+        if (Array.isArray(driveMovies) && driveMovies.length > 0) {
+          driveMovies.forEach(dm => {
+            if (!catalog.some(c => c.title === dm.title)) {
+              catalog.unshift({
+                id: "vps-" + Math.random().toString(36).substring(2, 8),
+                title: dm.title,
+                desc: "Anime 1080p Clean (Zero Ads) lưu trên Google Drive 5TB (" + (dm.size_mb || "1.4") + " MB)",
+                poster: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80",
+                year: 2026,
+                genres: ["Drive", "Clean 1080p"],
+                episodes: dm.episodes || [{
+                  name: "Full HD Clean (Drive 5TB)",
+                  url: dm.url,
+                  direct: dm.download_url
+                }]
+              });
+            }
+          });
+          renderHomeScreen(catalog);
+        }
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>
