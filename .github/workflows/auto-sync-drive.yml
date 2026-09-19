@@ -1,0 +1,59 @@
+name: Auto Anime Sync to Drive
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Chạy tự động mỗi 6 tiếng một lần
+  workflow_dispatch:
+    inputs:
+      max_episodes:
+        description: 'Số lượng tập cần tải lần này'
+        required: true
+        default: '20'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-anime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Aria2 and Rclone
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y aria2 rclone
+
+      - name: Setup Rclone Config
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          if [ -n "$RCLONE_CONFIG_DATA" ]; then
+            mkdir -p ~/.config/rclone
+            echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
+            echo "Rclone config đã được nạp."
+          else
+            echo "Chưa có secret RCLONE_CONFIG_DATA. Quá trình tải sẽ thử nghiệm local."
+          fi
+
+      - name: Run Auto Sync Worker
+        env:
+          MAX_EPISODES: ${{ github.event.inputs.max_episodes || '20' }}
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+          DRIVE_DEST: "gdrive:Anime_Clean_5TB"
+        run: |
+          python auto_sync_drive.py
+
+      - name: Commit Catalog Changes (if any)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Auto Anime Bot"
+          git add catalog.json || true
+          git commit -m "Auto update anime catalog from Drive" || true
+          git push || true
