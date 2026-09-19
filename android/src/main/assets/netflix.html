@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KhangFlix</title>
+  <!-- Hls.js hỗ trợ stream phân đoạn cực nhẹ -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.8/dist/hls.light.min.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #151d2f;
+      --red: #e50914;
+      --text: #ffffff;
+      --text-muted: #9aa4b2;
+      --green: #46d369;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-bottom: 70px;
+      user-select: none;
+      overflow-x: hidden;
+    }
+    /* Header Netflix */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(180deg, rgba(11,15,25,0.95) 0%, rgba(11,15,25,0.8) 70%, transparent 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--red);
+    }
+    .logo span { color: #fff; font-size: 16px; font-weight: 500; margin-left: 4px; }
+    .header-actions { display: flex; gap: 12px; }
+    .btn-icon {
+      background: none; border: none; color: #fff; font-size: 18px; cursor: pointer;
+    }
+
+    /* Hero Banner */
+    .hero {
+      position: relative;
+      height: 380px;
+      background: linear-gradient(to top, var(--bg) 0%, rgba(11,15,25,0.4) 50%, rgba(11,15,25,0.2) 100%),
+                  url('https://phimimg.com/upload/vod/20251229-1/d7f24b91fd95fb7cf353e1369e2318b7.jpg') center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px 16px;
+    }
+    .hero-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--green);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+    .hero-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .hero-buttons { display: flex; gap: 10px; }
+    .btn-play {
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .btn-info {
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Rows / Carousels */
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 16px 8px;
+    }
+    .movie-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 0 16px 10px;
+      scroll-snap-type: x mandatory;
+    }
+    .movie-row::-webkit-scrollbar { display: none; }
+    .movie-card {
+      flex: 0 0 115px;
+      scroll-snap-align: start;
+      cursor: pointer;
+      position: relative;
+    }
+    .movie-poster {
+      width: 115px;
+      height: 165px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: var(--card-bg);
+      display: block;
+    }
+    .movie-name {
+      font-size: 12px;
+      margin-top: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+    }
+
+    /* Modal Xem Phim / Chọn Tập */
+    .player-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--bg);
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .player-modal.active { display: flex; }
+    .video-wrap {
+      width: 100%;
+      height: 230px;
+      background: #000;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .modal-content { padding: 16px; flex: 1; }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .modal-title { font-size: 20px; font-weight: 700; }
+    .modal-close {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .badge-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+    .badge {
+      background: rgba(255,255,255,0.15);
+      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Danh sách tập & Tải về */
+    .ep-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .ep-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      padding: 12px 14px;
+      border-radius: 8px;
+    }
+    .ep-info { display: flex; flex-direction: column; gap: 2px; }
+    .ep-title { font-size: 14px; font-weight: 600; }
+    .ep-sub { font-size: 11px; color: var(--text-muted); }
+    .ep-actions { display: flex; gap: 8px; }
+    .btn-ep-play {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-ep-download {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-ep-download:active { background: var(--green); }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: rgba(11,15,25,0.95);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 150;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: var(--text-muted);
+      font-size: 10px;
+      cursor: pointer;
+    }
+    .nav-item.active { color: #fff; }
+    .nav-icon { font-size: 18px; }
+
+    /* Drive Import Drawer */
+    .drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 300;
+      padding: 24px 16px;
+      align-items: center;
+      justify-content: center;
+    }
+    .drawer.active { display: flex; }
+    .drawer-box {
+      background: var(--card-bg);
+      width: 100%;
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .drawer-box h3 { font-size: 16px; margin-bottom: 12px; }
+    .drawer-input {
+      width: 100%;
+      background: #080c14;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+    .drawer-btns { display: flex; gap: 8px; justify-content: flex-end; }
+    .btn-save {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .btn-cancel {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="logo">KHANG<span>FLIX</span></div>
+    <div class="header-actions">
+      <button class="btn-icon" onclick="openDriveDrawer()" title="Thêm phim từ Google Drive">➕</button>
+      <button class="btn-icon" onclick="alert('Đã đồng bộ Google Drive 5TB!')" title="Kho Drive">☁️</button>
+    </div>
+  </header>
+
+  <!-- Hero Feature Movie -->
+  <div class="hero" id="hero-banner">
+    <div class="hero-tag">🔥 ĐANG HOT · GOOGLE DRIVE 5TB</div>
+    <h1 class="hero-title" id="hero-title">Thanh Gươm Diệt Quỷ</h1>
+    <p class="hero-desc" id="hero-desc">Tanjiro và Diệt Quỷ Đoàn huấn luyện cùng các Đại Trụ chuẩn bị cho trận quyết chiến vô hạn thành.</p>
+    <div class="hero-buttons">
+      <button class="btn-play" onclick="playHero()">▶ Phát ngay</button>
+      <button class="btn-info" onclick="openDetails(0)">Chi tiết</button>
+    </div>
+  </div>
+
+  <!-- Row 1: Phim Anime Bộ -->
+  <div class="section-title">Anime Hot Vietsub (Drive)</div>
+  <div class="movie-row" id="row-anime"></div>
+
+  <!-- Row 2: Anime Movie Chiếu Rạp -->
+  <div class="section-title">Anime Movie 1080p</div>
+  <div class="movie-row" id="row-movie"></div>
+
+  <!-- Player Modal -->
+  <div class="player-modal" id="playerModal">
+    <div class="video-wrap">
+      <video id="player" controls playsinline></video>
+    </div>
+    <div class="modal-content">
+      <div class="modal-head">
+        <div>
+          <h2 class="modal-title" id="modalTitle">Tên phim</h2>
+          <div class="badge-bar">
+            <span class="badge" id="modalYear">2024</span>
+            <span class="badge" style="color:var(--green)">1080p FHD</span>
+            <span class="badge">Google Drive 5TB</span>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closePlayerModal()">✕</button>
+      </div>
+      <p id="modalDesc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.4;"></p>
+
+      <h3 style="font-size:15px;margin-bottom:8px;">Danh sách tập</h3>
+      <div class="ep-list" id="epList"></div>
+    </div>
+  </div>
+
+  <!-- Drawer thêm nhanh Drive ID -->
+  <div class="drawer" id="driveDrawer">
+    <div class="drawer-box">
+      <h3>Thêm phim từ Google Drive</h3>
+      <input type="text" class="drawer-input" id="driveMovieTitle" placeholder="Tên Anime (Ví dụ: Solo Leveling)">
+      <input type="text" class="drawer-input" id="driveFileId" placeholder="Google Drive File ID hoặc Link chia sẻ">
+      <div class="drawer-btns">
+        <button class="btn-cancel" onclick="closeDriveDrawer()">Hủy</button>
+        <button class="btn-save" onclick="addDriveMovie()">Lưu vào kho</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Menu -->
+  <nav class="bottom-nav">
+    <div class="nav-item active">
+      <span class="nav-icon">🏠</span>
+      <span>Trang chủ</span>
+    </div>
+    <div class="nav-item" onclick="openDriveDrawer()">
+      <span class="nav-icon">📥</span>
+      <span>Thêm Drive</span>
+    </div>
+    <div class="nav-item" onclick="callNativeToast('Bộ nhớ Oppo A71k: Còn trống an toàn!')">
+      <span class="nav-icon">💾</span>
+      <span>Bộ nhớ máy</span>
+    </div>
+  </nav>
+
+  <script>
+    // Dữ liệu phim tối ưu cấu trúc gọn nhẹ
+    let catalog = [
+      {
+        id: "tgdq-s4",
+        title: "Thanh Gươm Diệt Quỷ (Mùa 4)",
+        desc: "Phần Đặc Huấn Đại Trụ - Tanjiro và các đồng đội rèn luyện cùng các trụ cột trước cuộc chiến sinh tử.",
+        poster: "https://phimimg.com/upload/vod/20251229-1/d7f24b91fd95fb7cf353e1369e2318b7.jpg",
+        year: 2024,
+        episodes: [
+          { name: "Tập 01", driveId: "1-sample-drive-id-1", archiveId: "khang-tgdq-tgdq-s4", file: "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_01.mp4" },
+          { name: "Tập 02", driveId: "1-sample-drive-id-2", archiveId: "khang-tgdq-tgdq-s4", file: "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_02.mp4" },
+          { name: "Tập 03", driveId: "1-sample-drive-id-3", archiveId: "khang-tgdq-tgdq-s4", file: "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_03.mp4" },
+          { name: "Tập 04", driveId: "1-sample-drive-id-4", archiveId: "khang-tgdq-tgdq-s4", file: "Thanh_Gươm_Diệt_Quỷ_Phần_Đặc_Huấn_Đại_Trụ_Tập_04.mp4" }
+        ]
+      },
+      {
+        id: "tgdq-movie",
+        title: "Thanh Gươm Diệt Quỷ: Vô Hạn Thành",
+        desc: "Bản movie chiếu rạp đỉnh cao, đồ họa mãn nhãn từ ufotable.",
+        poster: "https://phimimg.com/uploads/movies/20260919/hope-vung-tu-dia-thumb.webp",
+        year: 2025,
+        episodes: [
+          { name: "Movie Full HD", driveId: "sample-movie-drive-id", archiveId: "khang-tgdq-tgdq-vo-han-thanh", file: "Thanh_Gươm_Diệt_Quỷ_Vô_Hạn_Thành_Tập_01.mp4" }
+        ]
+      }
+    ];
+
+    // Load thêm từ localStorage nếu đã từng lưu
+    const savedCustom = localStorage.getItem('khangflix_custom_movies');
+    if (savedCustom) {
+      try { catalog = catalog.concat(JSON.parse(savedCustom)); } catch(e){}
+    }
+
+    const videoPlayer = document.getElementById('player');
+    let currentActiveMovie = null;
+    let hlsInstance = null;
+
+    // Hàm chuyển đổi Drive ID thành URL stream trực tiếp
+    function getDirectStreamUrl(ep) {
+      if (ep.url && ep.url.trim()) return ep.url;
+      if (ep.driveId && ep.driveId.trim()) {
+        // Link stream trực tiếp bypass quota Google Drive
+        return `https://drive.google.com/uc?export=download&id=${encodeURIComponent(ep.driveId.trim())}`;
+      }
+      if (ep.archiveId && ep.file) {
+        return `https://archive.org/download/${ep.archiveId}/${encodeURI(ep.file)}`;
+      }
+      return "";
+    }
+
+    function renderCatalog() {
+      const rowAnime = document.getElementById('row-anime');
+      const rowMovie = document.getElementById('row-movie');
+      rowAnime.innerHTML = '';
+      rowMovie.innerHTML = '';
+
+      catalog.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+        card.onclick = () => openDetails(idx);
+        card.innerHTML = `
+          <img class="movie-poster" src="${item.poster}" alt="${item.title}" loading="lazy">
+          <div class="movie-name">${item.title}</div>
+        `;
+        if (idx === 1) rowMovie.appendChild(card);
+        else rowAnime.appendChild(card);
+      });
+    }
+
+    function openDetails(idx) {
+      const movie = catalog[idx];
+      currentActiveMovie = movie;
+      document.getElementById('modalTitle').textContent = movie.title;
+      document.getElementById('modalDesc').textContent = movie.desc;
+      document.getElementById('modalYear').textContent = movie.year;
+
+      const epList = document.getElementById('epList');
+      epList.innerHTML = '';
+
+      movie.episodes.forEach((ep, i) => {
+        const streamUrl = getDirectStreamUrl(ep);
+        const epDiv = document.createElement('div');
+        epDiv.className = 'ep-item';
+        epDiv.innerHTML = `
+          <div class="ep-info">
+            <span class="ep-title">${ep.name}</span>
+            <span class="ep-sub">${ep.driveId ? 'Nguồn Google Drive 5TB' : 'Nguồn Archive.org'}</span>
+          </div>
+          <div class="ep-actions">
+            <button class="btn-ep-play" onclick="playStream('${streamUrl}', '${movie.title} - ${ep.name}')">▶ Xem</button>
+            <button class="btn-ep-download" onclick="downloadEp('${streamUrl}', '${movie.title}_${ep.name}.mp4')">⬇ Tải về</button>
+          </div>
+        `;
+        epList.appendChild(epDiv);
+      });
+
+      document.getElementById('playerModal').classList.add('active');
+    }
+
+    function playStream(url, title) {
+      if (!url) {
+        callNativeToast('Chưa có link phát cho tập này!');
+        return;
+      }
+
+      // Xử lý stream HLS m3u8 hoặc MP4
+      if (url.includes('.m3u8')) {
+        if (Hls.isSupported()) {
+          if (hlsInstance) hlsInstance.destroy();
+          hlsInstance = new Hls({ enableWorker: true, lowLatencyMode: true });
+          hlsInstance.loadSource(url);
+          hlsInstance.attachMedia(videoPlayer);
+          hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => videoPlayer.play());
+        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+          videoPlayer.src = url;
+          videoPlayer.play();
+        }
+      } else {
+        // Direct MP4 (Google Drive / Archive)
+        videoPlayer.src = url;
+        videoPlayer.play().catch(() => {
+          callNativeToast('Bấm play trên thanh điều khiển để bắt đầu');
+        });
+      }
+      callNativeToast('Đang phát: ' + title);
+    }
+
+    function downloadEp(url, filename) {
+      if (!url) {
+        callNativeToast('Link tải không khả dụng!');
+        return;
+      }
+      // Gọi cầu nối Android Native để tải ngầm tiết kiệm RAM cho máy Oppo
+      if (window.AndroidNative && window.AndroidNative.downloadVideo) {
+        window.AndroidNative.downloadVideo(url, filename);
+      } else {
+        // Fallback trình duyệt
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    }
+
+    function playHero() {
+      openDetails(0);
+      const firstEp = catalog[0].episodes[0];
+      playStream(getDirectStreamUrl(firstEp), catalog[0].title + ' - ' + firstEp.name);
+    }
+
+    function closePlayerModal() {
+      document.getElementById('playerModal').classList.remove('active');
+      videoPlayer.pause();
+      videoPlayer.removeAttribute('src');
+      if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
+    }
+
+    function openDriveDrawer() {
+      document.getElementById('driveDrawer').classList.add('active');
+    }
+    function closeDriveDrawer() {
+      document.getElementById('driveDrawer').classList.remove('active');
+    }
+
+    function addDriveMovie() {
+      const title = document.getElementById('driveMovieTitle').value.trim();
+      let input = document.getElementById('driveFileId').value.trim();
+      if (!title || !input) {
+        callNativeToast('Vui lòng nhập tên và Drive File ID!');
+        return;
+      }
+
+      // Trích xuất ID nếu người dùng paste cả link chia sẻ
+      let fileId = input;
+      const match = input.match(/[-\w]{25,}/);
+      if (match) fileId = match[0];
+
+      const newMovie = {
+        id: 'custom-' + Date.now(),
+        title: title,
+        desc: 'Phim được thêm từ Google Drive cá nhân của bạn.',
+        poster: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80',
+        year: 2026,
+        episodes: [
+          { name: 'Tập 01 (Drive)', driveId: fileId }
+        ]
+      };
+
+      catalog.unshift(newMovie);
+      localStorage.setItem('khangflix_custom_movies', JSON.stringify(catalog.filter(m => m.id.startsWith('custom-'))));
+      renderCatalog();
+      closeDriveDrawer();
+      callNativeToast('Đã thêm phim mới từ Drive!');
+    }
+
+    function callNativeToast(msg) {
+      if (window.AndroidNative && window.AndroidNative.showToast) {
+        window.AndroidNative.showToast(msg);
+      } else {
+        console.log('[KhangFlix]', msg);
+      }
+    }
+
+    // Khởi chạy khi load trang
+    renderCatalog();
+  </script>
+</body>
+</html>
