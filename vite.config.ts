@@ -35,9 +35,34 @@ const saveDataPlugin: Plugin = {
   },
 };
 
+const copyStaticAssetsPlugin: Plugin = {
+  name: "copy-static-assets",
+  closeBundle() {
+    const distPath = path.resolve(__dirname, "dist");
+    if (fs.existsSync(distPath)) {
+      for (const file of ["data.json", "catalog.json"]) {
+        const src = path.resolve(__dirname, file);
+        const dest = path.resolve(distPath, file);
+        if (fs.existsSync(src)) {
+          fs.copyFileSync(src, dest);
+        }
+      }
+    }
+  },
+};
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [viteSingleFile(), saveDataPlugin],
+  plugins: [viteSingleFile(), saveDataPlugin, copyStaticAssetsPlugin],
+  server: {
+    host: "0.0.0.0",
+    port: 3000,
+    allowedHosts: true,
+  },
+  preview: {
+    host: "0.0.0.0",
+    port: 3000,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

@@ -1,0 +1,6 @@
+{
+  "name": "KhangHub Stream",
+  "description": "Kho anime bí mật streaming video hub",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
