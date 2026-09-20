@@ -250,6 +250,24 @@ a { color: inherit; }
   padding: 14px 0;
 }
 .brand { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.brand-logo-wrap { display: flex; align-items: center; gap: 11px; }
+.brand-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(0,217,255,0.18), rgba(96,245,194,0.18));
+  border: 1.5px solid rgba(96,245,194,0.36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(0,217,255,0.22);
+}
+.brand-badge-icon img {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
 .brand-logo {
   font-size: 30px;
   line-height: 1;
@@ -257,6 +275,19 @@ a { color: inherit; }
   letter-spacing: -0.06em;
 }
 .brand-logo span { color: var(--primary); }
+.brand-badge-pro {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  background: linear-gradient(90deg, rgba(96,245,194,0.2), rgba(0,217,255,0.2));
+  border: 1px solid rgba(96,245,194,0.35);
+  border-radius: 6px;
+  color: #60f5c2;
+  margin-left: 6px;
+  vertical-align: middle;
+}
 .brand-note {
   color: var(--text-muted);
   font-size: 12px;
@@ -288,6 +319,111 @@ a { color: inherit; }
   flex: 1;
   justify-content: flex-end;
   flex-wrap: wrap;
+}
+.btn-update {
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(96, 245, 194, 0.2));
+  border: 1.5px solid rgba(96, 245, 194, 0.45);
+  color: #60f5c2;
+  font-weight: 800;
+  box-shadow: 0 0 14px rgba(96, 245, 194, 0.18);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+.btn-update:hover {
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.35), rgba(96, 245, 194, 0.35));
+  border-color: #60f5c2;
+  box-shadow: 0 0 20px rgba(96, 245, 194, 0.35);
+  transform: translateY(-1.5px);
+  color: #ffffff;
+}
+.btn-update.updating svg, .spin-anim {
+  animation: spin-kf 0.75s linear infinite;
+}
+@keyframes spin-kf {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.turbo-btn {
+  border-color: rgba(0, 217, 255, 0.3);
+  background: rgba(0, 217, 255, 0.08);
+  color: #7dd3fc;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.turbo-btn:hover {
+  background: rgba(0, 217, 255, 0.16);
+  border-color: rgba(0, 217, 255, 0.6);
+}
+.turbo-btn strong { color: #60f5c2; }
+
+/* Oppo A71k Turbo Zero-Lag Engine */
+html.oppo-turbo-active body::before {
+  display: none !important;
+}
+html.oppo-turbo-active .modal {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(5, 8, 14, 0.94) !important;
+}
+html.oppo-turbo-active .series-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 320px;
+  contain: layout style paint;
+  transform: translateZ(0);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  transition: transform 0.12s ease !important;
+}
+html.oppo-turbo-active .series-card:hover {
+  transform: translateY(-2px) scale(1.01) !important;
+}
+html.oppo-turbo-active * {
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation;
+}
+
+/* Hero Art Cover Layer */
+.hero-art-layer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 48%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  mask-image: linear-gradient(to left, rgba(0,0,0,0.9) 35%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.9) 35%, transparent 100%);
+  z-index: 1;
+}
+.hero-art-symbol {
+  font-size: 150px;
+  line-height: 1;
+  opacity: 0.24;
+  filter: drop-shadow(0 0 35px rgba(0, 217, 255, 0.45));
+  transform: rotate(-6deg) scale(1.1);
+  user-select: none;
+  transition: all 0.35s ease;
+}
+.hero-art-logo-watermark {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  width: 80px;
+  height: 80px;
+  opacity: 0.2;
+  filter: drop-shadow(0 0 15px rgba(96,245,194,0.4));
+}
+@media (max-width: 768px) {
+  .hero-art-layer {
+    width: 60%;
+    opacity: 0.18;
+  }
+  .hero-art-symbol {
+    font-size: 100px;
+  }
 }
 .search-wrap { width: min(100%, 320px); position: relative; }
 .search-input { padding-left: 44px; min-height: 48px; }
@@ -954,8 +1090,15 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
 <body>
   <div class="lockscreen" id="lockscreen">
     <div class="lock-card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <img src="/icon.svg" width="46" height="46" alt="Logo KhangHub" style="display:block;filter:drop-shadow(0 4px 12px rgba(0,217,255,0.3));" />
+        <div>
+          <div style="font-size:22px;font-weight:900;letter-spacing:-0.04em;">KHANG<span style="color:var(--primary)">HUB</span></div>
+          <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">Anime Streaming · Tối ưu Oppo A71k</div>
+        </div>
+      </div>
       <div class="lock-chip">🔐 Private Stream</div>
-      <h1 class="lock-title"><span class="brand-word">KhangHub</span> đã được làm mới</h1>
+      <h1 class="lock-title"><span class="brand-word">KhangHub</span> đã sẵn sàng</h1>
       <p class="lock-text">Nhập mật khẩu để vào web. Khu admin có mật khẩu riêng và chỉ mở khi xác thực đúng.</p>
       <form class="lock-form" id="lock-form">
         <input class="lock-input" id="password-input" type="password" placeholder="Nhập mật khẩu truy cập" autocomplete="off" required>
@@ -970,12 +1113,17 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
       <div class="topbar-inner">
         <div class="brand">
           <div class="brand-row">
-            <div class="brand-logo">KHANG<span>HUB</span></div>
+            <div class="brand-logo-wrap">
+              <div class="brand-badge-icon" title="KhangHub VIP">
+                <img src="/icon.svg" width="28" height="28" alt="KhangHub Logo" />
+              </div>
+              <div class="brand-logo">KHANG<span>HUB</span><span class="brand-badge-pro">VIP</span></div>
+            </div>
             <button class="btn btn-secondary collapse-btn" type="button" id="collapse-btn" title="Thu gọn / mở rộng thanh tiêu đề" aria-label="Thu gọn thanh tiêu đề">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 15 6-6 6 6"></path></svg>
             </button>
           </div>
-          <div class="brand-note">Anime streaming dashboard · Admin panel · Archive tăng tốc</div>
+          <div class="brand-note">Kho anime mượt mà · Tối ưu Oppo A71k · Cập nhật 1 chạm</div>
         </div>
         <div class="topbar-actions">
           <div class="search-wrap">
@@ -998,6 +1146,15 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
             <option value="unwatched">Chưa xem</option>
           </select>
           <button class="btn btn-secondary" type="button" id="clear-search-btn">Xóa tìm kiếm</button>
+          <button class="btn btn-update" type="button" id="app-update-btn" title="Cập nhật tự động anime và hệ thống 1 chạm">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            <span>🔄 Cập nhật App</span>
+          </button>
+          <button class="btn btn-secondary turbo-btn" type="button" id="turbo-toggle-btn" title="Chế độ Siêu Mượt cho Oppo A71k (Giảm giật tối đa)">
+            <span>🚀 Siêu mượt: <strong id="turbo-status-text">BẬT</strong></span>
+          </button>
           <button class="btn btn-primary" type="button" id="apk-modal-btn" title="Cài đặt App APK cho Oppo A71k (Android 7.1.1)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>
             <span>📲 Cài App Oppo A71k</span>
@@ -1016,7 +1173,11 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
         <div class="shell">
           <div class="hero-grid">
             <div class="hero-main" id="hero-main">
-              <div>
+              <div class="hero-art-layer" id="hero-art-layer" aria-hidden="true">
+                <div class="hero-art-symbol" id="hero-art-symbol">⚔️</div>
+                <img src="/icon.svg" class="hero-art-logo-watermark" alt="KhangHub Watermark" />
+              </div>
+              <div style="position:relative;z-index:2;">
                 <div class="hero-badges" id="hero-badges"></div>
                 <div class="eyebrow" id="hero-jp"></div>
                 <h1 class="hero-title" id="hero-title"></h1>
@@ -1024,7 +1185,7 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
                 <p class="hero-desc" id="hero-desc"></p>
                 <div class="meta-row" id="hero-meta"></div>
               </div>
-              <div class="hero-actions">
+              <div class="hero-actions" style="position:relative;z-index:2;">
                 <button class="btn btn-primary" type="button" id="hero-watch-btn">Xem ngay</button>
                 <button class="btn btn-ghost" type="button" id="hero-scroll-btn">Mở thư viện</button>
               </div>
@@ -1493,10 +1654,14 @@ const els = {
   filterSelect: document.getElementById('filter-select'),
   clearSearchBtn: document.getElementById('clear-search-btn'),
   settingsBtn: document.getElementById('settings-btn'),
+  appUpdateBtn: document.getElementById('app-update-btn'),
+  turboToggleBtn: document.getElementById('turbo-toggle-btn'),
+  turboStatusText: document.getElementById('turbo-status-text'),
   adminIndicator: document.getElementById('admin-indicator'),
   topbar: document.querySelector('.topbar'),
   collapseBtn: document.getElementById('collapse-btn'),
   heroMain: document.getElementById('hero-main'),
+  heroArtSymbol: document.getElementById('hero-art-symbol'),
   heroBadges: document.getElementById('hero-badges'),
   heroJP: document.getElementById('hero-jp'),
   heroTitle: document.getElementById('hero-title'),
@@ -2045,6 +2210,7 @@ function renderHero() {
     { label: 'Tập phát được', value: `${avail}/${s.episodes.length}` }
   ].map(m => `<div class="meta-box"><div class="meta-label">${m.label}</div><div class="meta-value">${m.value}</div></div>`).join('');
   els.heroWatchBtn.onclick = () => openSeries(s.id);
+  if (els.heroArtSymbol) els.heroArtSymbol.textContent = s.icon || '⚔️';
 }
 function renderContinueBox() {
   const saved = loadState();
@@ -2752,6 +2918,7 @@ function warmArchiveMetaCache() {
   uniqueArchiveIds.forEach(id => getDirectArchiveBase(id));
 }
 async function init() {
+  initTurboEngine();
   loadWatchHistory();
   seriesList = await loadSeriesData();
   renderAll();
@@ -3057,6 +3224,141 @@ if (els.triggerPwaInstallBtn) {
     }
   });
 }
+
+// Oppo A71k Super Smooth Engine (Tối ưu giảm giật tối đa cho RAM 2GB)
+function initTurboEngine() {
+  const savedTurbo = storage.getItem('khanghub_turbo_smooth');
+  const isOppoOrLowEnd = /Android 7|CPH1801|A71|Snapdragon 450|ARMv7/i.test(navigator.userAgent) 
+    || (navigator.deviceMemory && navigator.deviceMemory <= 3) 
+    || window.innerWidth <= 820;
+    
+  const enable = savedTurbo !== null ? savedTurbo === '1' : isOppoOrLowEnd;
+  applyTurboMode(enable);
+}
+
+function applyTurboMode(enable) {
+  if (enable) {
+    document.documentElement.classList.add('oppo-turbo-active');
+    if (els.turboStatusText) els.turboStatusText.textContent = 'BẬT';
+    if (els.turboToggleBtn) els.turboToggleBtn.title = 'Chế độ Siêu Mượt: BẬT (Đã tắt các hiệu ứng nặng để giảm giật trên Oppo A71k)';
+  } else {
+    document.documentElement.classList.remove('oppo-turbo-active');
+    if (els.turboStatusText) els.turboStatusText.textContent = 'TẮT';
+    if (els.turboToggleBtn) els.turboToggleBtn.title = 'Chế độ Siêu Mượt: TẮT (Bấm để bật chế độ siêu mượt cho Oppo A71k)';
+  }
+  storage.setItem('khanghub_turbo_smooth', enable ? '1' : '0');
+}
+
+function toggleTurboMode() {
+  const current = document.documentElement.classList.contains('oppo-turbo-active');
+  applyTurboMode(!current);
+  showToast(!current ? '🚀 Đã kích hoạt Chế độ Siêu Mượt cho Oppo A71k!' : 'Đã chuyển về chế độ giao diện đầy đủ');
+}
+
+if (els.turboToggleBtn) els.turboToggleBtn.addEventListener('click', toggleTurboMode);
+
+// 1-Click Auto-Update: Cập nhật tự động anime và hệ thống 1 chạm không cần thao tác
+async function triggerOneClickUpdate() {
+  const btn = els.appUpdateBtn;
+  const originalHtml = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.classList.add('updating');
+    btn.innerHTML = `
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="spin-anim"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+      <span>Đang cập nhật...</span>
+    `;
+  }
+  setStatus('🔄 Đang tự động kiểm tra & cập nhật dữ liệu anime mới nhất...', 'warn');
+
+  let updateCount = 0;
+  try {
+    // 1. Dọn sạch cache cũ của Service Worker để tải bản mới nhất
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage('clearCache');
+      navigator.serviceWorker.controller.postMessage('skipWaiting');
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        regs.forEach(reg => reg.update());
+      });
+    }
+
+    // 2. Tải bản cập nhật mới nhất từ data.json kèm timestamp
+    const ts = Date.now();
+    let freshSeries = null;
+
+    // Thử lấy từ GitHub Raw repo trước
+    try {
+      const ghRes = await fetch(`https://raw.githubusercontent.com/khanghack222/kho-anime-bi-mat/main/data.json?t=${ts}`, { cache: 'no-store' });
+      if (ghRes.ok) {
+        const ghData = await ghRes.json();
+        if (Array.isArray(ghData) && ghData.length > 0) {
+          freshSeries = ghData;
+          console.log('[Auto-Update] Đã tải dữ liệu từ GitHub repo thành công!');
+        }
+      }
+    } catch (_) {}
+
+    // Fallback tải từ máy chủ cục bộ
+    if (!freshSeries) {
+      const locRes = await fetch(`./data.json?t=${ts}`, { cache: 'no-store' });
+      if (locRes.ok) {
+        freshSeries = await locRes.json();
+      }
+    }
+
+    // 3. Tự động hợp nhất dữ liệu
+    if (Array.isArray(freshSeries) && freshSeries.length > 0) {
+      const normalized = normalizeSeriesData(freshSeries);
+      seriesList = normalized;
+      storage.setItem(DEFAULT_CONFIG.storage.seriesData, JSON.stringify(freshSeries));
+      updateCount = seriesList.length;
+    }
+
+    // 4. Làm mới toàn bộ giao diện
+    renderAll();
+    warmArchiveMetaCache();
+
+    // 5. Nếu chạy trên app Android Native (Oppo A71k WebView), thông báo qua native bridge
+    if (window.AndroidNative) {
+      if (typeof window.AndroidNative.showToast === 'function') {
+        window.AndroidNative.showToast('✅ Đã cập nhật xong anime mới!');
+      }
+    }
+
+    setStatus(`✅ Cập nhật 1 chạm hoàn tất! Đã làm mới ${updateCount} series anime.`, 'ok');
+    showToast(`🎉 Cập nhật thành công! Toàn bộ ${updateCount} anime mới nhất đã sẵn sàng.`);
+
+    if (btn) {
+      btn.classList.remove('updating');
+      btn.innerHTML = `
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#60f5c2" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span style="color:#60f5c2;">Đã cập nhật!</span>
+      `;
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+      }, 3500);
+    }
+  } catch (err) {
+    console.error('Update error:', err);
+    setStatus('Lỗi khi cập nhật tự động: ' + err.message, 'error');
+    showToast('Lỗi cập nhật: ' + err.message);
+    if (btn) {
+      btn.disabled = false;
+      btn.classList.remove('updating');
+      btn.innerHTML = originalHtml;
+    }
+  }
+}
+
+if (els.appUpdateBtn) els.appUpdateBtn.addEventListener('click', triggerOneClickUpdate);
+window.triggerOneClickUpdate = triggerOneClickUpdate;
 
 // Auto-open if no password set
 if (getSitePassword() === '') {

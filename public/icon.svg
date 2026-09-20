@@ -1,19 +1,94 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
+    <!-- Background Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#070b12" />
+      <stop offset="0%" stop-color="#0a101d" />
+      <stop offset="50%" stop-color="#060911" />
+      <stop offset="100%" stop-color="#020408" />
     </linearGradient>
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+
+    <!-- Cyber Shield Outer Gradient -->
+    <linearGradient id="shieldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#00d9ff" />
-      <stop offset="100%" stop-color="#60f5c2" />
+      <stop offset="50%" stop-color="#60f5c2" />
+      <stop offset="100%" stop-color="#3b82f6" />
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="16" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+
+    <!-- Play Icon Neon Gradient -->
+    <linearGradient id="playGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60f5c2" />
+      <stop offset="60%" stop-color="#00d9ff" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <!-- Sword Lightning Blade Gradient -->
+    <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="30%" stop-color="#60f5c2" />
+      <stop offset="100%" stop-color="#00d9ff" />
+    </linearGradient>
+
+    <!-- Core Glow Filter -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
+
+    <radialGradient id="ambientAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00d9ff" stop-opacity="0.25" />
+      <stop offset="70%" stop-color="#60f5c2" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#070b12" stop-opacity="0" />
+    </radialGradient>
   </defs>
-  <rect width="512" height="512" rx="110" fill="url(#bgGrad)" stroke="rgba(96,245,194,0.3)" stroke-width="8" />
-  <circle cx="256" cy="256" r="160" fill="rgba(96,245,194,0.06)" />
-  <path d="M 210,165 L 360,256 L 210,347 Z" fill="url(#accentGrad)" filter="url(#glow)" />
+
+  <!-- App Rounded Base Frame -->
+  <rect width="512" height="512" rx="118" fill="url(#bgGrad)" />
+
+  <!-- Outer Ambient Radial Halo -->
+  <circle cx="256" cy="256" r="210" fill="url(#ambientAura)" />
+
+  <!-- Cybernetic Polygon Shield -->
+  <path d="M 256,48 L 440,116 L 440,320 L 256,464 L 72,320 L 72,116 Z" 
+        fill="#0d1527" 
+        stroke="url(#shieldBorder)" 
+        stroke-width="7" 
+        stroke-linejoin="round" />
+
+  <!-- Inner Tech Circuit Ring -->
+  <path d="M 256,76 L 416,136 L 416,306 L 256,432 L 96,306 L 96,136 Z" 
+        fill="none" 
+        stroke="rgba(96, 245, 194, 0.22)" 
+        stroke-width="2.5" 
+        stroke-dasharray="14, 8" />
+
+  <!-- Cyber Tech Ticks -->
+  <line x1="256" y1="52" x2="256" y2="76" stroke="#60f5c2" stroke-width="4" stroke-linecap="round" />
+  <line x1="256" y1="432" x2="256" y2="460" stroke="#00d9ff" stroke-width="4" stroke-linecap="round" />
+  <line x1="74" y1="218" x2="96" y2="218" stroke="#00d9ff" stroke-width="4" stroke-linecap="round" />
+  <line x1="416" y1="218" x2="438" y2="218" stroke="#60f5c2" stroke-width="4" stroke-linecap="round" />
+
+  <!-- Center Glowing Anime Play Emblem with Lightning Cut -->
+  <g filter="url(#neonGlow)">
+    <!-- Stylized Play Chevron -->
+    <path d="M 204,152 C 204,142 215,136 223,141 L 366,245 C 374,251 374,261 366,267 L 223,371 C 215,376 204,370 204,360 Z" 
+          fill="url(#playGrad)" />
+
+    <!-- Sharp Lightning Anime Cut (Katana Slash Silhouette) -->
+    <path d="M 284,148 L 220,268 L 274,268 L 226,364 L 320,240 L 268,240 Z" 
+          fill="url(#bladeGrad)" 
+          opacity="0.95" />
+  </g>
+
+  <!-- Bottom Anime Branding Script -->
+  <text x="256" y="408" 
+        text-anchor="middle" 
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+        font-size="28" 
+        font-weight="900" 
+        letter-spacing="5" 
+        fill="#60f5c2" 
+        opacity="0.95">KHANGHUB</text>
 </svg>

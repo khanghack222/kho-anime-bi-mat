@@ -224,6 +224,21 @@ public class MainActivity extends AppCompatActivity {
         public void showToast(String message) {
             runOnUiThread(() -> Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show());
         }
+
+        @JavascriptInterface
+        public void reloadApp() {
+            runOnUiThread(() -> {
+                if (webView != null) {
+                    webView.clearCache(true);
+                    webView.reload();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public boolean isNative() {
+            return true;
+        }
     }
 
     @Override
