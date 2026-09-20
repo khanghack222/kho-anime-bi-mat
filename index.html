@@ -503,6 +503,92 @@ a { color: inherit; }
   line-height: 0.9;
 }
 .series-card-title { font-size: 20px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.08; }
+.series-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 9px 0 4px;
+  position: relative;
+  z-index: 2;
+}
+.series-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4.5px;
+  padding: 3.5px 8.5px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.series-tag.tag-year {
+  color: #60f5c2;
+  background: rgba(96, 245, 194, 0.09);
+  border: 1px solid rgba(96, 245, 194, 0.24);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+.series-tag.tag-year svg {
+  stroke: #60f5c2;
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+}
+.series-tag.tag-year:hover {
+  background: rgba(96, 245, 194, 0.2);
+  border-color: rgba(96, 245, 194, 0.55);
+  box-shadow: 0 0 12px rgba(96, 245, 194, 0.35);
+  transform: translateY(-1.5px);
+}
+.series-tag.tag-year:hover svg {
+  transform: rotate(-10deg) scale(1.15);
+}
+.series-tag.tag-genre {
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  cursor: pointer;
+}
+.series-tag.tag-genre .tag-hash {
+  color: var(--primary);
+  opacity: 0.85;
+  font-weight: 800;
+}
+.series-tag.tag-genre:hover {
+  color: #ffffff;
+  background: rgba(0, 217, 255, 0.14);
+  border-color: rgba(0, 217, 255, 0.48);
+  box-shadow: 0 3px 12px rgba(0, 217, 255, 0.26);
+  transform: translateY(-1.5px) scale(1.03);
+}
+.series-tag.tag-genre:hover .tag-hash {
+  color: #60f5c2;
+  opacity: 1;
+}
+.series-tag.tag-more {
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(125, 140, 165, 0.22);
+  font-size: 10.5px;
+  cursor: pointer;
+}
+.series-tag.tag-more:hover {
+  color: var(--text);
+  border-color: rgba(125, 140, 165, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+}
+.series-card:hover .series-tag.tag-year {
+  border-color: rgba(96, 245, 194, 0.38);
+  background: rgba(96, 245, 194, 0.13);
+}
+.series-card:hover .series-tag.tag-genre {
+  border-color: rgba(148, 163, 184, 0.28);
+  color: #cbd5e1;
+}
 .series-bottom {
   display: flex;
   justify-content: space-between;
@@ -1536,14 +1622,30 @@ function normalizeSeriesData(input) {
   return input.map((s, i) => {
     const safeTitle = typeof s?.title === 'string' && s.title.trim() ? s.title.trim() : `Series ${i+1}`;
     const safeId = typeof s?.id === 'string' && s.id.trim() ? s.id.trim() : `series-${i+1}`;
-    const safeGenres = Array.isArray(s?.genres) ? s.genres.map(g => String(g).trim()).filter(Boolean) : [];
+    let safeGenres = Array.isArray(s?.genres) ? s.genres.map(g => String(g).trim()).filter(Boolean) : [];
+    if (!safeGenres.length) {
+      const lower = (safeTitle + ' ' + (s?.description || '')).toLowerCase();
+      if (lower.includes('lồng tiếng') || lower.includes('thuyết minh')) safeGenres.push('Lồng Tiếng');
+      if (lower.includes('doraemon')) safeGenres.push('Hoạt Hình', 'Gia Đình');
+      else if (lower.includes('conan')) safeGenres.push('Trinh Thám', 'Hành Động');
+      else if (lower.includes('quỷ') || lower.includes('kaijuu') || lower.includes('torch') || lower.includes('action')) safeGenres.push('Hành Động', 'Siêu Nhiên');
+      else if (lower.includes('slime') || lower.includes('isekai') || lower.includes('tensei')) safeGenres.push('Isekai', 'Phiêu Lưu');
+      else if (lower.includes('hài') || lower.includes('comedy') || lower.includes('kokoore')) safeGenres.push('Hài Hước', 'Đời Thường');
+      else if (lower.includes('shoujo') || lower.includes('mahou') || lower.includes('mèo') || lower.includes('neko')) safeGenres.push('Phép Thuật', 'Huyễn Tưởng');
+      else safeGenres.push('Anime', 'Vietsub');
+    }
+    let safeYear = Number.isFinite(Number(s?.year)) && Number(s?.year) > 1950 ? Number(s.year) : 0;
+    if (!safeYear) {
+      const ym = safeTitle.match(/\b(19\d\d|20\d\d)\b/);
+      safeYear = ym ? Number(ym[1]) : 2024;
+    }
     return {
       id: safeId,
       title: safeTitle,
       subtitle: typeof s?.subtitle === 'string' ? s.subtitle.trim() : '',
       titleJP: typeof s?.titleJP === 'string' && s.titleJP.trim() ? s.titleJP.trim() : safeTitle,
       icon: typeof s?.icon === 'string' && s.icon.trim() ? s.icon.trim() : '🎬',
-      year: Number.isFinite(Number(s?.year)) ? Number(s.year) : new Date().getFullYear(),
+      year: safeYear,
       studio: typeof s?.studio === 'string' && s.studio.trim() ? s.studio.trim() : 'Unknown',
       genres: safeGenres,
       description: typeof s?.description === 'string' && s.description.trim() ? s.description.trim() : 'Chưa có mô tả.',
@@ -1563,7 +1665,67 @@ async function loadSeriesData() {
   try {
     const localRes = await fetch('./data.json?t=' + Date.now(), { cache: 'no-store' });
     if (localRes.ok) {
-      const localData = await localRes.json();
+      let localData = await localRes.json();
+      if (!Array.isArray(localData)) localData = [];
+
+      // Đồng bộ thêm các mục từ catalog.json (nếu có từ Google Drive)
+      try {
+        const catRes = await fetch('./catalog.json?t=' + Date.now(), { cache: 'no-store' });
+        if (catRes.ok) {
+          const catData = await catRes.json();
+          if (Array.isArray(catData) && catData.length > 0) {
+            const existingTitles = new Set(localData.map(x => (x.title || '').toLowerCase().trim()));
+            catData.forEach((item, idx) => {
+              if (item && item.title && !item.title.endsWith('.torrent') && !item.title.endsWith('.aria2')) {
+                const cleanT = item.title.replace(/\.(mp4|mkv|avi)$/i, '').trim();
+                const cleanLower = cleanT.toLowerCase();
+                const alreadyExists = existingTitles.has(cleanLower) || localData.some(x => {
+                  const xt = (x.title || '').toLowerCase();
+                  return xt.includes(cleanLower) || cleanLower.includes(xt);
+                });
+                if (!alreadyExists) {
+                  const isDub = /lồng|thuyết minh/i.test(item.title);
+                  let inferredGenres = isDub ? ['Lồng Tiếng'] : ['Vietsub'];
+                  if (/doraemon/i.test(cleanT)) inferredGenres.push('Hoạt Hình', 'Gia Đình');
+                  else if (/conan/i.test(cleanT)) inferredGenres.push('Trinh Thám', 'Hành Động');
+                  else if (/kaijuu|torch|honzuki|nanoha|yomi|heijitsu/i.test(cleanT)) inferredGenres.push('Hành Động', 'Siêu Nhiên');
+                  else if (/slime|isekai|tenmaku/i.test(cleanT)) inferredGenres.push('Isekai', 'Phiêu Lưu');
+                  else inferredGenres.push('Anime');
+
+                  const ym = cleanT.match(/\b(20\d\d)\b/);
+                  const inferredYear = ym ? Number(ym[1]) : 2024;
+
+                  localData.push({
+                    id: 'cat-drive-' + (idx + 1),
+                    title: cleanT,
+                    subtitle: isDub ? 'Bản Lồng Tiếng Việt chất lượng cao' : 'Bản phụ đề Tiếng Việt 1080p',
+                    titleJP: cleanT,
+                    icon: isDub ? '🎙️' : '🎬',
+                    year: inferredYear,
+                    studio: 'Google Drive VIP',
+                    genres: inferredGenres,
+                    description: `Anime phát trực tiếp từ Google Drive (${item.size_mb ? item.size_mb + ' MB' : 'Full HD'}). Tối ưu cho Oppo A71k.`,
+                    colorFrom: isDub ? '#1c1917' : '#0f2b38',
+                    colorTo: isDub ? '#450a0a' : '#08131e',
+                    episodes: (item.episodes || [{
+                      name: 'Tập Full HD (Clean 1080p)',
+                      url: item.url,
+                      direct: item.download_url
+                    }]).map((ep, eidx) => ({
+                      name: ep.name || `Tập ${eidx+1}`,
+                      url: ep.url || item.url || '',
+                      driveId: (ep.url || '').match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1] || '',
+                      embedUrl: ep.url || '',
+                      direct: ep.direct || item.download_url || ''
+                    }))
+                  });
+                }
+              }
+            });
+          }
+        }
+      } catch (_) {}
+
       console.log('[KhangHub] Đã tải dữ liệu từ data.json cục bộ.');
       storage.setItem(DEFAULT_CONFIG.storage.seriesData, JSON.stringify(localData));
       return normalizeSeriesData(localData);
@@ -1943,9 +2105,63 @@ function renderSeriesGrid() {
     const progressTitle = watchedCnt > 0 
       ? `Tiến độ xem: ${progressPercent}% (${watchedCnt}/${totalEps} tập)` 
       : `Chưa xem (0/${totalEps} tập)`;
-    return `<article class="series-card ${active ? 'active' : ''}" data-series-id="${s.id}"><div class="series-visual" style="background: linear-gradient(135deg, ${s.colorFrom}, ${s.colorTo})"><div class="series-symbol">${s.icon}</div><div class="series-kanji">${s.titleJP}</div></div><div class="series-body"><div><div class="series-card-title">${s.title}</div><div class="series-card-subtitle">${s.subtitle}</div></div><div class="series-card-subtitle">${s.description}</div><div class="series-bottom"><div class="mini-pills"><span class="mini-pill ok">${avail > 0 ? avail + ' tập phát được' : 'Chưa có link'}</span>${audioBadge}<span class="mini-pill">${s.year}</span>${statusBadge}</div><button class="btn btn-secondary" type="button">Mở</button></div></div><div class="series-card-progress" title="${progressTitle}" aria-label="${progressTitle}"><div class="series-card-progress-bar ${progressPercent >= 100 ? 'is-complete' : ''}" style="width: ${progressPercent}%;"></div></div></article>`;
+
+    const safeYear = s.year || 2024;
+    const yearTagHtml = `<span class="series-tag tag-year" data-year="${safeYear}" title="Năm sản xuất: ${safeYear} (Bấm để lọc)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>${safeYear}</span></span>`;
+
+    const rawGenres = (Array.isArray(s.genres) && s.genres.length > 0) ? s.genres : ['Anime'];
+    const genreTagsHtml = rawGenres.slice(0, 3).map(g => {
+      const cleanG = String(g).trim();
+      return `<span class="series-tag tag-genre" data-genre="${encodeURIComponent(cleanG)}" title="Lọc anime thể loại: #${cleanG}"><span class="tag-hash">#</span>${cleanG}</span>`;
+    }).join('');
+    const extraCount = rawGenres.length > 3 ? rawGenres.length - 3 : 0;
+    const extraTagsHtml = extraCount > 0 
+      ? `<span class="series-tag tag-more" title="Còn các thể loại: ${rawGenres.slice(3).join(', ')}">+${extraCount}</span>` 
+      : '';
+
+    return `<article class="series-card ${active ? 'active' : ''}" data-series-id="${s.id}"><div class="series-visual" style="background: linear-gradient(135deg, ${s.colorFrom}, ${s.colorTo})"><div class="series-symbol">${s.icon}</div><div class="series-kanji">${s.titleJP}</div></div><div class="series-body"><div><div class="series-card-title">${s.title}</div>${s.subtitle ? `<div class="series-card-subtitle">${s.subtitle}</div>` : ''}<div class="series-card-tags" aria-label="Thẻ thông tin: thể loại và năm sản xuất">${yearTagHtml}${genreTagsHtml}${extraTagsHtml}</div></div><div class="series-card-subtitle">${s.description}</div><div class="series-bottom"><div class="mini-pills"><span class="mini-pill ok">${avail > 0 ? avail + ' tập phát được' : 'Chưa có link'}</span>${audioBadge}<span class="mini-pill">${s.studio || 'Studio'}</span>${statusBadge}</div><button class="btn btn-secondary" type="button">Mở</button></div></div><div class="series-card-progress" title="${progressTitle}" aria-label="${progressTitle}"><div class="series-card-progress-bar ${progressPercent >= 100 ? 'is-complete' : ''}" style="width: ${progressPercent}%;"></div></div></article>`;
   }).join('');
-  els.seriesGrid.querySelectorAll('.series-card').forEach(card => card.addEventListener('click', () => openSeries(card.dataset.seriesId)));
+
+  els.seriesGrid.querySelectorAll('.series-card').forEach(card => {
+    card.addEventListener('click', () => openSeries(card.dataset.seriesId));
+  });
+
+  els.seriesGrid.querySelectorAll('.tag-genre').forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const g = decodeURIComponent(tag.dataset.genre || '').trim();
+      if (g) {
+        searchQuery = g;
+        if (els.searchInput) els.searchInput.value = g;
+        renderSeriesGrid();
+        showToast(`Đang lọc anime theo thể loại: #${g}`);
+        const cat = document.getElementById('catalog');
+        if (cat) cat.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  els.seriesGrid.querySelectorAll('.tag-year').forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const yr = tag.dataset.year || tag.querySelector('span')?.textContent?.trim();
+      if (yr) {
+        searchQuery = yr;
+        if (els.searchInput) els.searchInput.value = yr;
+        renderSeriesGrid();
+        showToast(`Đang lọc anime theo năm sản xuất: ${yr}`);
+        const cat = document.getElementById('catalog');
+        if (cat) cat.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  els.seriesGrid.querySelectorAll('.tag-more').forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showToast(tag.getAttribute('title') || 'Các thể loại bổ sung');
+    });
+  });
 }
 function setStatus(msg, type = 'ok') {
   els.statusBanner.textContent = msg;
