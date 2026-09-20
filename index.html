@@ -1041,6 +1041,167 @@ html.oppo-turbo-active * {
   margin: 0 auto 12px;
 }
 
+.catalog-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 2px 14px;
+  margin-bottom: 8px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.catalog-filter-chips::-webkit-scrollbar { display: none; }
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(125, 140, 165, 0.18);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.filter-chip:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(96, 245, 194, 0.35);
+  transform: translateY(-1px);
+}
+.filter-chip.active {
+  color: #041114;
+  background: linear-gradient(135deg, var(--primary), #7cf0ff);
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(96, 245, 194, 0.28);
+}
+.series-fav-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(5, 8, 15, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+.series-fav-btn:hover {
+  transform: scale(1.15);
+  background: rgba(5, 8, 15, 0.9);
+  border-color: rgba(255, 100, 125, 0.6);
+}
+.series-fav-btn.is-fav {
+  border-color: rgba(255, 90, 120, 0.5);
+  background: rgba(255, 90, 120, 0.22);
+}
+.touch-seek-area {
+  position: absolute;
+  top: 0;
+  bottom: 80px;
+  width: 35%;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  user-select: none;
+}
+.touch-seek-area.left { left: 0; }
+.touch-seek-area.right { right: 0; }
+.touch-seek-badge {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.65);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(5, 9, 18, 0.85);
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+.touch-seek-badge.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+.auto-next-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(8, 13, 22, 0.88), rgba(4, 6, 12, 0.96));
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+  padding: 20px;
+}
+.auto-next-card {
+  background: linear-gradient(180deg, rgba(20, 31, 49, 0.95), rgba(10, 15, 26, 0.98));
+  border: 1px solid rgba(96, 245, 194, 0.28);
+  border-radius: 22px;
+  padding: 24px 30px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.auto-next-chip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  background: rgba(96, 245, 194, 0.12);
+  border: 1px solid rgba(96, 245, 194, 0.22);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.auto-next-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #fff;
+}
+.auto-next-desc {
+  margin: 0 0 18px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+.auto-next-sec {
+  font-weight: 800;
+  color: var(--primary);
+  font-size: 17px;
+}
+.auto-next-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.sleep-opt-btn.active {
+  border-color: var(--primary) !important;
+  background: rgba(96, 245, 194, 0.18) !important;
+  color: var(--primary) !important;
+}
+
 footer { padding: 0 0 36px; color: var(--text-muted); }
 .footer-card {
   padding: 18px 20px;
@@ -1139,6 +1300,7 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
           </select>
           <select class="sort-select" id="filter-select" aria-label="Lọc danh sách">
             <option value="all">Tất cả</option>
+            <option value="favorite">❤️ Phim Yêu Thích</option>
             <option value="dubbed">🎙️ Chỉ phim Lồng Tiếng</option>
             <option value="subbed">📝 Phim Vietsub</option>
             <option value="watching">Đang xem</option>
@@ -1216,6 +1378,20 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
                 <button class="btn btn-secondary" type="button" id="clear-search-btn-2">Xóa tìm kiếm</button>
               </div>
             </div>
+            <div class="catalog-filter-chips" id="catalog-filter-chips" role="tablist" aria-label="Bộ lọc thể loại nhanh">
+              <button class="filter-chip active" data-filter="all" type="button">🔥 Tất cả</button>
+              <button class="filter-chip" data-filter="favorite" type="button">❤️ Yêu thích</button>
+              <button class="filter-chip" data-filter="dubbed" type="button">🎙️ Lồng Tiếng</button>
+              <button class="filter-chip" data-filter="subbed" type="button">💬 Vietsub</button>
+              <button class="filter-chip" data-filter="watching" type="button">👀 Đang xem</button>
+              <button class="filter-chip" data-filter="completed" type="button">✅ Hoàn thành</button>
+              <button class="filter-chip" data-genre="Hành Động" type="button">⚔️ Hành Động</button>
+              <button class="filter-chip" data-genre="Movie" type="button">🍿 Movie / Chiếu rạp</button>
+              <button class="filter-chip" data-genre="Phiêu Lưu" type="button">🗺️ Phiêu Lưu</button>
+              <button class="filter-chip" data-genre="Hài Hước" type="button">😄 Hài Hước</button>
+              <button class="filter-chip" data-genre="Trinh Thám" type="button">🔍 Trinh Thám</button>
+              <button class="filter-chip" data-genre="Học Đường" type="button">🎒 Học Đường</button>
+            </div>
             <div class="series-grid" id="series-grid"></div>
           </div>
         </div>
@@ -1231,6 +1407,12 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
                 <p class="player-subtitle" id="player-subtitle">Chọn một series để bắt đầu xem.</p>
               </div>
               <div class="player-head-actions">
+                <button class="btn btn-secondary" type="button" id="player-fav-btn" title="Thêm/Xóa khỏi danh sách yêu thích">
+                  <span id="player-fav-icon">🤍</span> <span id="player-fav-text">Yêu thích</span>
+                </button>
+                <button class="btn btn-secondary" type="button" id="sleep-timer-btn" title="Hẹn giờ tắt video tự động">
+                  <span>💤 Hẹn giờ: <strong id="sleep-timer-label">Tắt</strong></span>
+                </button>
                 <button class="btn btn-secondary" type="button" id="close-player-btn">Đóng trình phát</button>
                 <button class="btn btn-ghost" type="button" id="external-btn">Mở nguồn ngoài</button>
               </div>
@@ -1243,7 +1425,24 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
                   <span id="overlay-text">Đang chuẩn bị nguồn phát...</span>
                 </div>
                 <div class="custom-video-container" id="custom-video-container" style="display:none;">
-                  <video class="video-player" id="video-player" playsinline preload="metadata" controlslist="nodownload" disablepictureinpicture></video>
+                  <video class="video-player" id="video-player" playsinline preload="metadata" controlslist="nodownload"></video>
+                  <div class="touch-seek-area left" id="touch-seek-left" title="Nhấn đúp tua lùi 10s">
+                    <div class="touch-seek-badge" id="touch-badge-left"><span>⏪ 10s</span></div>
+                  </div>
+                  <div class="touch-seek-area right" id="touch-seek-right" title="Nhấn đúp tua tới 10s">
+                    <div class="touch-seek-badge" id="touch-badge-right"><span>10s ⏩</span></div>
+                  </div>
+                  <div class="auto-next-overlay" id="auto-next-overlay" style="display:none;">
+                    <div class="auto-next-card">
+                      <span class="auto-next-chip">TẬP TIẾP THEO</span>
+                      <h3 class="auto-next-title" id="auto-next-title">Đang chuẩn bị tập tiếp theo...</h3>
+                      <p class="auto-next-desc">Tự động phát sau <span class="auto-next-sec" id="auto-next-sec">5</span> giây</p>
+                      <div class="auto-next-actions">
+                        <button class="btn btn-primary" id="auto-next-play-btn" type="button">Phát ngay ▶</button>
+                        <button class="btn btn-secondary" id="auto-next-cancel-btn" type="button">Hủy</button>
+                      </div>
+                    </div>
+                  </div>
                   <div class="resume-notification" id="resume-notification" style="display:none;">
                     <h3 id="resume-title">Tiếp tục xem?</h3>
                     <p id="resume-text" style="margin:0;font-size:16px;color:var(--text-soft);"></p>
@@ -1298,6 +1497,7 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
                           <option value="480p">480p</option>
                           <option value="360p">360p</option>
                         </select>
+                        <button class="control-btn" id="pip-btn" title="Hình trong hình (PiP)">🗗</button>
                         <button class="control-btn" id="volume-btn">🔊</button>
                         <button class="control-btn" id="fullscreen-btn">⛶</button>
                       </div>
@@ -1333,6 +1533,27 @@ footer { padding: 0 0 36px; color: var(--text-muted); }
         <div class="footer-card">Web này có <strong>admin panel riêng</strong>, <strong>mật khẩu admin riêng</strong>, và nhiều <strong>fallback nguồn phát</strong>. Với Archive.org, hệ thống sẽ ưu tiên <strong>server trực tiếp nhanh nhất</strong> trước khi rơi về nguồn dự phòng.</div>
       </div>
     </footer>
+  </div>
+
+  <div class="modal" id="sleep-timer-modal">
+    <div class="modal-card sm">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-size:26px;">💤</span>
+        <h2 class="modal-title" style="margin:0;font-size:22px;">Hẹn giờ tắt phát</h2>
+      </div>
+      <p class="section-note">Tự động tạm dừng video khi hết thời gian, giúp bạn thoải mái xem anime trước khi ngủ mà không sợ tốn pin hay data.</p>
+      <div class="sleep-timer-grid" id="sleep-timer-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0;">
+        <button class="btn btn-secondary sleep-opt-btn" data-time="0" type="button">Tắt hẹn giờ</button>
+        <button class="btn btn-secondary sleep-opt-btn" data-time="15" type="button">⏱️ 15 phút</button>
+        <button class="btn btn-secondary sleep-opt-btn" data-time="30" type="button">⏱️ 30 phút</button>
+        <button class="btn btn-secondary sleep-opt-btn" data-time="45" type="button">⏱️ 45 phút</button>
+        <button class="btn btn-secondary sleep-opt-btn" data-time="60" type="button">⏱️ 60 phút</button>
+        <button class="btn btn-secondary sleep-opt-btn" data-time="end-ep" type="button">🎬 Hết tập này</button>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" type="button" id="close-sleep-modal-btn">Đóng</button>
+      </div>
+    </div>
   </div>
 
   <div class="modal" id="admin-auth-modal">
@@ -1584,7 +1805,9 @@ const DEFAULT_CONFIG = {
     state: 'khanghub_state_v5',
     settings: 'khanghub_settings_v5',
     seriesData: 'khanghub_series_data_v5',
-    watchHistory: 'khanghub_watch_history_v1'
+    watchHistory: 'khanghub_watch_history_v1',
+    favorites: 'khanghub_favorites_v1',
+    preferredSpeed: 'khanghub_playback_speed'
   },
   api: { googleApiKey: 'AIzaSyAl1Wd6Djg2y666Vpn3gczmqFrUpRG0bnQ', proxyBaseUrl: '', sourceMode: 'auto' },
   siteInfo: {
@@ -1641,6 +1864,11 @@ const DEFAULT_SERIES_DATA = [
 ];
 
 let started = false, searchQuery = '', sortMode = 'available', filterMode = 'all', activeSeries = null, currentEpisodeIndex = -1, currentSources = [], currentSourceIndex = 0, isRecoveringSource = false, seriesList = [], playbackToken = 0, watchHistory = {};
+let sleepTimerId = null, sleepTimerMinutes = 0, sleepTimerEndEp = false;
+let autoNextTimerId = null, autoNextSeconds = 5;
+let playerControlsInitialized = false;
+let selectedGenreFilter = null;
+let lastLeftTapTime = 0, lastRightTapTime = 0;
 const archiveMetaCache = {}, memoryStorage = {};
 
 const els = {
@@ -1750,8 +1978,27 @@ const els = {
   timeDisplay: document.getElementById('time-display'),
   qualitySelector: document.getElementById('quality-selector'),
   speedSelector: document.getElementById('speed-selector'),
+  pipBtn: document.getElementById('pip-btn'),
   volumeBtn: document.getElementById('volume-btn'),
-  fullscreenBtn: document.getElementById('fullscreen-btn')
+  fullscreenBtn: document.getElementById('fullscreen-btn'),
+  catalogFilterChips: document.getElementById('catalog-filter-chips'),
+  playerFavBtn: document.getElementById('player-fav-btn'),
+  playerFavIcon: document.getElementById('player-fav-icon'),
+  playerFavText: document.getElementById('player-fav-text'),
+  sleepTimerBtn: document.getElementById('sleep-timer-btn'),
+  sleepTimerLabel: document.getElementById('sleep-timer-label'),
+  sleepTimerModal: document.getElementById('sleep-timer-modal'),
+  closeSleepModalBtn: document.getElementById('close-sleep-modal-btn'),
+  sleepTimerGrid: document.getElementById('sleep-timer-grid'),
+  touchSeekLeft: document.getElementById('touch-seek-left'),
+  touchSeekRight: document.getElementById('touch-seek-right'),
+  touchBadgeLeft: document.getElementById('touch-badge-left'),
+  touchBadgeRight: document.getElementById('touch-badge-right'),
+  autoNextOverlay: document.getElementById('auto-next-overlay'),
+  autoNextTitle: document.getElementById('auto-next-title'),
+  autoNextSec: document.getElementById('auto-next-sec'),
+  autoNextPlayBtn: document.getElementById('auto-next-play-btn'),
+  autoNextCancelBtn: document.getElementById('auto-next-cancel-btn')
 };
 
 const storage = {
@@ -2056,22 +2303,242 @@ function toggleFullscreen() {
     document.exitFullscreen();
   }
 }
+
+// Favorites system
+function getFavorites() {
+  try {
+    const raw = storage.getItem(DEFAULT_CONFIG.storage.favorites);
+    return raw ? JSON.parse(raw) : [];
+  } catch (_) { return []; }
+}
+function isFavorite(id) {
+  return getFavorites().includes(id);
+}
+function toggleFavorite(id) {
+  let favs = getFavorites();
+  const exists = favs.includes(id);
+  if (exists) {
+    favs = favs.filter(x => x !== id);
+    setStatus('Đã xóa khỏi danh sách yêu thích.', 'warn');
+  } else {
+    favs.push(id);
+    setStatus('❤️ Đã thêm vào danh sách yêu thích!', 'ok');
+  }
+  storage.setItem(DEFAULT_CONFIG.storage.favorites, JSON.stringify(favs));
+  renderSeriesGrid();
+  updatePlayerFavButton();
+}
+function updatePlayerFavButton() {
+  if (!activeSeries || !els.playerFavIcon) return;
+  const fav = isFavorite(activeSeries.id);
+  els.playerFavIcon.textContent = fav ? '❤️' : '🤍';
+  els.playerFavText.textContent = fav ? 'Đã thích' : 'Yêu thích';
+  if (els.playerFavBtn) els.playerFavBtn.classList.toggle('active', fav);
+}
+
+// Picture-in-Picture
+async function togglePiP() {
+  const v = els.videoPlayer;
+  if (!v) return;
+  try {
+    if (document.pictureInPictureElement) {
+      await document.exitPictureInPicture();
+    } else if (document.pictureInPictureEnabled) {
+      await v.requestPictureInPicture();
+    } else {
+      setStatus('Trình duyệt chưa hỗ trợ Picture-in-Picture.', 'warn');
+    }
+  } catch (err) {
+    console.warn('[PiP error]', err);
+    setStatus('Không thể bật Picture-in-Picture với video này.', 'warn');
+  }
+}
+
+// Auto Next Episode
+function handleVideoEnded() {
+  if (sleepTimerEndEp) {
+    clearSleepTimer();
+    setStatus('💤 Video đã tự động dừng vì hết tập (theo hẹn giờ ngủ).', 'ok');
+    return;
+  }
+  if (!activeSeries || currentEpisodeIndex < 0 || currentEpisodeIndex >= activeSeries.episodes.length - 1) {
+    setStatus('🎬 Bạn đã xem hết tập cuối cùng của series này!', 'ok');
+    return;
+  }
+  const nextIndex = currentEpisodeIndex + 1;
+  const nextEp = activeSeries.episodes[nextIndex];
+  if (!isEpisodePlayable(nextEp)) {
+    setStatus(`Tập tiếp theo (${nextEp.name}) chưa có link phát khả dụng.`, 'warn');
+    return;
+  }
+  startAutoNextCountdown(nextIndex, nextEp);
+}
+
+function startAutoNextCountdown(nextIndex, nextEp) {
+  cancelAutoNextCountdown();
+  if (!els.autoNextOverlay) return;
+  els.autoNextTitle.textContent = `${nextEp.name} · ${activeSeries.title}`;
+  autoNextSeconds = 5;
+  els.autoNextSec.textContent = autoNextSeconds;
+  els.autoNextOverlay.style.display = 'flex';
+
+  autoNextTimerId = setInterval(() => {
+    autoNextSeconds--;
+    if (els.autoNextSec) els.autoNextSec.textContent = autoNextSeconds;
+    if (autoNextSeconds <= 0) {
+      cancelAutoNextCountdown();
+      playEpisode(nextIndex);
+    }
+  }, 1000);
+}
+
+function cancelAutoNextCountdown() {
+  if (autoNextTimerId) {
+    clearInterval(autoNextTimerId);
+    autoNextTimerId = null;
+  }
+  if (els.autoNextOverlay) {
+    els.autoNextOverlay.style.display = 'none';
+  }
+}
+
+// Sleep Timer
+function openSleepModal() {
+  if (els.sleepTimerModal) {
+    els.sleepTimerModal.classList.add('visible');
+    if (els.sleepTimerGrid) {
+      els.sleepTimerGrid.querySelectorAll('.sleep-opt-btn').forEach(btn => {
+        const t = btn.dataset.time;
+        const isActive = (sleepTimerEndEp && t === 'end-ep') || (!sleepTimerEndEp && Number(t) === sleepTimerMinutes);
+        btn.classList.toggle('active', isActive);
+      });
+    }
+  }
+}
+function closeSleepModal() {
+  if (els.sleepTimerModal) els.sleepTimerModal.classList.remove('visible');
+}
+function setSleepTimer(val) {
+  clearSleepTimer();
+  if (val === 'end-ep') {
+    sleepTimerEndEp = true;
+    updateSleepTimerBadge('Hết tập');
+    setStatus('💤 Đã hẹn giờ: Tự động dừng video sau khi xem xong tập này.', 'ok');
+  } else {
+    const mins = Number(val);
+    if (!mins || mins <= 0) {
+      updateSleepTimerBadge('Tắt');
+      setStatus('💤 Đã tắt chế độ hẹn giờ ngủ.', 'warn');
+      closeSleepModal();
+      return;
+    }
+    sleepTimerMinutes = mins;
+    updateSleepTimerBadge(`${mins}p`);
+    setStatus(`💤 Đã hẹn giờ: Video sẽ tự dừng sau ${mins} phút. Chúc bạn ngủ ngon!`, 'ok');
+
+    sleepTimerId = setTimeout(() => {
+      clearSleepTimer();
+      if (els.videoPlayer) els.videoPlayer.pause();
+      setStatus('💤 Video đã tạm dừng theo hẹn giờ ngủ. Chúc bạn ngủ ngon!', 'ok');
+    }, mins * 60 * 1000);
+  }
+  closeSleepModal();
+}
+function clearSleepTimer() {
+  if (sleepTimerId) {
+    clearTimeout(sleepTimerId);
+    sleepTimerId = null;
+  }
+  sleepTimerMinutes = 0;
+  sleepTimerEndEp = false;
+  updateSleepTimerBadge('Tắt');
+}
+function updateSleepTimerBadge(label) {
+  if (els.sleepTimerLabel) els.sleepTimerLabel.textContent = label;
+  if (els.sleepTimerBtn) els.sleepTimerBtn.classList.toggle('active', label !== 'Tắt');
+}
+
+// Touch Gestures for mobile (Oppo A71k double tap)
+function showTouchBadge(badgeEl) {
+  if (!badgeEl) return;
+  badgeEl.classList.remove('active');
+  void badgeEl.offsetWidth;
+  badgeEl.classList.add('active');
+  setTimeout(() => { badgeEl.classList.remove('active'); }, 600);
+}
+
 function showControlsTemporarily() {
   els.customVideoContainer.classList.add('show-controls');
   clearTimeout(hideControlsTimeout);
   hideControlsTimeout = setTimeout(() => els.customVideoContainer.classList.remove('show-controls'), 3000);
 }
+
 function initPlayerControls() {
+  if (playerControlsInitialized) return;
+  playerControlsInitialized = true;
+
   const v = els.videoPlayer;
   els.playPauseBtn.addEventListener('click', togglePlayPause);
   v.addEventListener('play', updatePlayPauseButton);
   v.addEventListener('pause', updatePlayPauseButton);
   v.addEventListener('timeupdate', updateProgressBar);
   v.addEventListener('loadedmetadata', updateProgressBar);
+  v.addEventListener('ended', handleVideoEnded);
+
   els.rewindBtn.addEventListener('click', () => seekBackward(10));
   els.forwardBtn.addEventListener('click', () => seekForward(10));
   els.volumeBtn.addEventListener('click', toggleMute);
   els.fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+  if (els.pipBtn) els.pipBtn.addEventListener('click', togglePiP);
+  if (els.playerFavBtn) els.playerFavBtn.addEventListener('click', () => {
+    if (activeSeries) toggleFavorite(activeSeries.id);
+  });
+  if (els.sleepTimerBtn) els.sleepTimerBtn.addEventListener('click', openSleepModal);
+  if (els.closeSleepModalBtn) els.closeSleepModalBtn.addEventListener('click', closeSleepModal);
+  if (els.sleepTimerGrid) {
+    els.sleepTimerGrid.querySelectorAll('.sleep-opt-btn').forEach(btn => {
+      btn.addEventListener('click', () => setSleepTimer(btn.dataset.time));
+    });
+  }
+
+  // Double tap seek areas (mobile / Oppo A71k)
+  if (els.touchSeekLeft) {
+    els.touchSeekLeft.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const now = Date.now();
+      if (now - lastLeftTapTime < 320) {
+        seekBackward(10);
+        showTouchBadge(els.touchBadgeLeft);
+      }
+      lastLeftTapTime = now;
+    });
+  }
+  if (els.touchSeekRight) {
+    els.touchSeekRight.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const now = Date.now();
+      if (now - lastRightTapTime < 320) {
+        seekForward(10);
+        showTouchBadge(els.touchBadgeRight);
+      }
+      lastRightTapTime = now;
+    });
+  }
+
+  // Auto-next overlay actions
+  if (els.autoNextPlayBtn) {
+    els.autoNextPlayBtn.addEventListener('click', () => {
+      cancelAutoNextCountdown();
+      if (activeSeries && currentEpisodeIndex < activeSeries.episodes.length - 1) {
+        playEpisode(currentEpisodeIndex + 1);
+      }
+    });
+  }
+  if (els.autoNextCancelBtn) {
+    els.autoNextCancelBtn.addEventListener('click', cancelAutoNextCountdown);
+  }
+
   els.progressContainer.addEventListener('click', (e) => {
     const rect = els.progressContainer.getBoundingClientRect();
     seekTo(((e.clientX - rect.left) / rect.width) * 100);
@@ -2095,9 +2562,19 @@ function initPlayerControls() {
     v.currentTime = 0;
     v.play();
   });
+
+  // Load and apply saved playback speed
+  const savedSpeed = storage.getItem(DEFAULT_CONFIG.storage.preferredSpeed);
+  if (savedSpeed && els.speedSelector) {
+    els.speedSelector.value = savedSpeed;
+    v.playbackRate = parseFloat(savedSpeed) || 1;
+  }
   els.speedSelector.addEventListener('change', (e) => {
-    v.playbackRate = parseFloat(e.target.value) || 1;
+    const rate = parseFloat(e.target.value) || 1;
+    v.playbackRate = rate;
+    storage.setItem(DEFAULT_CONFIG.storage.preferredSpeed, String(rate));
   });
+
   els.qualitySelector.addEventListener('change', (e) => {
     if (!currentHlsInstance) return;
     const val = e.target.value;
@@ -2236,7 +2713,19 @@ function getFilteredSeries() {
     const hay = [s.title, s.subtitle, s.titleJP, s.studio, ...(s.genres || [])].join(' ').toLowerCase();
     return hay.includes(q);
   });
-  if (filterMode === 'dubbed') {
+  if (selectedGenreFilter) {
+    list = list.filter(s => {
+      const gList = Array.isArray(s.genres) ? s.genres.map(g => String(g).toLowerCase()) : [];
+      const filterLow = selectedGenreFilter.toLowerCase();
+      if (filterLow === 'movie') {
+        return s.title.toLowerCase().includes('movie') || (s.subtitle && s.subtitle.toLowerCase().includes('movie')) || gList.some(g => g.includes('điện ảnh') || g.includes('movie'));
+      }
+      return gList.some(g => g.includes(filterLow));
+    });
+  }
+  if (filterMode === 'favorite') {
+    list = list.filter(s => isFavorite(s.id));
+  } else if (filterMode === 'dubbed') {
     list = list.filter(s => isSeriesDubbed(s));
   } else if (filterMode === 'subbed') {
     list = list.filter(s => !isSeriesDubbed(s));
@@ -2285,11 +2774,21 @@ function renderSeriesGrid() {
       ? `<span class="series-tag tag-more" title="Còn các thể loại: ${rawGenres.slice(3).join(', ')}">+${extraCount}</span>` 
       : '';
 
-    return `<article class="series-card ${active ? 'active' : ''}" data-series-id="${s.id}"><div class="series-visual" style="background: linear-gradient(135deg, ${s.colorFrom}, ${s.colorTo})"><div class="series-symbol">${s.icon}</div><div class="series-kanji">${s.titleJP}</div></div><div class="series-body"><div><div class="series-card-title">${s.title}</div>${s.subtitle ? `<div class="series-card-subtitle">${s.subtitle}</div>` : ''}<div class="series-card-tags" aria-label="Thẻ thông tin: thể loại và năm sản xuất">${yearTagHtml}${genreTagsHtml}${extraTagsHtml}</div></div><div class="series-card-subtitle">${s.description}</div><div class="series-bottom"><div class="mini-pills"><span class="mini-pill ok">${avail > 0 ? avail + ' tập phát được' : 'Chưa có link'}</span>${audioBadge}<span class="mini-pill">${s.studio || 'Studio'}</span>${statusBadge}</div><button class="btn btn-secondary" type="button">Mở</button></div></div><div class="series-card-progress" title="${progressTitle}" aria-label="${progressTitle}"><div class="series-card-progress-bar ${progressPercent >= 100 ? 'is-complete' : ''}" style="width: ${progressPercent}%;"></div></div></article>`;
+    const isFav = isFavorite(s.id);
+    const favButtonHtml = `<button class="series-fav-btn ${isFav ? 'is-fav' : ''}" data-fav-id="${s.id}" type="button" title="${isFav ? 'Bỏ thích' : 'Yêu thích'}" aria-label="${isFav ? 'Bỏ thích' : 'Yêu thích'}">${isFav ? '❤️' : '🤍'}</button>`;
+
+    return `<article class="series-card ${active ? 'active' : ''}" data-series-id="${s.id}">${favButtonHtml}<div class="series-visual" style="background: linear-gradient(135deg, ${s.colorFrom}, ${s.colorTo})"><div class="series-symbol">${s.icon}</div><div class="series-kanji">${s.titleJP}</div></div><div class="series-body"><div><div class="series-card-title">${s.title}</div>${s.subtitle ? `<div class="series-card-subtitle">${s.subtitle}</div>` : ''}<div class="series-card-tags" aria-label="Thẻ thông tin: thể loại và năm sản xuất">${yearTagHtml}${genreTagsHtml}${extraTagsHtml}</div></div><div class="series-card-subtitle">${s.description}</div><div class="series-bottom"><div class="mini-pills"><span class="mini-pill ok">${avail > 0 ? avail + ' tập phát được' : 'Chưa có link'}</span>${audioBadge}<span class="mini-pill">${s.studio || 'Studio'}</span>${statusBadge}</div><button class="btn btn-secondary" type="button">Mở</button></div></div><div class="series-card-progress" title="${progressTitle}" aria-label="${progressTitle}"><div class="series-card-progress-bar ${progressPercent >= 100 ? 'is-complete' : ''}" style="width: ${progressPercent}%;"></div></div></article>`;
   }).join('');
 
   els.seriesGrid.querySelectorAll('.series-card').forEach(card => {
     card.addEventListener('click', () => openSeries(card.dataset.seriesId));
+  });
+
+  els.seriesGrid.querySelectorAll('.series-fav-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleFavorite(btn.dataset.favId);
+    });
   });
 
   els.seriesGrid.querySelectorAll('.tag-genre').forEach(tag => {
@@ -2656,6 +3155,7 @@ function openSeries(seriesId, epIndex = 0, scroll = true) {
   els.playerCard.classList.add('visible');
   renderHero();
   renderSeriesGrid();
+  updatePlayerFavButton();
   if (!s.episodes.length) {
     currentEpisodeIndex = -1;
     updateEpisodeGrid();
@@ -2672,6 +3172,7 @@ function openSeries(seriesId, epIndex = 0, scroll = true) {
   if (scroll) document.getElementById('player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 function closePlayer() {
+  cancelAutoNextCountdown();
   activeSeries = null;
   currentEpisodeIndex = -1;
   currentSources = [];
@@ -2917,11 +3418,34 @@ function warmArchiveMetaCache() {
   const uniqueArchiveIds = [...new Set(seriesList.flatMap(s => s.episodes.filter(e => e.archiveId).map(e => e.archiveId)))];
   uniqueArchiveIds.forEach(id => getDirectArchiveBase(id));
 }
+function initQuickFilterChips() {
+  if (!els.catalogFilterChips) return;
+  els.catalogFilterChips.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      els.catalogFilterChips.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterType = btn.dataset.filter;
+      const genre = btn.dataset.genre;
+      if (filterType) {
+        selectedGenreFilter = null;
+        filterMode = filterType;
+        if (els.filterSelect) els.filterSelect.value = filterType;
+      } else if (genre) {
+        selectedGenreFilter = genre;
+        filterMode = 'all';
+        if (els.filterSelect) els.filterSelect.value = 'all';
+      }
+      renderSeriesGrid();
+    });
+  });
+}
 async function init() {
   initTurboEngine();
   loadWatchHistory();
   seriesList = await loadSeriesData();
   renderAll();
+  initQuickFilterChips();
   warmArchiveMetaCache();
   const loadedFromHash = loadFromHash();
   if (!loadedFromHash) { 
@@ -3109,7 +3633,16 @@ function handleSearch() {
 }
 els.searchInput.addEventListener('input', handleSearch);
 els.sortSelect.addEventListener('change', (e) => { sortMode = e.target.value; renderSeriesGrid(); });
-els.filterSelect.addEventListener('change', (e) => { filterMode = e.target.value; renderSeriesGrid(); });
+els.filterSelect.addEventListener('change', (e) => {
+  filterMode = e.target.value;
+  selectedGenreFilter = null;
+  if (els.catalogFilterChips) {
+    els.catalogFilterChips.querySelectorAll('.filter-chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.filter === filterMode);
+    });
+  }
+  renderSeriesGrid();
+});
 els.clearSearchBtn.addEventListener('click', () => { els.searchInput.value = ''; searchQuery = ''; renderSeriesGrid(); });
 if (document.getElementById('clear-search-btn-2')) {
   document.getElementById('clear-search-btn-2').addEventListener('click', () => { els.searchInput.value = ''; searchQuery = ''; renderSeriesGrid(); });
@@ -3359,6 +3892,9 @@ async function triggerOneClickUpdate() {
 
 if (els.appUpdateBtn) els.appUpdateBtn.addEventListener('click', triggerOneClickUpdate);
 window.triggerOneClickUpdate = triggerOneClickUpdate;
+
+window.addEventListener('online', () => setStatus('🌐 Đã kết nối lại Internet.', 'ok'));
+window.addEventListener('offline', () => setStatus('⚠️ Đã mất kết nối mạng. Bạn có thể xem các tập đã lưu bộ nhớ đệm.', 'warn'));
 
 // Auto-open if no password set
 if (getSitePassword() === '') {
