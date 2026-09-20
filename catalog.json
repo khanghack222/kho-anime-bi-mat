@@ -804,5 +804,31 @@
         "direct": "https://drive.google.com/uc?id=1pI2jkAltQ3PrW3mnBgGhCmHIavXS8eh2&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] Tetsunabe no Jan! - 12 (1080p) [1CD4C68D].mkv",
+    "url": "https://drive.google.com/file/d/1fqq49sDaX_yXPl8sp74Ubzgr4ypbRTVf/preview",
+    "download_url": "https://drive.google.com/uc?id=1fqq49sDaX_yXPl8sp74Ubzgr4ypbRTVf&export=download",
+    "size_mb": 1392.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1fqq49sDaX_yXPl8sp74Ubzgr4ypbRTVf/preview",
+        "direct": "https://drive.google.com/uc?id=1fqq49sDaX_yXPl8sp74Ubzgr4ypbRTVf&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] Tetsunabe no Jan! - 12 (1080p) [1CD4C68D].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1m55Jl2wnk4T1hDg-7OWGW0g89dTsnERE/preview",
+    "download_url": "https://drive.google.com/uc?id=1m55Jl2wnk4T1hDg-7OWGW0g89dTsnERE&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1m55Jl2wnk4T1hDg-7OWGW0g89dTsnERE/preview",
+        "direct": "https://drive.google.com/uc?id=1m55Jl2wnk4T1hDg-7OWGW0g89dTsnERE&export=download"
+      }
+    ]
   }
 ]
