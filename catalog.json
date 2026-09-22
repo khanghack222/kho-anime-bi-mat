@@ -1402,5 +1402,31 @@
         "direct": "https://drive.google.com/uc?id=12AslSRdPcBfQLHINjFlw8u1Q6eS41wu1&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] Sora wa Akai Kawa no Hotori - 12 (1080p) [54D1653B].mkv",
+    "url": "https://drive.google.com/file/d/1MKe7e7sZbb3Gk0vS37azfCSM4CMJJoE9/preview",
+    "download_url": "https://drive.google.com/uc?id=1MKe7e7sZbb3Gk0vS37azfCSM4CMJJoE9&export=download",
+    "size_mb": 1332.3,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1MKe7e7sZbb3Gk0vS37azfCSM4CMJJoE9/preview",
+        "direct": "https://drive.google.com/uc?id=1MKe7e7sZbb3Gk0vS37azfCSM4CMJJoE9&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] Sora wa Akai Kawa no Hotori - 12 (1080p) [54D1653B].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1fe_Pt2GmgHTT3_YQvJUmMb9Y_x_8WxVP/preview",
+    "download_url": "https://drive.google.com/uc?id=1fe_Pt2GmgHTT3_YQvJUmMb9Y_x_8WxVP&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1fe_Pt2GmgHTT3_YQvJUmMb9Y_x_8WxVP/preview",
+        "direct": "https://drive.google.com/uc?id=1fe_Pt2GmgHTT3_YQvJUmMb9Y_x_8WxVP&export=download"
+      }
+    ]
   }
 ]
