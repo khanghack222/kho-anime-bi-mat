@@ -2156,5 +2156,31 @@
         "direct": "https://drive.google.com/uc?id=14hH0Q-t9MLcX9QQQmwDHN4SXKsRqd1dj&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] One Piece - 1180 (1080p) [97492A4D].mkv",
+    "url": "https://drive.google.com/file/d/1K0UK8CWqHKUxxL03MkAjX3RAK1zCzTjV/preview",
+    "download_url": "https://drive.google.com/uc?id=1K0UK8CWqHKUxxL03MkAjX3RAK1zCzTjV&export=download",
+    "size_mb": 1375.5,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1K0UK8CWqHKUxxL03MkAjX3RAK1zCzTjV/preview",
+        "direct": "https://drive.google.com/uc?id=1K0UK8CWqHKUxxL03MkAjX3RAK1zCzTjV&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] One Piece - 1180 (1080p) [97492A4D].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1pBs45_9SSxWoVFKrlaiD8Re6U4QvWGRg/preview",
+    "download_url": "https://drive.google.com/uc?id=1pBs45_9SSxWoVFKrlaiD8Re6U4QvWGRg&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1pBs45_9SSxWoVFKrlaiD8Re6U4QvWGRg/preview",
+        "direct": "https://drive.google.com/uc?id=1pBs45_9SSxWoVFKrlaiD8Re6U4QvWGRg&export=download"
+      }
+    ]
   }
 ]
