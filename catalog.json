@@ -2390,5 +2390,31 @@
         "direct": "https://drive.google.com/uc?id=1rxPJX7lT2Gmz3jfZ3wIqVRMY_QLdkDah&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] Toukutsu Ou - 12 (1080p) [8D7839FB].mkv",
+    "url": "https://drive.google.com/file/d/1n8_aX4QFF7q1fzvhi7xN5Sy4_DfrHcfR/preview",
+    "download_url": "https://drive.google.com/uc?id=1n8_aX4QFF7q1fzvhi7xN5Sy4_DfrHcfR&export=download",
+    "size_mb": 1380.9,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1n8_aX4QFF7q1fzvhi7xN5Sy4_DfrHcfR/preview",
+        "direct": "https://drive.google.com/uc?id=1n8_aX4QFF7q1fzvhi7xN5Sy4_DfrHcfR&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] Toukutsu Ou - 12 (1080p) [8D7839FB].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1-KScthTHeBxeTkcQHS_VpZ0nZBQNPbGK/preview",
+    "download_url": "https://drive.google.com/uc?id=1-KScthTHeBxeTkcQHS_VpZ0nZBQNPbGK&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1-KScthTHeBxeTkcQHS_VpZ0nZBQNPbGK/preview",
+        "direct": "https://drive.google.com/uc?id=1-KScthTHeBxeTkcQHS_VpZ0nZBQNPbGK&export=download"
+      }
+    ]
   }
 ]
