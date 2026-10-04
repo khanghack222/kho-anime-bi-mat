@@ -3274,5 +3274,31 @@
         "direct": "https://drive.google.com/uc?id=1sJIyePUvYvCsO3zFS8h3f31jdMheVx-G&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] Kanata kara - 01 (1080p) [8397508F].mkv",
+    "url": "https://drive.google.com/file/d/16Dm5X5EjlPPvNNS_80f71hA8tof-QVEt/preview",
+    "download_url": "https://drive.google.com/uc?id=16Dm5X5EjlPPvNNS_80f71hA8tof-QVEt&export=download",
+    "size_mb": 914.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/16Dm5X5EjlPPvNNS_80f71hA8tof-QVEt/preview",
+        "direct": "https://drive.google.com/uc?id=16Dm5X5EjlPPvNNS_80f71hA8tof-QVEt&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] Kanata kara - 01 (1080p) [8397508F].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1odIJK0BgoVXatmSQzYXVpQeGwC17adnE/preview",
+    "download_url": "https://drive.google.com/uc?id=1odIJK0BgoVXatmSQzYXVpQeGwC17adnE&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1odIJK0BgoVXatmSQzYXVpQeGwC17adnE/preview",
+        "direct": "https://drive.google.com/uc?id=1odIJK0BgoVXatmSQzYXVpQeGwC17adnE&export=download"
+      }
+    ]
   }
 ]
