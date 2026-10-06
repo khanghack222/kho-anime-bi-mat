@@ -3378,5 +3378,31 @@
         "direct": "https://drive.google.com/uc?id=1F5Az_fc5IelCxY1sHAy2nnFVs66I_VaQ&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] PSYREN - 01 (1080p) [EB85F891].mkv",
+    "url": "https://drive.google.com/file/d/1FREYHM1nEwLurYCv6OlyYYeYJmEVDmqK/preview",
+    "download_url": "https://drive.google.com/uc?id=1FREYHM1nEwLurYCv6OlyYYeYJmEVDmqK&export=download",
+    "size_mb": 1381.7,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1FREYHM1nEwLurYCv6OlyYYeYJmEVDmqK/preview",
+        "direct": "https://drive.google.com/uc?id=1FREYHM1nEwLurYCv6OlyYYeYJmEVDmqK&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] PSYREN - 01 (1080p) [EB85F891].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1b-EuV6pIX1I_anOf1NVhQL6r-6nLPHWT/preview",
+    "download_url": "https://drive.google.com/uc?id=1b-EuV6pIX1I_anOf1NVhQL6r-6nLPHWT&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1b-EuV6pIX1I_anOf1NVhQL6r-6nLPHWT/preview",
+        "direct": "https://drive.google.com/uc?id=1b-EuV6pIX1I_anOf1NVhQL6r-6nLPHWT&export=download"
+      }
+    ]
   }
 ]
