@@ -3898,5 +3898,31 @@
         "direct": "https://drive.google.com/uc?id=1SYsUQgQKlnpOz23PV-NC-RwW8YSYVO6a&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] Link Click S3 - 10 (1080p) [151C1660].mkv",
+    "url": "https://drive.google.com/file/d/19JLYZyjCaZaOUeZV6UEVwUnKRz2cWxtV/preview",
+    "download_url": "https://drive.google.com/uc?id=19JLYZyjCaZaOUeZV6UEVwUnKRz2cWxtV&export=download",
+    "size_mb": 1352.8,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/19JLYZyjCaZaOUeZV6UEVwUnKRz2cWxtV/preview",
+        "direct": "https://drive.google.com/uc?id=19JLYZyjCaZaOUeZV6UEVwUnKRz2cWxtV&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] Link Click S3 - 10 (1080p) [151C1660].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1dCJlFwQDtF2DYOpogP2GrViilqJWxRWK/preview",
+    "download_url": "https://drive.google.com/uc?id=1dCJlFwQDtF2DYOpogP2GrViilqJWxRWK&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1dCJlFwQDtF2DYOpogP2GrViilqJWxRWK/preview",
+        "direct": "https://drive.google.com/uc?id=1dCJlFwQDtF2DYOpogP2GrViilqJWxRWK&export=download"
+      }
+    ]
   }
 ]
