@@ -7304,5 +7304,31 @@
         "direct": "https://drive.google.com/uc?id=1eFKIMoRCrcl4S5EuF3YfwcdQhekRQRFj&export=download"
       }
     ]
+  },
+  {
+    "title": "[SubsPlease] Shuiro no Kamen - 03 (1080p) [FDC5BC8F].mkv",
+    "url": "https://drive.google.com/file/d/1L6zkDDigML4ZgWzmTMjC31R7D9NL-ABB/preview",
+    "download_url": "https://drive.google.com/uc?id=1L6zkDDigML4ZgWzmTMjC31R7D9NL-ABB&export=download",
+    "size_mb": 1389.7,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1L6zkDDigML4ZgWzmTMjC31R7D9NL-ABB/preview",
+        "direct": "https://drive.google.com/uc?id=1L6zkDDigML4ZgWzmTMjC31R7D9NL-ABB&export=download"
+      }
+    ]
+  },
+  {
+    "title": "[SubsPlease] Shuiro no Kamen - 03 (1080p) [FDC5BC8F].mkv.torrent",
+    "url": "https://drive.google.com/file/d/1eFQPStrSQz9fWNBRyiHq_vGT3A-XQtes/preview",
+    "download_url": "https://drive.google.com/uc?id=1eFQPStrSQz9fWNBRyiHq_vGT3A-XQtes&export=download",
+    "size_mb": 0.0,
+    "episodes": [
+      {
+        "name": "Tập Full HD (Clean 1080p)",
+        "url": "https://drive.google.com/file/d/1eFQPStrSQz9fWNBRyiHq_vGT3A-XQtes/preview",
+        "direct": "https://drive.google.com/uc?id=1eFQPStrSQz9fWNBRyiHq_vGT3A-XQtes&export=download"
+      }
+    ]
   }
 ]
